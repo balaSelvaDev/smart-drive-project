@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { LoginService } from '../../../core/services/admin-service/login-module/login.service';
 
 @Component({
   selector: 'app-login-module',
@@ -8,22 +9,31 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class LoginModuleComponent {
 
-
   loginForm!: FormGroup;
+  errorMessage: string = '';
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private loginService: LoginService) {}
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      emailId: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]],
     });
   }
 
   onSubmit() {
     if (this.loginForm.valid) {
-      console.log('Form submitted:', this.loginForm.value);
-      // Handle login logic here
+      this.loginService.login(this.loginForm.value).subscribe({
+        next: (response) => {
+          console.log('Login successful:', response);
+          localStorage.setItem('token', response.token);
+          // Navigate to dashboard or home page
+        },
+        error: (err) => {
+          console.error('Login failed:', err);
+          this.errorMessage = 'Invalid email or password';
+        },
+      });
     }
   }
 
