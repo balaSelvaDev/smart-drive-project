@@ -4,6 +4,8 @@ import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AdminModuleModule } from './pages/admin-module/admin-module.module';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { MaterialModule } from './pages/material/material.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -11,9 +13,12 @@ import { AdminModuleModule } from './pages/admin-module/admin-module.module';
     BrowserModule,
     RouterModule.forRoot([]), // Add your routes here
     ReactiveFormsModule,
+    MaterialModule,
     AdminModuleModule
   ],
-  providers: [],
+  providers: [
+    provideAnimationsAsync()
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { } 
