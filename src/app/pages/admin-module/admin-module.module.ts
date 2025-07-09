@@ -7,19 +7,23 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MaterialModule } from '../material/material.module';
 import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { BrandMasterComponent } from './brand-master/brand-master.component';
 
 
 @NgModule({
   declarations: [
     LoginModuleComponent,
-    AdminLayoutComponent
+    AdminLayoutComponent,
+    BrandMasterComponent
   ],
   imports: [
     CommonModule,
     AdminModuleRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    MaterialModule
+    MaterialModule,
+    MatPaginatorModule
   ]
 })
 export class AdminModuleModule { }

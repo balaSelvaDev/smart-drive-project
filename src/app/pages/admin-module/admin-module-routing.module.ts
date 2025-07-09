@@ -15,7 +15,8 @@ const routes: Routes = [
       // { path: 'booking', component: BookingComponent },
       // { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
     ]
-  }
+  },
+  { path: 'login', component: LoginModuleComponent }
 ];
 
 

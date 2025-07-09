@@ -1,1 +1,26 @@
-<p>brand-master works!</p>
+<div class="brand-container">
+  <table class="brand-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Brand Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let brand of brands; let i = index">
+        <!-- <td>{{ (currentPage * pageSize) + i + 1 }}</td> -->
+        <td>{{ brand.brandId }}</td>
+        <td>{{ brand.brandName }}</td>
+        <td>{{ brand.isActive }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <mat-paginator
+    [length]="totalItems"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="[5, 10, 25, 50]"
+    (page)="onPageChange($event)">
+  </mat-paginator>
+</div>
