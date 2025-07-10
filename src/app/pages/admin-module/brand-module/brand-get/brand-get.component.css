@@ -37,3 +37,20 @@
   background-color: #e0f2fe;
   cursor: pointer;
 }
+
+::ng-deep .mat-select-panel {
+  background-color: #ffffff !important;  /* White background */
+  color: #1f2937 !important;             /* Dark readable text */
+  font-weight: 500;
+}
+
+::ng-deep .mat-option {
+  color: #1f2937 !important;             /* Dark text */
+  font-size: 14px;
+}
+
+::ng-deep .mat-option:hover,
+::ng-deep .mat-option.mat-selected {
+  background-color: #e0f2fe !important;  /* Light blue highlight */
+  color: #000000 !important;
+}

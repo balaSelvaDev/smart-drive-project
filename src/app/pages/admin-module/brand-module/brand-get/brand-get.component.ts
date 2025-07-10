@@ -25,7 +25,7 @@ export class BrandGetComponent {
     fetchBrands(page: number, size: number): void {
       this.brandService.getBrands(page, size).subscribe(response => {
         console.log(response);
-        this.brands = response;
+        this.brands = response.content; 
         this.totalItems = response.totalItems;
         this.currentPage = response.currentPage;
       });
