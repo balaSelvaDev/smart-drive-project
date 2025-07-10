@@ -1,0 +1,23 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { BrandDeleteComponent } from './brand-delete.component';
+
+describe('BrandDeleteComponent', () => {
+  let component: BrandDeleteComponent;
+  let fixture: ComponentFixture<BrandDeleteComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [BrandDeleteComponent]
+    })
+    .compileComponents();
+    
+    fixture = TestBed.createComponent(BrandDeleteComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});

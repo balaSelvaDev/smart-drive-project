@@ -8,14 +8,17 @@ import { HttpClientModule } from '@angular/common/http';
 import { MaterialModule } from '../material/material.module';
 import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { BrandMasterComponent } from './brand-master/brand-master.component';
+import { BrandAddComponent } from './brand-module/brand-add/brand-add.component';
+import { BrandGetComponent } from './brand-module/brand-get/brand-get.component';
 
 
 @NgModule({
   declarations: [
     LoginModuleComponent,
     AdminLayoutComponent,
-    BrandMasterComponent
+
+    BrandAddComponent,
+    BrandGetComponent
   ],
   imports: [
     CommonModule,

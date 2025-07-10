@@ -1,0 +1,29 @@
+<!-- <div class="input-container" style="display: flex;align-items: center;align-content: center;">
+    <div>
+        Brand name:
+    </div>
+    <input type="text" id="name" placeholder=" " required autocomplete="off" class="input-level-1" />
+</div>
+<button class="btn btn-primary">Add Brand</button> -->
+<!-- (click)="addBrand()" -->
+
+<!-- brand-add.component.html -->
+<form [formGroup]="brandForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="brandName">Brand Name:</label>
+    <input id="brandName" type="text" formControlName="brandName" class="input-level-1" />
+    <div *ngIf="brandForm.get('brandName')?.invalid && brandForm.get('brandName')?.touched">
+      Brand name is required
+    </div>
+  </div>
+
+  <!-- <div>
+    <label for="isActive">Is Active:</label>
+    <select id="isActive" formControlName="isActive" class="input-level-1">
+      <option [value]="1">Active</option>
+      <option [value]="0">Inactive</option>
+    </select>
+  </div> -->
+
+  <button type="submit" [disabled]="brandForm.invalid">Add Brand</button>
+</form>

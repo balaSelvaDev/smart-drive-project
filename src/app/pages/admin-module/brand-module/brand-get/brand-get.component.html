@@ -1,10 +1,11 @@
+<button mat-raised-button color="primary" routerLink="/add-brand">Add Brands</button>
 <div class="brand-container">
   <table class="brand-table">
     <thead>
       <tr>
         <th>#</th>
         <th>Brand Name</th>
-        <th>Description</th>
+        <th>Status</th>
       </tr>
     </thead>
     <tbody>
@@ -12,7 +13,7 @@
         <!-- <td>{{ (currentPage * pageSize) + i + 1 }}</td> -->
         <td>{{ brand.brandId }}</td>
         <td>{{ brand.brandName }}</td>
-        <td>{{ brand.isActive }}</td>
+        <td>{{ brand.isActive ? 'Active' : 'Inactive' }}</td>
       </tr>
     </tbody>
   </table>

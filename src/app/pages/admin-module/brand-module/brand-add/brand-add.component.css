@@ -1,0 +1,40 @@
+/* input-container {
+    position: relative;
+    width: 300px;
+}
+
+.input-container input {
+    width: 100%;
+    padding: 12px 10px;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    background: transparent;
+}
+
+.input-container label {
+    position: absolute;
+    left: 10px;
+    top: 12px;
+    color: #888;
+    background: #f4f4f4;
+    padding: 0 4px;
+    transition: 0.2s ease;
+    pointer-events: none;
+}
+
+.input-container input:focus+label,
+.input-container input:not(:placeholder-shown)+label {
+    top: -10px;
+    left: 8px;
+    font-size: 12px;
+    color: #007BFF;
+} */
+
+
+/* level-1 styles(means don't concentration on design, focus on only functionality */
+.input-level-1 {
+  padding: 8px !important;
+  margin: 6px !important;
+}
