@@ -1,1 +1,26 @@
-<p>vehicle-model-get-all works!</p>
+<button mat-raised-button color="primary" routerLink="/add-brand">Add Brands</button>
+<div class="brand-container">
+  <table class="brand-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Vehicle model</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let vehicleModel of brands; let i = index">
+        <td>{{ vehicleModel.modelId }}</td>
+        <td>{{ vehicleModel.modelName }}</td>
+        <td>{{ vehicleModel.isActive ? 'Active' : 'Inactive' }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <mat-paginator
+    [length]="totalItems"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="[5, 10, 25, 50]"
+    (page)="onPageChange($event)">
+  </mat-paginator>
+</div>

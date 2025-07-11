@@ -20,6 +20,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatPaginatorModule } from '@angular/material/paginator';
 
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+
 @NgModule({
   declarations: [],
   imports: [
@@ -43,7 +45,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatDatepickerModule,
     MatNativeDateModule,
     MatProgressSpinnerModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatAutocompleteModule
   ]
 })
 export class MaterialModule { }
