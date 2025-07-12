@@ -1,0 +1,90 @@
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="firstName" >First Name:</label>
+    <input id="firstName" type="text"  formControlName="firstName" class="input-level-1" autocomplete="off" />
+  </div>
+
+  <div>
+    <label for="lastName">Last Name:</label>
+    <input id="lastName" type="text" formControlName="lastName" class="input-level-1" autocomplete="off" />
+  </div>
+
+  <div>
+    <label for="email">Email:</label>
+    <input id="email" type="email" formControlName="email" class="input-level-1" autocomplete="off" />
+  </div>
+
+  <div>
+    <label for="phoneNumber">Phone Number:</label>
+    <input id="phoneNumber" type="text" formControlName="phoneNumber" class="input-level-1" autocomplete="off" />
+  </div>
+
+  <div>
+    <label for="drivingLicenseNumber">Driving License Number:</label>
+    <input id="drivingLicenseNumber" type="text" formControlName="drivingLicenseNumber" class="input-level-1" autocomplete="off" />
+  </div>
+
+  <div>
+    <label for="idProofNumber">ID Proof Number:</label>
+    <input id="idProofNumber" type="text" formControlName="idProofNumber" class="input-level-1" autocomplete="off" />
+  </div>
+  <div>
+    <label for="addressLine1">Address Line 1:</label>
+    <input id="addressLine1" type="text" formControlName="addressLine1" class="input-level-1" autocomplete="off" />
+  </div>
+
+  <div>
+    <label for="addressLine2">Address Line 2:</label>
+    <input id="addressLine2" type="text" formControlName="addressLine2" class="input-level-1" autocomplete="off" />
+  </div>
+  <div>
+    <label for="pincode">Pincode:</label>
+    <input id="pincode" type="text" formControlName="pincode" class="input-level-1" autocomplete="off" />
+  </div>
+  <div>
+    <label for="city">City:</label>
+    <input id="city" type="text" formControlName="city" class="input-level-1" autocomplete="off" />
+  </div>
+  <div>
+    <label for="state">State:</label>
+    <input id="state" type="text" formControlName="state" class="input-level-1" autocomplete="off" />
+  </div>
+  <div>
+    <label for="country">Country:</label>
+    <input id="country" type="text" formControlName="country" class="input-level-1" autocomplete="off" />
+  </div>
+  <div>
+    <label for="fatherName">Father's Name:</label>
+    <input id="fatherName" type="text" formControlName="fatherName" class="input-level-1" autocomplete="off" />
+  </div>
+  <div>
+    <label for="motherName">Mother's Name:</label>
+    <input id="motherName" type="text" formControlName="motherName" class="input-level-1" autocomplete="off" />
+  </div>
+  <div>
+    <label for="nomineeName">Nominee Name:</label>
+    <input id="nomineeName" type="text" formControlName="nomineeName" class="input-level-1" autocomplete="off" />
+  </div>
+  <div>
+    <label for="nomineeRelation">Nominee Relation:</label>
+    <input id="nomineeRelation" type="text" formControlName="nomineeRelation" class="input-level-1" autocomplete="off" />
+  </div>
+  <div>
+    <label for="nomineePhone">Nominee Phone:</label>
+    <input id="nomineePhone" type="text" formControlName="nomineePhone" class="input-level-1" autocomplete="off" />
+  </div>
+  <div>
+    <label for="occupation">Occupation:</label>
+    <input id="occupation" type="text" formControlName="occupation" class="input-level-1" autocomplete="off" />
+  </div>
+  <div>
+    <label for="companyName">Company Name:</label>
+    <input id="companyName" type="text" formControlName="companyName" class="input-level-1" autocomplete="off" />
+  </div>
+  <div>
+    <label for="alternatePhoneNumber">Alternate Phone Number:</label>
+    <input id="alternatePhoneNumber" type="text" formControlName="alternatePhoneNumber" class="input-level-1" autocomplete="off" />
+  </div>
+
+  <button type="submit">Add User</button>
+</form>

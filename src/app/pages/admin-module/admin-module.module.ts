@@ -16,6 +16,10 @@ import { VehicleModelAddComponent } from './vehicle-module/vehicle-model-add/veh
 import { VehicleModelGetAllComponent } from './vehicle-module/vehicle-model-get-all/vehicle-model-get-all.component';
 import { VehicleModelEditComponent } from './vehicle-module/vehicle-model-edit/vehicle-model-edit.component';
 import { VehicleModelDeleteComponent } from './vehicle-module/vehicle-model-delete/vehicle-model-delete.component';
+import { UserAddComponent } from './user-module/user-add/user-add.component';
+import { UserGetComponent } from './user-module/user-get/user-get.component';
+import { UserDeleteComponent } from './user-module/user-delete/user-delete.component';
+import { UserEditComponent } from './user-module/user-edit/user-edit.component';
 
 
 @NgModule({
@@ -32,6 +36,11 @@ import { VehicleModelDeleteComponent } from './vehicle-module/vehicle-model-dele
     VehicleModelGetAllComponent,
     VehicleModelEditComponent,
     VehicleModelDeleteComponent,
+    
+    UserAddComponent,
+    UserGetComponent,
+    UserDeleteComponent,
+    UserEditComponent,
   ],
   imports: [
     CommonModule,
