@@ -10,6 +10,8 @@ import { UserAddComponent } from './user-module/user-add/user-add.component';
 import { UserGetComponent } from './user-module/user-get/user-get.component';
 import { UserEditComponent } from './user-module/user-edit/user-edit.component';
 import { UserDeleteComponent } from './user-module/user-delete/user-delete.component';
+import { BookingAddComponent } from './booking-module/booking-add/booking-add.component';
+import { BookingGetComponent } from './booking-module/booking-get/booking-get.component';
 
 const routes: Routes = [
   {
@@ -26,7 +28,10 @@ const routes: Routes = [
       { path: 'get-user', component: UserGetComponent },
       { path: 'edit-user/:id', component: UserEditComponent },
       { path: 'delete-user/:id', component: UserDeleteComponent },
-      
+
+      { path: 'add-booking', component: BookingAddComponent },
+      { path: 'get-booking', component: BookingGetComponent },
+
       // { path: 'customer', component: CustomerMasterComponent },
       // { path: 'booking', component: BookingComponent },
       // { path: '', redirectTo: 'dashboard', pathMatch: 'full' }

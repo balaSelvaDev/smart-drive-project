@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { AdminModuleRoutingModule } from './admin-module-routing.module';
 import { LoginModuleComponent } from './login-module/login-module.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MaterialModule } from '../material/material.module';
 import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
@@ -20,6 +20,8 @@ import { UserAddComponent } from './user-module/user-add/user-add.component';
 import { UserGetComponent } from './user-module/user-get/user-get.component';
 import { UserDeleteComponent } from './user-module/user-delete/user-delete.component';
 import { UserEditComponent } from './user-module/user-edit/user-edit.component';
+import { BookingGetComponent } from './booking-module/booking-get/booking-get.component';
+import { BookingAddComponent } from './booking-module/booking-add/booking-add.component';
 
 
 @NgModule({
@@ -41,6 +43,8 @@ import { UserEditComponent } from './user-module/user-edit/user-edit.component';
     UserGetComponent,
     UserDeleteComponent,
     UserEditComponent,
+    BookingGetComponent,
+    BookingAddComponent,
   ],
   imports: [
     CommonModule,
@@ -48,7 +52,8 @@ import { UserEditComponent } from './user-module/user-edit/user-edit.component';
     ReactiveFormsModule,
     HttpClientModule,
     MaterialModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    FormsModule
   ]
 })
 export class AdminModuleModule { }
