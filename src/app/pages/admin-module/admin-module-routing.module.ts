@@ -12,25 +12,34 @@ import { UserEditComponent } from './user-module/user-edit/user-edit.component';
 import { UserDeleteComponent } from './user-module/user-delete/user-delete.component';
 import { BookingAddComponent } from './booking-module/booking-add/booking-add.component';
 import { BookingGetComponent } from './booking-module/booking-get/booking-get.component';
+import { VehicleAddComponent } from './vehicle/vehicle-add/vehicle-add.component';
+import { VehicleGetComponent } from './vehicle/vehicle-get/vehicle-get.component';
+import { VehicleEditComponent } from './vehicle/vehicle-edit/vehicle-edit.component';
+import { VehicleDeleteComponent } from './vehicle/vehicle-delete/vehicle-delete.component';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'admin',
     component: AdminLayoutComponent,
     children: [
       { path: 'get-brand', component: BrandGetComponent },
       { path: 'add-brand', component: BrandAddComponent },
 
-      { path: 'add-vehicle-model', component: VehicleModelAddComponent },
       { path: 'get-vehicle-model', component: VehicleModelGetAllComponent },
+      { path: 'add-vehicle-model', component: VehicleModelAddComponent },
 
-      { path: 'add-user', component: UserAddComponent },
       { path: 'get-user', component: UserGetComponent },
+      { path: 'add-user', component: UserAddComponent },
       { path: 'edit-user/:id', component: UserEditComponent },
       { path: 'delete-user/:id', component: UserDeleteComponent },
 
-      { path: 'add-booking', component: BookingAddComponent },
+      { path: 'get-vehicle', component: VehicleGetComponent },
+      { path: 'add-vehicle', component: VehicleAddComponent },
+      { path: 'edit-vehicle/:id', component: VehicleEditComponent },
+      { path: 'delete-vehicle/:id', component: VehicleDeleteComponent },
+
       { path: 'get-booking', component: BookingGetComponent },
+      { path: 'add-booking', component: BookingAddComponent },
 
       // { path: 'customer', component: CustomerMasterComponent },
       // { path: 'booking', component: BookingComponent },

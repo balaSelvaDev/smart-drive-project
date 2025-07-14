@@ -22,6 +22,10 @@ import { UserDeleteComponent } from './user-module/user-delete/user-delete.compo
 import { UserEditComponent } from './user-module/user-edit/user-edit.component';
 import { BookingGetComponent } from './booking-module/booking-get/booking-get.component';
 import { BookingAddComponent } from './booking-module/booking-add/booking-add.component';
+import { VehicleAddComponent } from './vehicle/vehicle-add/vehicle-add.component';
+import { VehicleGetComponent } from './vehicle/vehicle-get/vehicle-get.component';
+import { VehicleEditComponent } from './vehicle/vehicle-edit/vehicle-edit.component';
+import { VehicleDeleteComponent } from './vehicle/vehicle-delete/vehicle-delete.component';
 
 
 @NgModule({
@@ -45,6 +49,10 @@ import { BookingAddComponent } from './booking-module/booking-add/booking-add.co
     UserEditComponent,
     BookingGetComponent,
     BookingAddComponent,
+    VehicleAddComponent,
+    VehicleGetComponent,
+    VehicleEditComponent,
+    VehicleDeleteComponent,
   ],
   imports: [
     CommonModule,

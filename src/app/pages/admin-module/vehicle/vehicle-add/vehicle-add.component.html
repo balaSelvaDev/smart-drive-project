@@ -1,0 +1,217 @@
+<form [formGroup]="vehicleForm">
+    <div style="width: 100%;display: flex; flex-direction: row;">
+        <div class="container">
+            <div class="inputField">
+                <input id="modelId" type="text" formControlName="brandId" class="input-level-1" autocomplete="off"
+                    placeholder=" " />
+                <label for="brandId">BrandId:</label>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="inputField">
+                <input id="modelId" type="text" formControlName="modelId" class="input-level-1" autocomplete="off"
+                    placeholder=" " />
+                <label for="modelId">ModelId:</label>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="inputField">
+                <input id="description" type="text" formControlName="description" class="input-level-1"
+                    autocomplete="off" placeholder=" " />
+                <label for="description">Description:</label>
+            </div>
+        </div>
+        <div class="container">
+            <div class="inputField">
+                <input id="registrationNo" type="text" formControlName="registrationNo" class="input-level-1"
+                    autocomplete="off" placeholder=" " />
+                <label for="registrationNo">RegistrationNo:</label>
+            </div>
+        </div>
+    </div>
+
+
+    <div style="width: 100%;display: flex; flex-direction: row;">
+        <div class="container">
+            <div class="inputField">
+                <input id="pricePerKm" type="text" formControlName="pricePerKm" class="input-level-1" autocomplete="off"
+                    placeholder=" " />
+                <label for="pricePerKm">Price Per Km:</label>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="inputField">
+                <select id="fuelType" formControlName="fuelType" class="input-level-1" placeholder=" ">
+                    <option value="Petrol">Petrol</option>
+                    <option value="Diesel">Diesel</option>
+                    <option value="Electric">Electric</option>
+                    <option value="Hybrid">Hybrid</option>
+                </select>
+                <label for="fuelType">Fuel Type:</label>
+            </div>
+        </div>
+    </div>
+
+    <div style="width: 100%;display: flex; flex-direction: row;">
+        <div class="container">
+            <div class="inputField">
+                <input id="fuelCapacity" type="text" formControlName="fuelCapacity" class="input-level-1"
+                    autocomplete="off" placeholder=" " />
+                <label for="fuelCapacity">Fuel Capacity:</label>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="inputField">
+                <input id="mileagePerLitre" type="text" formControlName="mileagePerLitre" class="input-level-1"
+                    autocomplete="off" placeholder=" " />
+                <label for="mileagePerLitre">Mileage Per Litre:</label>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="inputField">
+                <input id="seatingCapacity" type="text" formControlName="seatingCapacity" class="input-level-1"
+                    autocomplete="off" placeholder=" " />
+                <label for="seatingCapacity">Seating Capacity:</label>
+            </div>
+        </div>
+    </div>
+    <div style="width: 100%;display: flex; flex-direction: row;">
+        <div class="container">
+            <div class="inputField">
+                <input id="color" type="text" formControlName="color" class="input-level-1" autocomplete="off"
+                    placeholder=" " />
+                <label for="color">Color:</label>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="inputField">
+                <input id="vehicleType" type="text" formControlName="vehicleType" class="input-level-1"
+                    autocomplete="off" placeholder=" " />
+                <label for="vehicleType">Vehicle Type:</label>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="inputField">
+                <select id="ownerType" formControlName="ownerType" class="input-level-1" placeholder=" ">
+                    <option value="First">First</option>
+                    <option value="Second">Second</option>
+                    <option value="Third">Third</option>
+                </select>
+                <label for="ownerType">Owner Type:</label>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ID Proof -->
+    <div style="width: 100%;display: flex; flex-direction: row;align-items: center;">
+        <div class="container">
+            <div class="inputField">
+                <input id="yearOfManufacture" type="text" formControlName="yearOfManufacture" class="input-level-1"
+                    autocomplete="off" placeholder=" " />
+                <label for="yearOfManufacture">Year Of Manufacture:</label>
+            </div>
+        </div>
+        <div class="container">
+            <div class="inputField">
+                <input id="engineCc" type="text" formControlName="engineCc" class="input-level-1" autocomplete="off"
+                    placeholder=" " />
+                <label for="engineCc">Engine CC:</label>
+            </div>
+        </div>
+    </div>
+
+    <div style="width: 100%;display: flex; flex-direction: row;align-items: center;">
+        <div class="container">
+            <div class="inputField">
+                <input id="torque" type="text" formControlName="torque" class="input-level-1" autocomplete="off"
+                    placeholder=" " />
+                <label for="torque">Torque:</label>
+            </div>
+        </div>
+        <div class="container">
+            <div class="inputField">
+                <input id="horsepower" type="text" formControlName="horsepower" class="input-level-1" autocomplete="off"
+                    placeholder=" " />
+                <label for="horsepower">Horsepower:</label>
+            </div>
+        </div>
+    </div>
+
+    <div style="width: 100%;display: flex; flex-direction: row;align-items: center;">
+        <div class="container">
+            <div class="inputField">
+                <input id="isInsured" type="text" formControlName="isInsured" class="input-level-1" autocomplete="off"
+                    placeholder=" " />
+                <label for="isInsured">Is Insured:</label>
+            </div>
+        </div>
+        <div class="container">
+            <div class="inputField">
+                <input id="insuranceExpiryDate" type="date" formControlName="insuranceExpiryDate" class="input-level-1"
+                    autocomplete="off" placeholder=" " />
+                <label for="insuranceExpiryDate">Insurance Expiry Date:</label>
+            </div>
+        </div>
+        <div class="container">
+            <div class="inputField">
+                <input id="lastUpdatedInsuranceDate" type="date" formControlName="lastUpdatedInsuranceDate"
+                    class="input-level-1" autocomplete="off" placeholder=" " />
+                <label for="lastUpdatedInsuranceDate">Last Updated Insurance Date:</label>
+            </div>
+        </div>
+        <div class="container">
+            <div class="inputField">
+                <input id="hasAirbags" type="text" formControlName="hasAirbags" class="input-level-1" autocomplete="off"
+                    placeholder=" " />
+                <label for="hasAirbags">Has Airbags:</label>
+            </div>
+        </div>
+        <div class="container">
+            <div class="inputField">
+                <input id="hasAbs" type="text" formControlName="hasAbs" class="input-level-1" autocomplete="off"
+                    placeholder=" " />
+                <label for="hasAbs">Has ABS:</label>
+            </div>
+        </div>
+    </div>
+
+    <div style="width: 100%;display: flex; flex-direction: row;align-items: center;">
+        <div class="container">
+            <div class="inputField">
+                <input id="hasSunroof" type="text" formControlName="hasSunroof" class="input-level-1" autocomplete="off"
+                    placeholder=" " />
+                <label for="hasSunroof">Has Sunroof:</label>
+            </div>
+        </div>
+        <div class="container">
+            <div class="inputField">
+                <input id="hasGps" type="text" formControlName="hasGps" class="input-level-1" autocomplete="off"
+                    placeholder=" " />
+                <label for="hasGps">Has GPS:</label>
+            </div>
+        </div>
+        <div class="container">
+            <div class="inputField">
+                <input id="hasMusicSystem" type="text" formControlName="hasMusicSystem" class="input-level-1"
+                    autocomplete="off" placeholder=" " />
+                <label for="hasMusicSystem">Has Music System:</label>
+            </div>
+        </div>
+        <div class="container">
+            <div class="inputField">
+                <input id="hasReverseCamera" type="text" formControlName="hasReverseCamera" class="input-level-1"
+                    autocomplete="off" placeholder=" " />
+                <label for="hasReverseCamera">Has Reverse Camera:</label>
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="input-level-1">Add User</button>
+</form>

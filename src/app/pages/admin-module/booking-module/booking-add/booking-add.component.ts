@@ -26,7 +26,7 @@ export class BookingAddComponent {
       endDate: new FormControl(''),
       pickupLocation: new FormControl(''),
       dropLocation: new FormControl(''),
-      paymentMode: new FormControl(''),
+      paymentMode: new FormControl('UPI', [Validators.required]),
 
       paymentStatus: new FormControl(''),
       paymentReference: new FormControl(''),

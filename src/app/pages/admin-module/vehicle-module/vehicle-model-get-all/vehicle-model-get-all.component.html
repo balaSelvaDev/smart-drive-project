@@ -1,9 +1,10 @@
-<button mat-raised-button color="primary" routerLink="/add-brand">Add Brands</button>
+<button mat-raised-button color="primary" (click)="navigateToAddBrand()">Add Vehicle Model</button>
 <div class="brand-container">
   <table class="brand-table">
     <thead>
       <tr>
         <th>#</th>
+        <th>Brand name</th>
         <th>Vehicle model</th>
         <th>Status</th>
       </tr>
@@ -11,6 +12,7 @@
     <tbody>
       <tr *ngFor="let vehicleModel of brands; let i = index">
         <td>{{ vehicleModel.modelId }}</td>
+        <td>{{ vehicleModel.brandOnlyDTO.brandName }}</td>
         <td>{{ vehicleModel.modelName }}</td>
         <td>{{ vehicleModel.isActive ? 'Active' : 'Inactive' }}</td>
       </tr>

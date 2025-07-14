@@ -33,7 +33,7 @@
                         autocomplete="off" placeholder=" " />
                     <label for="phoneNumber">End Date:</label>
                 </div>
-            </div> 
+            </div>
 
             <div class="container">
                 <div class="inputField">
@@ -61,8 +61,13 @@
 
             <div class="container">
                 <div class="inputField">
-                    <input id="addressLine2" type="text" formControlName="paymentMode" class="input-level-1"
-                        autocomplete="off" placeholder=" " />
+                    <select formControlName="paymentMode" class="input-level-1">
+                        <option value="UPI">UPI</option>
+                        <option value="CASH">CASH</option>
+                        <option value="NET_BANKING">NET_BAsNKING</option>
+                        <option value="CARD">CARD</option>
+                        <option value="WALLET">WALLET</option>
+                    </select>
                     <label for="addressLine2">Payment Mode:</label>
                 </div>
             </div>

@@ -1,11 +1,3 @@
-
-
-/* level-1 styles(means don't concentration on design, focus on only functionality */
-.input-level-1 {
-  padding: 8px !important;
-  margin: 6px !important;
-}
-
 * {
   box-sizing: border-box;
   margin: 0;

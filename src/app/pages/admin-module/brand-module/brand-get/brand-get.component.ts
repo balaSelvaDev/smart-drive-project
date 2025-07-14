@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { BrandService } from '../../../../core/services/admin-service/brand-master/brand.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-brand-get',
@@ -16,7 +17,7 @@ export class BrandGetComponent {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private brandService: BrandService) { }
+  constructor(private brandService: BrandService, private router: Router) { }
 
   ngOnInit(): void {
     this.fetchBrands(this.currentPage, this.pageSize);
@@ -35,6 +36,10 @@ export class BrandGetComponent {
     this.pageSize = event.pageSize;
     this.currentPage = event.pageIndex;
     this.fetchBrands(this.currentPage, this.pageSize);
+  }
+
+  navigateToAddBrand() {
+    this.router.navigate(['/admin/add-brand']); // absolute navigation
   }
 
 }

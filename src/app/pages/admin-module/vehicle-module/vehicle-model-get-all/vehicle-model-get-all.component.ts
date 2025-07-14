@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { VehicleModelService } from '../../../../core/services/admin-service/vehicle-model/vehicle-model.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-vehicle-model-get-all',
@@ -16,7 +17,10 @@ export class VehicleModelGetAllComponent {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private vehicleModelService: VehicleModelService) { }
+  constructor(private vehicleModelService: VehicleModelService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
     this.fetchBrands(this.currentPage, this.pageSize);
@@ -35,6 +39,10 @@ export class VehicleModelGetAllComponent {
     this.pageSize = event.pageSize;
     this.currentPage = event.pageIndex;
     this.fetchBrands(this.currentPage, this.pageSize);
+  }
+
+  navigateToAddBrand() {
+    this.router.navigate(['/admin/add-vehicle-model']); // absolute navigation
   }
 
 }
