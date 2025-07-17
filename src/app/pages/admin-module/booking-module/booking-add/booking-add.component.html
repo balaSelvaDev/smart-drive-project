@@ -5,11 +5,25 @@
             <div class="container">
                 <div class="inputField">
                     <input id="userName" type="text" formControlName="userId" class="input-level-1"
-                        [formControl]="userNameSearchControl" [matAutocomplete]="auto" autocomplete="off" placeholder=" " />
+                        [formControl]="userNameSearchControl" [matAutocomplete]="userNameAuto" autocomplete="off" placeholder=" " />
                     <label for="userName">User name:</label>
-                    <mat-autocomplete #auto="matAutocomplete">
-                        <mat-option *ngFor="let item of userNameFilteredOptions" (click)="setValue(item)">
+                    <mat-autocomplete #userNameAuto="matAutocomplete">
+                        <mat-option *ngFor="let item of userNameFilteredOptions" (click)="setUserIdInForm(item)">
                             {{ item.userName }}
+                        </mat-option>
+                    </mat-autocomplete>
+                </div>
+            </div>
+
+
+            <div class="container">
+                <div class="inputField">
+                    <input id="vehicleName" type="text" formControlName="vehicleId" class="input-level-1"
+                        [formControl]="vehicleNameSearchControl" [matAutocomplete]="vehicleNameAuto" autocomplete="off" placeholder=" " />
+                    <label for="vehicleName">Vehicle Name:</label>
+                    <mat-autocomplete #vehicleNameAuto="matAutocomplete">
+                        <mat-option *ngFor="let item of vehicleNameFilteredOptions" (click)="setVehicleIdInForm(item)">
+                            {{ item.vehicleName }}
                         </mat-option>
                     </mat-autocomplete>
                 </div>
@@ -17,26 +31,34 @@
 
             <div class="container">
                 <div class="inputField">
-                    <input id="lastName" type="text" required formControlName="vehicleId" class="input-level-1"
+                    <input id="brandName" type="text" required formControlName="brandName" class="input-level-1"
                         autocomplete="off" placeholder=" " />
-                    <label for="lastName">Vehicle ID:</label>
+                    <label for="brandName">Brand Name:</label>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="inputField">
+                    <input id="vehicleModelName" type="text" required formControlName="vehicleModelName" class="input-level-1"
+                        autocomplete="off" placeholder=" " />
+                    <label for="vehicleModelName">Vehicle Model Name:</label>
                 </div>
             </div>
         </div>
         <div style="width: 100%;display: flex; flex-direction: row;">
             <div class="container">
                 <div class="inputField">
-                    <input id="email" type="date" formControlName="startDate" class="input-level-1" autocomplete="off"
+                    <input id="startDate" type="date" formControlName="startDate" class="input-level-1" autocomplete="off"
                         placeholder=" " />
-                    <label for="email">Start Date:</label>
+                    <label for="startDate">Start Date:</label>
                 </div>
             </div>
 
             <div class="container">
                 <div class="inputField">
-                    <input id="phoneNumber" type="date" formControlName="endDate" class="input-level-1"
+                    <input id="endDate" type="date" formControlName="endDate" class="input-level-1"
                         autocomplete="off" placeholder=" " />
-                    <label for="phoneNumber">End Date:</label>
+                    <label for="endDate">End Date:</label>
                 </div>
             </div>
 
@@ -49,18 +71,18 @@
             </div>
             <div class="container">
                 <div class="inputField">
-                    <input id="idProofNumber" type="text" formControlName="pickupLocation" class="input-level-1"
+                    <input id="pickupLocation" type="text" formControlName="pickupLocation" class="input-level-1"
                         autocomplete="off" placeholder=" " />
-                    <label for="idProofNumber">Pickup Location:</label>
+                    <label for="pickupLocation">Pickup Location:</label>
                 </div>
             </div>
         </div>
         <div style="width: 100%;display: flex; flex-direction: row;">
             <div class="container">
                 <div class="inputField">
-                    <input id="addressLine1" type="text" formControlName="dropLocation" class="input-level-1"
+                    <input id="dropLocation" type="text" formControlName="dropLocation" class="input-level-1"
                         autocomplete="off" placeholder=" " />
-                    <label for="addressLine1">Drop Location:</label>
+                    <label for="dropLocation">Drop Location:</label>
                 </div>
             </div>
 
@@ -73,7 +95,7 @@
                         <option value="CARD">CARD</option>
                         <option value="WALLET">WALLET</option>
                     </select>
-                    <label for="addressLine2">Payment Mode:</label>
+                    <label for="paymentMode">Payment Mode:</label>
                 </div>
             </div>
         </div>
