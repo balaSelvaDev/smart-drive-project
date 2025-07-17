@@ -2,17 +2,33 @@
     <div style="width: 100%;display: flex; flex-direction: row;">
         <div class="container">
             <div class="inputField">
-                <input id="modelId" type="text" formControlName="brandId" class="input-level-1" autocomplete="off"
+                <input id="brandName" type="text" formControlName="brandId" class="input-level-1"
+                    [formControl]="brandNameSearchControl" [matAutocomplete]="brandNameAuto" autocomplete="off"
                     placeholder=" " />
-                <label for="brandId">BrandId:</label>
+                <label for="brandName">Brand Name:</label>
+                <mat-autocomplete #brandNameAuto="matAutocomplete">
+                    <mat-option *ngFor="let item of brandNameFilteredOptions" (click)="setBrandIdInForm(item)">
+                        {{ item.brandName }}
+                    </mat-option>
+                </mat-autocomplete>
             </div>
         </div>
 
         <div class="container">
             <div class="inputField">
-                <input id="modelId" type="text" formControlName="modelId" class="input-level-1" autocomplete="off"
+                <input id="vehicleModelName" type="text" formControlName="modelId" class="input-level-1"
+                    [formControl]="vehicleModelSearchControl" [matAutocomplete]="vehicleModelAuto" autocomplete="off"
                     placeholder=" " />
-                <label for="modelId">ModelId:</label>
+                <label for="vehicleModelName">Vehicle Model Name:</label>
+                <mat-autocomplete #vehicleModelAuto="matAutocomplete">
+                    <mat-option *ngFor="let item of vehicleModelFilteredOptions" (click)="setVehicleModelIdInForm(item)">
+                        {{ item.vehicleModelName }}
+                    </mat-option>
+                </mat-autocomplete>
+
+                <!-- <input id="vehicleModelName" type="text" formControlName="modelId" class="input-level-1" autocomplete="off"
+                    placeholder=" " />
+                <label for="vehicleModelName">ModelId:</label> -->
             </div>
         </div>
 
