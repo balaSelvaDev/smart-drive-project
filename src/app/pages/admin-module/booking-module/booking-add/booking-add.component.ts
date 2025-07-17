@@ -90,6 +90,7 @@ export class BookingAddComponent {
     this.userNameSearchControl.setValue(item.userName, { emitEvent: false });  // Prevent triggering valueChanges
     this.userNameFilteredOptions = []; // Clear the options after selection
     console.log('Selected user:', item.userName);
+    this.bookingForm.controls['drivingLicenseNumber'].setValue(item.drivingLicense);
   }
 
   setVehicleIdInForm(item: any) {
@@ -99,6 +100,8 @@ export class BookingAddComponent {
     this.vehicleNameSearchControl.setValue(item.vehicleName, { emitEvent: false });  // Prevent triggering valueChanges
     this.vehicleNameFilteredOptions = []; // Clear the options after selection
     console.log('Selected vehicle:', item.vehicleName);
+    this.bookingForm.controls['brandName'].setValue(item.brandName);
+    this.bookingForm.controls['vehicleModelName'].setValue(item.vehicleModelName);
   }
 
 
