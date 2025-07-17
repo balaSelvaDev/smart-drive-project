@@ -36,7 +36,8 @@ export class UserAddComponent {
       addressLine1: new FormControl(''),
       addressLine2: new FormControl(''),
       pincode: new FormControl(''),
-      city: new FormControl(''),
+      taluk: new FormControl(''),
+      district: new FormControl(''),
       state: new FormControl(''),
       country: new FormControl(''),
       fatherName: new FormControl(''),
@@ -86,7 +87,8 @@ export class UserAddComponent {
       formData.append('addressLine1', this.userForm.get('addressLine1')?.value);
       formData.append('addressLine2', this.userForm.get('addressLine2')?.value);
       formData.append('pincode', this.userForm.get('pincode')?.value);
-      formData.append('city', this.userForm.get('city')?.value);
+      formData.append('taluk', this.userForm.get('taluk')?.value);
+      formData.append('district', this.userForm.get('district')?.value);
       formData.append('state', this.userForm.get('state')?.value);
       formData.append('country', this.userForm.get('country')?.value);
       formData.append('fatherName', this.userForm.get('fatherName')?.value);
@@ -160,6 +162,25 @@ export class UserAddComponent {
 
   removeIdProofFile(index: number) {
     this.idProofFiles.splice(index, 1);
+  }
+
+  getPincodeDetails() {
+    const pincode = this.userForm.get('pincode')?.value;
+    if (pincode) {
+      this.userService.getPincodeDetails(pincode).subscribe({
+        next: (res) => {
+          console.log('Pincode details:', res);
+          // Handle the response as needed
+          this.userForm.controls['taluk'].setValue(res.data.taluk);
+          this.userForm.controls['district'].setValue(res.data.district_name);
+          this.userForm.controls['state'].setValue(res.data.state_name);
+          this.userForm.controls['country'].setValue("India");
+        },
+        error: (err) => {
+          console.error('Error fetching pincode details:', err);
+        }
+      });
+    }
   }
 
 }

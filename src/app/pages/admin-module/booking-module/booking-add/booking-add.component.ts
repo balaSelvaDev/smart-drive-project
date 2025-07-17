@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../../../core/services/admin-service/user-module/user.service';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { BookingService } from '../../../../core/services/admin-service/booking-module/booking.service';
 
 @Component({
   selector: 'app-booking-add',
@@ -13,7 +14,10 @@ export class BookingAddComponent {
 
   bookingForm!: FormGroup;
 
-  constructor(private userService: UserService, private router: Router, private http: HttpClient
+  userNameSearchControl = new FormControl('');
+  userNameFilteredOptions: any[] = [];
+
+  constructor(private bookingService: BookingService, private router: Router, private http: HttpClient
   ) {
 
   }
@@ -36,5 +40,15 @@ export class BookingAddComponent {
       finalAmount: new FormControl('')
     });
   }
+
+  setValue(item: any) {
+    this.bookingForm.get('userId')?.setValue(item.userId);
+    // this.displayUserName = item.userName;
+    this.userNameSearchControl.setValue(item.userName, { emitEvent: false });  // Prevent triggering valueChanges
+    this.userNameFilteredOptions = []; // Clear the options after selection
+    console.log('Selected user:', item.userName);
+  }
+
+  
 
 }

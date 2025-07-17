@@ -93,15 +93,22 @@
     <div class="container">
       <div class="inputField">
         <input id="pincode" type="text" formControlName="pincode" class="input-level-1" autocomplete="off"
-          placeholder=" " />
+          placeholder=" " (blur)="getPincodeDetails()" />
         <label for="pincode">Pincode:</label>
       </div>
     </div>
 
     <div class="container">
       <div class="inputField">
-        <input id="city" type="text" formControlName="city" class="input-level-1" autocomplete="off" placeholder=" " />
-        <label for="city">City:</label>
+        <input id="taluk" type="text" formControlName="taluk" class="input-level-1" autocomplete="off" placeholder=" " />
+        <label for="taluk">Taluk:</label>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="inputField">
+        <input id="district" type="text" formControlName="district" class="input-level-1" autocomplete="off" placeholder=" " />
+        <label for="district">District:</label>
       </div>
     </div>
 
