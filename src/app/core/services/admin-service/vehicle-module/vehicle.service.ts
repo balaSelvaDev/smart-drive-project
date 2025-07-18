@@ -8,17 +8,23 @@ import { Observable } from 'rxjs';
 export class VehicleService {
 
   private getVehicleDetailsApi = 'http://localhost:9090/api/brands/search/brandname';
-  
-    constructor(private http: HttpClient) { }
+  private addVehicleDetailsApi = 'http://localhost:9090/api/vehicle';
 
-    searchBrandName(query: string): Observable<any[]> {
-      let params = new HttpParams().set('limit', 5);
-  
-      if (query && query.trim().length > 0) {
-        params = params.set('brandname', query.trim());
-      }
-      console.log('Search query:', query, 'Params:', params.toString());
+  constructor(private http: HttpClient) { }
 
-      return this.http.get<any[]>(`${this.getVehicleDetailsApi}`, { params });
+  searchBrandName(query: string): Observable<any[]> {
+    let params = new HttpParams().set('limit', 5);
+
+    if (query && query.trim().length > 0) {
+      params = params.set('brandname', query.trim());
     }
+    console.log('Search query:', query, 'Params:', params.toString());
+
+    return this.http.get<any[]>(`${this.getVehicleDetailsApi}`, { params });
+  }
+
+  addVehicle(vehicleData: any): Observable<any> {
+    return this.http.post(`${this.addVehicleDetailsApi}`, vehicleData);
+  }
+
 }

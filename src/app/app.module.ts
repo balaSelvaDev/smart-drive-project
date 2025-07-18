@@ -6,6 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AdminModuleModule } from './pages/admin-module/admin-module.module';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { MaterialModule } from './pages/material/material.module';
+import { OnlyNumbersDirective } from './shared/directives/only-numbers.directive';
 
 @NgModule({
   declarations: [AppComponent],

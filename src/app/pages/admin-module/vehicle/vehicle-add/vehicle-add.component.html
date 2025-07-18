@@ -1,4 +1,4 @@
-<form [formGroup]="vehicleForm">
+<form [formGroup]="vehicleForm" (ngSubmit)="onSubmit()">
     <div style="width: 100%;display: flex; flex-direction: row;">
         <div class="container">
             <div class="inputField">
@@ -21,7 +21,8 @@
                     placeholder=" " />
                 <label for="vehicleModelName">Vehicle Model Name:</label>
                 <mat-autocomplete #vehicleModelAuto="matAutocomplete">
-                    <mat-option *ngFor="let item of vehicleModelFilteredOptions" (click)="setVehicleModelIdInForm(item)">
+                    <mat-option *ngFor="let item of vehicleModelFilteredOptions"
+                        (click)="setVehicleModelIdInForm(item)">
                         {{ item.vehicleModelName }}
                     </mat-option>
                 </mat-autocomplete>
@@ -32,6 +33,17 @@
             </div>
         </div>
 
+        <div class="container">
+            <div class="inputField">
+                <input id="vehicleName" type="text" formControlName="vehicleName" class="input-level-1"
+                    autocomplete="off" placeholder=" " />
+                <label for="vehicleName">Vehicle Name:</label>
+            </div>
+        </div>
+    </div>
+
+
+    <div style="width: 100%;display: flex; flex-direction: row;">
         <div class="container">
             <div class="inputField">
                 <input id="description" type="text" formControlName="description" class="input-level-1"
@@ -46,14 +58,10 @@
                 <label for="registrationNo">RegistrationNo:</label>
             </div>
         </div>
-    </div>
-
-
-    <div style="width: 100%;display: flex; flex-direction: row;">
         <div class="container">
             <div class="inputField">
                 <input id="pricePerKm" type="text" formControlName="pricePerKm" class="input-level-1" autocomplete="off"
-                    placeholder=" " />
+                    placeholder=" " appOnlyNumbers />
                 <label for="pricePerKm">Price Per Km:</label>
             </div>
         </div>
@@ -75,7 +83,7 @@
         <div class="container">
             <div class="inputField">
                 <input id="fuelCapacity" type="text" formControlName="fuelCapacity" class="input-level-1"
-                    autocomplete="off" placeholder=" " />
+                    autocomplete="off" placeholder=" " appOnlyNumbers />
                 <label for="fuelCapacity">Fuel Capacity:</label>
             </div>
         </div>
@@ -83,7 +91,7 @@
         <div class="container">
             <div class="inputField">
                 <input id="mileagePerLitre" type="text" formControlName="mileagePerLitre" class="input-level-1"
-                    autocomplete="off" placeholder=" " />
+                    autocomplete="off" placeholder=" " appOnlyNumbers />
                 <label for="mileagePerLitre">Mileage Per Litre:</label>
             </div>
         </div>
@@ -91,7 +99,7 @@
         <div class="container">
             <div class="inputField">
                 <input id="seatingCapacity" type="text" formControlName="seatingCapacity" class="input-level-1"
-                    autocomplete="off" placeholder=" " />
+                    autocomplete="off" placeholder=" " appOnlyNumbers />
                 <label for="seatingCapacity">Seating Capacity:</label>
             </div>
         </div>
@@ -107,8 +115,16 @@
 
         <div class="container">
             <div class="inputField">
-                <input id="vehicleType" type="text" formControlName="vehicleType" class="input-level-1"
-                    autocomplete="off" placeholder=" " />
+                <select id="vehicleType" formControlName="vehicleType" class="input-level-1" placeholder=" ">
+                    <option value="Hatchback">Hatchback</option>
+                    <option value="Sedan">Sedan</option>
+                    <option value="SUV">SUV</option>
+                    <option value="MPV">MPV</option>
+                    <option value="Coupe">Coupe</option>
+                    <option value="Convertible">Convertible</option>
+                    <option value="Pickup">Pickup</option>
+                    <option value="Van">Van</option>
+                </select>
                 <label for="vehicleType">Vehicle Type:</label>
             </div>
         </div>
@@ -131,14 +147,14 @@
         <div class="container">
             <div class="inputField">
                 <input id="yearOfManufacture" type="text" formControlName="yearOfManufacture" class="input-level-1"
-                    autocomplete="off" placeholder=" " />
+                    autocomplete="off" placeholder=" " appOnlyNumbers />
                 <label for="yearOfManufacture">Year Of Manufacture:</label>
             </div>
         </div>
         <div class="container">
             <div class="inputField">
                 <input id="engineCc" type="text" formControlName="engineCc" class="input-level-1" autocomplete="off"
-                    placeholder=" " />
+                    placeholder=" " appOnlyNumbers />
                 <label for="engineCc">Engine CC:</label>
             </div>
         </div>
@@ -155,7 +171,7 @@
         <div class="container">
             <div class="inputField">
                 <input id="horsepower" type="text" formControlName="horsepower" class="input-level-1" autocomplete="off"
-                    placeholder=" " />
+                    placeholder=" " appOnlyNumbers />
                 <label for="horsepower">Horsepower:</label>
             </div>
         </div>
@@ -171,14 +187,14 @@
         </div>
         <div class="container">
             <div class="inputField">
-                <input id="insuranceExpiryDate" type="date" formControlName="insuranceExpiryDate" class="input-level-1"
-                    autocomplete="off" placeholder=" " />
+                <input id="insuranceExpiryDate" type="datetime-local" formControlName="insuranceExpiryDate"
+                    class="input-level-1" autocomplete="off" placeholder=" " />
                 <label for="insuranceExpiryDate">Insurance Expiry Date:</label>
             </div>
         </div>
         <div class="container">
             <div class="inputField">
-                <input id="lastUpdatedInsuranceDate" type="date" formControlName="lastUpdatedInsuranceDate"
+                <input id="lastUpdatedInsuranceDate" type="datetime-local" formControlName="lastUpdatedInsuranceDate"
                     class="input-level-1" autocomplete="off" placeholder=" " />
                 <label for="lastUpdatedInsuranceDate">Last Updated Insurance Date:</label>
             </div>
@@ -229,5 +245,6 @@
             </div>
         </div>
     </div>
-    <button type="submit" class="input-level-1">Add User</button>
+    
+    <button type="submit" class="input-level-1">Add vehicle</button>
 </form>

@@ -26,6 +26,7 @@ import { VehicleAddComponent } from './vehicle/vehicle-add/vehicle-add.component
 import { VehicleGetComponent } from './vehicle/vehicle-get/vehicle-get.component';
 import { VehicleEditComponent } from './vehicle/vehicle-edit/vehicle-edit.component';
 import { VehicleDeleteComponent } from './vehicle/vehicle-delete/vehicle-delete.component';
+import { OnlyNumbersDirective } from '../../shared/directives/only-numbers.directive';
 
 
 @NgModule({
@@ -53,6 +54,7 @@ import { VehicleDeleteComponent } from './vehicle/vehicle-delete/vehicle-delete.
     VehicleGetComponent,
     VehicleEditComponent,
     VehicleDeleteComponent,
+    OnlyNumbersDirective
   ],
   imports: [
     CommonModule,
