@@ -1,11 +1,12 @@
-<form [formGroup]="bookingForm">
+<form [formGroup]="bookingForm" (ngSubmit)="onSubmit()">
 
     <div style="width: 100%;display: flex; flex-direction: column;">
         <div style="width: 100%;display: flex; flex-direction: row;">
             <div class="container">
                 <div class="inputField">
                     <input id="userName" type="text" formControlName="userId" class="input-level-1"
-                        [formControl]="userNameSearchControl" [matAutocomplete]="userNameAuto" autocomplete="off" placeholder=" " />
+                        [formControl]="userNameSearchControl" [matAutocomplete]="userNameAuto" autocomplete="off"
+                        placeholder=" " />
                     <label for="userName">User name:</label>
                     <mat-autocomplete #userNameAuto="matAutocomplete">
                         <mat-option *ngFor="let item of userNameFilteredOptions" (click)="setUserIdInForm(item)">
@@ -19,7 +20,8 @@
             <div class="container">
                 <div class="inputField">
                     <input id="vehicleName" type="text" formControlName="vehicleId" class="input-level-1"
-                        [formControl]="vehicleNameSearchControl" [matAutocomplete]="vehicleNameAuto" autocomplete="off" placeholder=" " />
+                        [formControl]="vehicleNameSearchControl" [matAutocomplete]="vehicleNameAuto" autocomplete="off"
+                        placeholder=" " />
                     <label for="vehicleName">Vehicle Name:</label>
                     <mat-autocomplete #vehicleNameAuto="matAutocomplete">
                         <mat-option *ngFor="let item of vehicleNameFilteredOptions" (click)="setVehicleIdInForm(item)">
@@ -39,8 +41,8 @@
 
             <div class="container">
                 <div class="inputField">
-                    <input id="vehicleModelName" type="text" required formControlName="vehicleModelName" class="input-level-1"
-                        autocomplete="off" placeholder=" " />
+                    <input id="vehicleModelName" type="text" required formControlName="vehicleModelName"
+                        class="input-level-1" autocomplete="off" placeholder=" " />
                     <label for="vehicleModelName">Vehicle Model Name:</label>
                 </div>
             </div>
@@ -48,16 +50,16 @@
         <div style="width: 100%;display: flex; flex-direction: row;">
             <div class="container">
                 <div class="inputField">
-                    <input id="startDate" type="date" formControlName="startDate" class="input-level-1" autocomplete="off"
-                        placeholder=" " />
+                    <input id="startDate" type="date" formControlName="startDate" class="input-level-1"
+                        autocomplete="off" placeholder=" " />
                     <label for="startDate">Start Date:</label>
                 </div>
             </div>
 
             <div class="container">
                 <div class="inputField">
-                    <input id="endDate" type="date" formControlName="endDate" class="input-level-1"
-                        autocomplete="off" placeholder=" " />
+                    <input id="endDate" type="date" formControlName="endDate" class="input-level-1" autocomplete="off"
+                        placeholder=" " />
                     <label for="endDate">End Date:</label>
                 </div>
             </div>
@@ -69,6 +71,9 @@
                     <label for="drivingLicenseNumber">Driving License Number:</label>
                 </div>
             </div>
+
+        </div>
+        <div style="width: 100%;display: flex; flex-direction: row;">
             <div class="container">
                 <div class="inputField">
                     <input id="pickupLocation" type="text" formControlName="pickupLocation" class="input-level-1"
@@ -76,8 +81,6 @@
                     <label for="pickupLocation">Pickup Location:</label>
                 </div>
             </div>
-        </div>
-        <div style="width: 100%;display: flex; flex-direction: row;">
             <div class="container">
                 <div class="inputField">
                     <input id="dropLocation" type="text" formControlName="dropLocation" class="input-level-1"
@@ -100,4 +103,5 @@
             </div>
         </div>
     </div>
+    <button type="submit" [disabled]="bookingForm.invalid">Add Booking</button>
 </form>

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { BookingService } from '../../../../core/services/admin-service/booking-module/booking.service';
 import { catchError, debounceTime, distinctUntilChanged, of, startWith, switchMap } from 'rxjs';
+import { BookingAddRequestDTO } from '../../../../core/models/classes/booking-module/booking-add-request-dto';
 
 @Component({
   selector: 'app-booking-add',
@@ -40,7 +41,7 @@ export class BookingAddComponent {
       brandName: new FormControl(''),
       vehicleModelName: new FormControl(''),
 
-      paymentStatus: new FormControl(''),
+      paymentStatus: new FormControl('PENDING'),
       paymentReference: new FormControl(''),
       totalAmount: new FormControl(''),
       discountAmount: new FormControl(''),
@@ -105,5 +106,31 @@ export class BookingAddComponent {
   }
 
 
+  onSubmit(): void {
+    const payload = this.bookingForm.value;
+    console.log('Form submitted with payload:', payload);
+    if (this.bookingForm.valid) {
+      console.log('Form submitted with payload:', payload);
+      const bookingAddRequest: BookingAddRequestDTO = {
+        ...payload,
+        startDate: new Date(payload.startDate).toISOString(),
+        endDate: new Date(payload.endDate).toISOString()
+      };
+      console.log('Booking Add Request DTO:', bookingAddRequest);
+      // this.bookingService.addBooking(payload).subscribe({
+      //   next: (res) => {
+      //     console.log('Booking added successfully', res);
+      //     this.router.navigate(['/get-booking']); // Navigate to the booking list page
+      //   },
+      //   error: (err) => {
+      //     console.error('Failed to add brand', err);
+      //   },
+      // });
+    } else {
+      this.bookingForm.markAllAsTouched(); // Highlight all errors
+    }
+  }
+
 
 }
+
