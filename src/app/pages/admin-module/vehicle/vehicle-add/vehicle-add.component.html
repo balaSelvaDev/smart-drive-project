@@ -245,6 +245,30 @@
             </div>
         </div>
     </div>
-    
+
+    <div *ngFor="let image of images; let i = index">
+        <div style="display: flex; flex-direction: row; align-items: center;">
+            <div class="container">
+                <div class="inputField">
+                    <input type="file" #fileInput (change)="onFileChange($event, i)" class="input-level-1" />
+                    <label>Driving License Image {{ i + 1 }}</label>
+                </div>
+            </div>
+
+            <!-- Clear input AND reset file input value -->
+            <button type="button" (click)="clearImage(i, fileInput)" class="input-level-1">❌ Clear</button>
+
+            <!-- Add another file input -->
+            <button type="button" (click)="addImageField()" class="input-level-1">➕</button>
+
+            <!-- Remove the whole input row -->
+            <button type="button" *ngIf="images.length > 1" (click)="removeField(i)" class="input-level-1">🗑
+                Remove</button>
+            <!-- View selected image -->
+            <button type="button" *ngIf="image.file" (click)="viewImage(i)">🔍 View</button>
+        </div>
+    </div>
+    <button type="button" (click)="uploadImages()">Upload All</button>
+
     <button type="submit" class="input-level-1">Add vehicle</button>
 </form>

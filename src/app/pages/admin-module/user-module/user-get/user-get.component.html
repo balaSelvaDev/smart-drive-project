@@ -1,7 +1,24 @@
 <button mat-raised-button color="primary" (click)="navigateToAddUser()">Add User</button>
-<div class="container">
-    <div class="inputField">
-        <input type="text" required autocomplete="off"/>
-        <label for="userId">User Id</label>
-    </div>
+<div class="container" *ngFor="let image of images; let i = index">
+  <div class="inputField">
+    <input
+      type="file"
+      #fileInput
+      (change)="onFileChange($event, i)"
+      class="input-level-1"
+    />
+    <label>Driving License Image {{ i + 1 }}</label>
+
+    <!-- Clear input AND reset file input value -->
+    <button type="button" (click)="clearImage(i, fileInput)">❌ Clear</button>
+
+    <!-- Add another file input -->
+    <button type="button" (click)="addImageField()">➕</button>
+
+    <!-- Remove the whole input row -->
+    <button type="button" *ngIf="images.length > 1" (click)="removeField(i)">🗑 Remove</button>
+  </div>
 </div>
+
+<br />
+<button type="button" (click)="uploadImages()">Upload All</button>
