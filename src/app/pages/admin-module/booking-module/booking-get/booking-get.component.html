@@ -1,1 +1,9 @@
 <button mat-raised-button color="primary" (click)="navigateToAddBooking()">Add Booking</button>
+<mat-form-field class="full-width">
+    <input matInput placeholder="Enter a location" [formControl]="locationControl" [matAutocomplete]="auto" />
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onOptionSelected($event.option.value)">
+        <mat-option *ngFor="let option of suggestions$ | async" [value]="option">
+            {{ option }}
+        </mat-option>
+    </mat-autocomplete>
+</mat-form-field>

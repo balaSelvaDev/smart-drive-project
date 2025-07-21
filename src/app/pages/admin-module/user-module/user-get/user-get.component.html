@@ -1,24 +1,83 @@
 <button mat-raised-button color="primary" (click)="navigateToAddUser()">Add User</button>
-<div class="container" *ngFor="let image of images; let i = index">
-  <div class="inputField">
-    <input
-      type="file"
-      #fileInput
-      (change)="onFileChange($event, i)"
-      class="input-level-1"
-    />
-    <label>Driving License Image {{ i + 1 }}</label>
+<div class="brand-container">
+  <table class="brand-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Full name</th>
+        <th>Status</th>
 
-    <!-- Clear input AND reset file input value -->
-    <button type="button" (click)="clearImage(i, fileInput)">❌ Clear</button>
+        <th>email</th>
+        <th>phoneNumber</th>
+        <th>drivingLicenseNumber</th>
+        <th>idProofType</th>
 
-    <!-- Add another file input -->
-    <button type="button" (click)="addImageField()">➕</button>
+        <th>idProofNumber</th>
+        <th>addressLine1</th>
+        <th>addressLine2</th>
+        <th>taluk</th>
 
-    <!-- Remove the whole input row -->
-    <button type="button" *ngIf="images.length > 1" (click)="removeField(i)">🗑 Remove</button>
+        <th>district</th>
+        <th>state</th>
+        <th>pincode</th>
+        <th>country</th>
+
+        <th>fatherName</th>
+        <th>motherName</th>
+        <th>nomineeName</th>
+        <th>nomineeRelation</th>
+
+        <th>nomineePhone</th>
+        <th>occupation</th>
+        <th>companyName</th>
+        <th>alternatePhoneNumber</th>
+
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users; let i = index">
+        <!-- <td>{{ (currentPage * pageSize) + i + 1 }}</td> -->
+        <td>{{ user.userDetailsResponseDTO.userId }}</td>
+        <td>{{ user.userDetailsResponseDTO.fullName }}</td>
+        <td>{{ user.userDetailsResponseDTO.isActive ? 'Active' : 'Inactive' }}</td>
+
+        <td>{{ user.userDetailsResponseDTO.email }}</td>
+        <td>{{ user.userDetailsResponseDTO.phoneNumber }}</td>
+        <td>{{ user.userKycDetailsResponseDTO?.drivingLicenseNumber || 'N/A' }}</td>
+        <td>{{ user.userKycDetailsResponseDTO?.idProofType || 'N/A' }}</td>
+
+        <td>{{ user.userKycDetailsResponseDTO?.idProofNumber || 'N/A' }}</td>
+        <td>{{ user.userKycDetailsResponseDTO?.addressLine1 || 'N/A' }}</td>
+        <td>{{ user.userKycDetailsResponseDTO?.addressLine2 || 'N/A' }}</td>
+        <td>{{ user.userKycDetailsResponseDTO?.taluk || 'N/A' }}</td>
+
+        <td>{{ user.userKycDetailsResponseDTO?.district || 'N/A' }}</td>
+        <td>{{ user.userKycDetailsResponseDTO?.state || 'N/A' }}</td>
+        <td>{{ user.userKycDetailsResponseDTO?.pincode || 'N/A' }}</td>
+        <td>{{ user.userKycDetailsResponseDTO?.country || 'N/A' }}</td>
+
+        <td>{{ user.userKycDetailsResponseDTO?.fatherName || 'N/A' }}</td>
+        <td>{{ user.userKycDetailsResponseDTO?.motherName || 'N/A' }}</td>
+        <td>{{ user.userKycDetailsResponseDTO?.nomineeName || 'N/A' }}</td>
+        <td>{{ user.userKycDetailsResponseDTO?.nomineeRelation || 'N/A' }}</td>
+
+        <td>{{ user.userKycDetailsResponseDTO?.nomineePhone || 'N/A' }}</td>
+        <td>{{ user.userKycDetailsResponseDTO?.occupation || 'N/A' }}</td>
+        <td>{{ user.userKycDetailsResponseDTO?.companyName || 'N/A' }}</td>
+        <td>{{ user.userKycDetailsResponseDTO?.alternatePhoneNumber || 'N/A' }}</td>
+
+      </tr>
+    </tbody>
+  </table>
+
+  <mat-paginator [length]="totalItems" [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 25, 50]"
+    (page)="onPageChange($event)">
+  </mat-paginator>
+</div>
+<div>
+  <div class="container mt-5">
+    <h2 class="text-primary">Bootstrap is Working!</h2>
+    <button class="btn btn-success">Click Me</button>
   </div>
 </div>
-
-<br />
-<button type="button" (click)="uploadImages()">Upload All</button>

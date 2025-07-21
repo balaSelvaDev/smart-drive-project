@@ -9,6 +9,8 @@ export class VehicleService {
 
   private getVehicleDetailsApi = 'http://localhost:9090/api/brands/search/brandname';
   private addVehicleDetailsApi = 'http://localhost:9090/api/vehicle';
+  private getAllVehicleDetailsApi = 'http://localhost:9090/api/vehicle';
+  private getClientLocationApi = 'http://localhost:9090/api/client-location';
 
   constructor(private http: HttpClient) { }
 
@@ -25,6 +27,14 @@ export class VehicleService {
 
   addVehicle(vehicleData: any): Observable<any> {
     return this.http.post(`${this.addVehicleDetailsApi}`, vehicleData);
+  }
+
+  getVehicles(page: number, size: number): Observable<any> {
+    return this.http.get(`${this.getAllVehicleDetailsApi}?page=${page}&size=${size}`);
+  }
+
+  getClientLocation(districtId: number): Observable<any> {
+    return this.http.get(`${this.getClientLocationApi}?districtId=${districtId}`);
   }
 
 }

@@ -1,1 +1,76 @@
 <button mat-raised-button color="primary" (click)="navigateToAddVehicle()">Add Vehicle</button>
+<div class="brand-container">
+  <table class="brand-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>vehicle Name</th>
+        <th>Status</th>
+
+        <th>registrationNo</th>
+        <th>pricePerKm</th>
+        <th>fuelType</th>
+        <th>fuelCapacity</th>
+
+        <th>mileagePerLitre</th>
+        <th>seatingCapacity</th>
+        <th>color</th>
+        <th>vehicleType</th>
+
+        <th>ownerType</th>
+        <th>yearOfManufacture</th>
+        <th>engineCc</th>
+        <th>torque</th>
+
+        <th>horsepower</th>
+        <th>insuranceExpiryDate</th>
+        <th>lastUpdatedInsuranceDate</th>
+        <th>vehicleStatus</th>
+
+        <th>available</th>
+        <th>insured</th>
+
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let vehicle of vehicles; let i = index">
+        <!-- <td>{{ (currentPage * pageSize) + i + 1 }}</td> -->
+        <td>{{ vehicle.vehicleId }}</td>
+        <td>{{ vehicle.vehicleName }}</td>
+        <td>{{ vehicle.isActive ? 'Active' : 'Inactive' }}</td>
+
+        <td>{{ vehicle.registrationNo }}</td>
+        <td>{{ vehicle.pricePerKm }}</td>
+        <td>{{ vehicle.fuelType }}</td>
+        <td>{{ vehicle.fuelCapacity }}</td>
+
+        <td>{{ vehicle.mileagePerLitre }}</td>
+        <td>{{ vehicle.seatingCapacity }}</td>
+        <td>{{ vehicle.color }}</td>
+        <td>{{ vehicle.vehicleType }}</td>
+
+        <td>{{ vehicle.ownerType }}</td>
+        <td>{{ vehicle.yearOfManufacture }}</td>
+        <td>{{ vehicle.engineCc }}</td>
+        <td>{{ vehicle.torque }}</td>
+
+        <td>{{ vehicle.horsepower }}</td>
+        <td>{{ vehicle.insuranceExpiryDate }}</td>
+        <td>{{ vehicle.lastUpdatedInsuranceDate }}</td>
+        <td>{{ vehicle.vehicleStatus }}</td>
+
+        <td>{{ vehicle.available ? 'Yes' : 'No' }}</td>
+        <td>{{ vehicle.insured ? 'Yes' : 'No' }}</td>
+
+      </tr>
+    </tbody>
+  </table>
+
+  <mat-paginator [length]="totalItems" [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 25, 50]"
+    (page)="onPageChange($event)">
+  </mat-paginator>
+</div>
+<div>
+
+</div>

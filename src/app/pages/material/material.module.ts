@@ -22,6 +22,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
+
+
 @NgModule({
   declarations: [],
   imports: [
@@ -46,7 +48,13 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     MatNativeDateModule,
     MatProgressSpinnerModule,
     MatPaginatorModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatDatepickerModule,
+    
   ]
 })
 export class MaterialModule { }

@@ -20,6 +20,7 @@ export class VehicleAddComponent {
 
   vehicleModelSearchControl = new FormControl('');
   vehicleModelFilteredOptions: any[] = [];
+  clientLocation: any[] = [];
 
   constructor(private router: Router,
     private fb: FormBuilder, private http: HttpClient,
@@ -48,6 +49,7 @@ export class VehicleAddComponent {
       engineCc: new FormControl(null),
       torque: new FormControl(''),
       horsepower: new FormControl(null),
+      clientLocationId: new FormControl(null, Validators.required),
 
       isInsured: new FormControl(false),
       insuranceExpiryDate: new FormControl(null), // Must be formatted before sending
@@ -77,6 +79,20 @@ export class VehicleAddComponent {
         this.brandNameFilteredOptions = results.slice(0, 6); // limit to 6
         console.log('Filtered options:', this.brandNameFilteredOptions);
       });
+    //
+    let districtId = 13;
+    
+    this.vehicleService.getClientLocation(districtId).subscribe({
+      next: (res) => {
+        console.log('Client location data:', res);
+        console.log("asdfasd: "+res[0].clientLocationId);
+        this.vehicleForm.controls['clientLocationId'].setValue(res[0].clientLocationId);
+        this.clientLocation = res;
+      },
+      error: (err) => {
+        console.error('Failed to get client location', err);
+      },
+    });
   }
   setBrandIdInForm(item: any) {
     if (!item) return;

@@ -46,7 +46,7 @@ const routes: Routes = [
       // { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
     ]
   },
-  { path: 'login', component: LoginModuleComponent }
+  { path: 'admin-login', component: LoginModuleComponent }
 ];
 
 
