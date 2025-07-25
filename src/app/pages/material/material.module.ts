@@ -54,6 +54,10 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     MatInputModule,
     MatButtonModule,
     MatDatepickerModule,
+    MatIconModule,
+    MatToolbarModule, MatButtonModule, MatIconModule,
+    MatIconModule
+
     
   ]
 })

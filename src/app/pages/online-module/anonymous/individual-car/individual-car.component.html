@@ -1,0 +1,202 @@
+<div class="container" style="margin-top: 8px;" *ngIf="distanceLoaded; else loading">
+    <div style="display: flex;">
+        <div style="max-width: 800px;margin:10px 10px;">
+            <div>
+                <div style="max-width: 800px;margin:10px 10px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <span style="font-size: 16px;"><-- Back</span>
+                        </div>
+                        <div>
+                            <button mat-icon-button class="example-icon favorite-icon"
+                                aria-label="Example icon-button with heart icon">
+                                <mat-icon>favorite</mat-icon>
+                            </button>
+                            <button mat-icon-button class="example-icon favorite-icon"
+                                aria-label="Example icon-button with heart icon">
+                                <mat-icon>share</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="gallery-flex">
+                <ng-container *ngFor="let img of images.slice(0, 4); let i = index">
+                    <div class="gallery-item" (click)="openViewer(i)">
+                        <img [src]="img" alt="Image" />
+                        <!-- +N overlay -->
+                        <div *ngIf="i === 3 && images.length > 4" class="overlay">
+                            +{{ images.length - 4 }}
+                        </div>
+                    </div>
+                </ng-container>
+            </div><br>
+            <div class="left-side-content">
+                <div class="host-details-main-view">
+                    <div class="host-imgs"><img
+                            src="https://zoomcar-assets.zoomcar.com/images/original/5c73dbb6a3aa6874259e202ddea5988939b33912.png?1639054161">
+                    </div>
+                    <div class="host-details-main-1">
+                        Hosted by SmartDrive
+                    </div>
+                </div>
+                <span class="car-name"> {{this.vehicle.vehicleName}} </span>
+                <div class="car-accessories"><span>
+                        Manual
+                    </span><span>
+                        {{this.vehicle.fuelType}}
+                    </span><span>
+                        {{this.vehicle.seatingCapacity}} Seats
+                    </span></div>
+            </div>
+            <div class="car-location my-3">
+                <div class="car-location-title">Car location</div>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div class="car-location-details">
+                        <span class="car-location-address">{{this.vehicle.clientLocation.locationName}},
+                            {{this.vehicle.clientLocation.pincode}}</span>
+                    </div>
+                    <div>
+                        <button>
+                            <span class="car-location-button"
+                                (click)="navigateToClientLocation(this.vehicle.clientLocation.googleMapUrl)">Get
+                                Directions</span>
+                        </button>
+                    </div>
+                </div>
+                <!-- <div class="car-location-map">
+            <img src="https://maps.googleapis.com/maps/api/staticmap?center={{this.vehicle.latitude}},{{this.vehicle.longitude}}&zoom=14&size=400x300&markers=color:red%7Clabel:C%7C{{this.vehicle.latitude}},{{this.vehicle.longitude}}&key=YOUR_API_KEY"
+                alt="Map">
+        </div> -->
+            </div>
+        </div>
+        <div style="margin: 10px 10px; max-width: 360px;padding: 10px;margin-top:70px;">
+            <div style="border: 1px solid black; " class="sticky-element">
+                <div style="">
+                    <div class="price-popup">
+                        <h2 class="price-total">₹{{this.totalAmt}}</h2>
+
+                        <div class="price-row">
+                            <span>Trip Amount (this does not include fuel)</span>
+                            <span>₹{{this.tripAmt}}</span>
+                        </div>
+
+                        <div class="price-row">
+                            <span>Convenience Fee</span>
+                            <span>+ ₹{{this.convenienceFee}}</span>
+                        </div>
+
+                        <hr />
+
+                        <div class="price-row bold">
+                            <span>Total Price</span>
+                            <span>₹{{(this.tripAmt + this.convenienceFee)}}</span>
+                        </div>
+
+                        <div class="price-row">
+                            <span>Refundable Security Deposit</span>
+                            <span>+ ₹{{this.refundableAmount}}</span>
+                        </div>
+
+                        <div class="price-row final">
+                            <span>Final Amount</span>
+                            <span>₹{{this.totalAmt}}</span>
+                        </div>
+
+                        <button mat-flat-button color="primary" class="login-btn">LOGIN TO CONTINUE</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="padding: 20px;">
+        <!-- <button (click)="getDistance()">Get Distance</button> -->
+        <div *ngIf="distance">
+            <p><strong>Distance:</strong> {{ distance }}</p>
+            <p><strong>Duration:</strong> {{ duration }}</p>
+        </div>
+    </div>
+    <!-- Lightbox Modal -->
+    <div class="lightbox" *ngIf="isViewerOpen">
+        <div class="lightbox-content">
+            <span class="close-btn" (click)="closeViewer()">&times;</span>
+            <img [src]="images[currentIndex]" class="lightbox-image" alt="Large View" />
+            <a class="nav left" (click)="prevImage()">&#10094;</a>
+            <a class="nav right" (click)="nextImage()">&#10095;</a>
+        </div>
+    </div>
+
+    <div class="important-points">
+        <h3>IMPORTANT POINTS TO REMEMBER</h3>
+
+        <div class="row">
+            <div class="col-left">CHANGE IN PRICING PLAN:</div>
+            <div class="col-right">
+                The pricing plan (11 kms/hr, without fuel) cannot be changed after the booking is made
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-left">FUEL:</div>
+            <div class="col-right">
+                In case you are returning the car at a lower fuel level than what was received, we will charge a flat Rs
+                500
+                refuelling service charge + actual fuel cost to get the tank to the same level as what was received
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-left">TOLLS, PARKING, INTER-STATE TAXES:</div>
+            <div class="col-right">
+                To be paid by you.
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-left">ID VERIFICATION:</div>
+            <div class="col-right">
+                Please keep your original or DigiLocker of Driving License handy. While delivering the car to you, our
+                executive will verify your original or DigiLocker of Driving License and ID proof (same as the ones
+                whose
+                details were provided while making the booking). This verification is mandatory. In the unfortunate case
+                where you cannot show these documents, we will not be able to handover the car to you, and it will be
+                treated as a late cancellation (100% of the fare would be payable). Driving license printed on A4 sheet
+                of
+                paper (original or otherwise) will not be considered as a valid document. We may ask for additional
+                documents for verification in some cases, e.g., local ID or proof of travel.
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-left">PRE-HANDOVER INSPECTION:</div>
+            <div class="col-right">
+                Please inspect the car (including the fuel gauge and odometer) thoroughly before approving the
+                checklist.
+            </div>
+        </div>
+    </div>
+    <br><br>
+    <button mat-button color="primary" (click)="openDialog()">Open Popup</button>
+</div>
+
+<!-- <ng-template #loading>
+  <div class="car-loader">
+      <img src="https://i.imgur.com/BxIQqCt.png" alt="Loading Car" />
+    </div> 
+    <div class="road">
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+    </div>
+    <p>Loading distance...</p>
+  </div>
+</ng-template> -->
+<ng-template #loading>
+  <div class="car-loader">
+    <div class="car-track">
+      <img class="car-img" src="https://cdn-icons-png.flaticon.com/512/743/743922.png" alt="car" />
+    </div>
+    <p>Calculating distance...</p>
+  </div>
+</ng-template>
+

@@ -27,6 +27,8 @@ import { VehicleGetComponent } from './vehicle/vehicle-get/vehicle-get.component
 import { VehicleEditComponent } from './vehicle/vehicle-edit/vehicle-edit.component';
 import { VehicleDeleteComponent } from './vehicle/vehicle-delete/vehicle-delete.component';
 import { OnlyNumbersDirective } from '../../shared/directives/only-numbers.directive';
+import { GoogleMapComponent } from './testing-module/google-map/google-map.component';
+import { GoogleMap2Component } from './testing-module/google-map2/google-map2.component';
 
 
 @NgModule({
@@ -54,7 +56,9 @@ import { OnlyNumbersDirective } from '../../shared/directives/only-numbers.direc
     VehicleGetComponent,
     VehicleEditComponent,
     VehicleDeleteComponent,
-    OnlyNumbersDirective
+    OnlyNumbersDirective,
+    GoogleMapComponent,
+    GoogleMap2Component
   ],
   imports: [
     CommonModule,

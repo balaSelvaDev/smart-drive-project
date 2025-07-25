@@ -20,7 +20,8 @@ import { OnlineLoginModule } from './pages/online-login/online-login.module';
     ReactiveFormsModule,
     MaterialModule,
     AdminModuleModule,
-    OnlineLoginModule
+    OnlineLoginModule,
+    OnlineModuleModule,
     // NgxMatTimepickerModule
     
   ],

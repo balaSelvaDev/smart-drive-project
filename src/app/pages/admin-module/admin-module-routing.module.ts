@@ -16,6 +16,8 @@ import { VehicleAddComponent } from './vehicle/vehicle-add/vehicle-add.component
 import { VehicleGetComponent } from './vehicle/vehicle-get/vehicle-get.component';
 import { VehicleEditComponent } from './vehicle/vehicle-edit/vehicle-edit.component';
 import { VehicleDeleteComponent } from './vehicle/vehicle-delete/vehicle-delete.component';
+import { GoogleMapComponent } from './testing-module/google-map/google-map.component';
+import { GoogleMap2Component } from './testing-module/google-map2/google-map2.component';
 
 const routes: Routes = [
   {
@@ -46,7 +48,9 @@ const routes: Routes = [
       // { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
     ]
   },
-  { path: 'admin-login', component: LoginModuleComponent }
+  { path: 'admin-login', component: LoginModuleComponent },
+  { path: 'google-map-1', component: GoogleMapComponent },
+  { path: 'google-map-2', component: GoogleMap2Component }
 ];
 
 

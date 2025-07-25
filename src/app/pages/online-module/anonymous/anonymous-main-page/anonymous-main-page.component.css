@@ -1,0 +1,30 @@
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+/* app.component.css */
+.full-width {
+  width: 100%;
+}
+
+/* Override Google autocomplete dropdown */
+.pac-container {
+  z-index: 10000 !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+}
+
+.pac-item {
+  padding: 10px 14px;
+  border-bottom: 1px solid #eee;
+}
+
+.pac-item:hover {
+  background-color: #e3f2fd;
+}
+
+.pac-icon {
+  display: none !important; /* Optional: hide the pin icon */
+}
