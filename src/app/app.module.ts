@@ -10,6 +10,8 @@ import { OnlyNumbersDirective } from './shared/directives/only-numbers.directive
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { OnlineModuleModule } from './pages/online-module/online-module.module';
 import { OnlineLoginModule } from './pages/online-login/online-login.module';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './core/interceptors/auth-interceptor';
 
 // import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
 @NgModule({
@@ -26,7 +28,12 @@ import { OnlineLoginModule } from './pages/online-login/online-login.module';
     
   ],
   providers: [
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

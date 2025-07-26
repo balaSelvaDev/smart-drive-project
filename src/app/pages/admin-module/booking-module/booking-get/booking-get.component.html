@@ -7,3 +7,42 @@
         </mat-option>
     </mat-autocomplete>
 </mat-form-field>
+<!-- Form Controls -->
+<div>
+    <mat-checkbox [(ngModel)]="isClientLocation" (change)="onClientToggle()">
+        Is Client Location Required?
+    </mat-checkbox>
+
+    <div *ngIf="!isClientLocation">
+        <input type="text" [(ngModel)]="pickupAddress" placeholder="Pickup Location" #pickupInput />
+        <button (click)="openMapPopup('pickup')">
+            <mat-icon>visibility</mat-icon>
+        </button>
+    </div>
+
+    <div *ngIf="isClientLocation">
+        <label>Client Location:</label>
+        <select [(ngModel)]="pickupAddress" (change)="onClientLocationChange()">
+            <option *ngFor="let loc of clientLocations" [value]="loc.address">{{ loc.name }}</option>
+        </select>
+        <button (click)="openMapPopup('drop')">
+            <mat-icon>visibility</mat-icon>
+        </button>
+    </div>
+
+    <input type="text" [(ngModel)]="dropAddress" placeholder="Drop Location" #dropInput />
+    <button (click)="openMapPopup('drop')">
+        <mat-icon>visibility</mat-icon>
+    </button>
+
+    <button (click)="resetAll()">Reset</button>
+</div>
+
+<!-- Map Popup -->
+<div *ngIf="showMap" class="popup">
+    <div class="popup-content">
+        <span class="close" (click)="closeMapPopup()">&times;</span>
+        <div id="map" style="height: 500px; width: 100%"></div>
+        <p *ngIf="distance">Distance: {{ distance }} | Duration: {{ duration }}</p>
+    </div>
+</div>
