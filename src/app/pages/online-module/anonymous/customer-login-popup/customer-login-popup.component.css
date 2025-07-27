@@ -1,0 +1,30 @@
+.verification-container {
+  text-align: center;
+  font-family: Arial, sans-serif;
+  margin-top: 20px;
+}
+
+/* h2 {
+  font-size: 24px;
+}
+
+p {
+  font-size: 18px;
+  font-weight: bold;
+  color: #e74c3c;  /* Red color for countdown
+} */
+
+.reset-button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 20px;
+  border-radius: 5px;
+}
+
+.reset-button:hover {
+  background-color: #2980b9;
+}
