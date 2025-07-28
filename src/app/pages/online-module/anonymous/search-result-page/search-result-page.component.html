@@ -1,1 +1,64 @@
-<p>search-result-page works!</p>
+<br>
+<div class="" style="width: 100%;display: flex;">
+    <div style="width: 20%;padding: 12px 24px;border: 1px solid red;margin: 8px;">
+        <h3>Search Results</h3>
+        <p *ngIf="vehicleResult.length === 0">No vehicleResult found matching your criteria.</p>
+        <div *ngIf="vehicleResult.length > 0">
+            <p>Found {{vehicleResult.length}} vehicles</p>
+            <div class="filter-options">
+                
+            </div>
+        </div>
+    </div>
+    <div style="width: 80%;padding: 12px 24px;border: 1px solid red;margin: 8px;">
+        <div class="row">
+            <div class="col-md-4" *ngFor="let vehicle of vehicleResult; let i = index">
+                <div [id]="'carousel' + i" class="carousel slide vehicle-carousel" data-bs-ride="false"
+                    [attr.data-bs-interval]="'false'" (mouseenter)="hoveredIndex = i"
+                    (mouseleave)="hoveredIndex = null">
+
+                    <!-- Indicators (only if >1 image & hovered) -->
+                    <div class="carousel-indicators" *ngIf="vehicle.vehicleImagesList.length > 1 && hoveredIndex === i">
+                        <button *ngFor="let img of vehicle.vehicleImagesList; let j = index" type="button"
+                            [attr.data-bs-target]="'#carousel' + i" [attr.data-bs-slide-to]="j" [class.active]="j === 0"
+                            [attr.aria-current]="j === 0 ? 'true' : null" [attr.aria-label]="'Slide ' + (j+1)">
+                        </button>
+                    </div>
+
+                    <!-- Slides -->
+                    <div class="carousel-inner">
+                        <div *ngFor="let img of vehicle.vehicleImagesList; let j = index" class="carousel-item"
+                            [class.active]="j === 0">
+                            <img [src]="img.imageUrl" class="d-block w-100 car-img" alt="{{vehicle.name}}">
+                        </div>
+                    </div>
+
+                    <!-- Controls (only if >1 image & hovered) -->
+                    <button *ngIf="vehicle.vehicleImagesList.length > 1 && hoveredIndex === i" class="carousel-control-prev"
+                        type="button" [attr.data-bs-target]="'#carousel' + i" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button *ngIf="vehicle.vehicleImagesList.length > 1 && hoveredIndex === i" class="carousel-control-next"
+                        type="button" [attr.data-bs-target]="'#carousel' + i" data-bs-slide="next">
+                        <span class="carousel-control-next-icon"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+
+                <!-- Vehicle Info -->
+                <div class="vehicle-info">
+                    <h5>{{vehicle.vehicleName}} {{vehicle.yearOfManufacture}}</h5>
+                    <p>{{vehicle.vehicleType}} · {{vehicle.fuelType}} · {{vehicle.seatingCapacity}} Seats</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <!-- <span class="rating">⭐ {{vehicle.rating.toFixed(2)}} ({{vehicle.reviews}})</span>
+                        <span class="distance">{{vehicle.distance}}</span> -->
+                        <span>12.2</span>
+                        <span>12.2</span>
+                    </div>
+                    <h6 class="price">₹{{vehicle.mileagePerLitre}}/hr</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

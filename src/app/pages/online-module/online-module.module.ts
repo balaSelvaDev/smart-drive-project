@@ -10,6 +10,7 @@ import { IndividualCarComponent } from './anonymous/individual-car/individual-ca
 import { AnonymousHeaderComponent } from './anonymous-header/anonymous-header.component';
 import { ViewBookingPriceComponent } from './anonymous/view-booking-price/view-booking-price.component';
 import { CustomerLoginPopupComponent } from './anonymous/customer-login-popup/customer-login-popup.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { CustomerLoginPopupComponent } from './anonymous/customer-login-popup/cu
     MaterialModule,
     OnlineModuleRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbModule
     
   ]
 })

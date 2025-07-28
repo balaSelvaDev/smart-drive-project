@@ -1,0 +1,51 @@
+/* 
+
+.rating {
+  font-weight: bold;
+  color: green;
+}
+
+.price {
+  color: #000;
+  font-weight: bold;
+}
+.car-img {
+  height: 180px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.vehicle-info {
+  background: #fff;
+  padding: 12px;
+  border-radius: 10px;
+  box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
+  min-height: 130px;
+} */
+
+.car-img {
+  height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.vehicle-carousel .carousel-control-prev,
+.vehicle-carousel .carousel-control-next,
+.vehicle-carousel .carousel-indicators {
+  display: none; /* hidden by default */
+}
+
+.vehicle-carousel:hover .carousel-control-prev,
+.vehicle-carousel:hover .carousel-control-next,
+.vehicle-carousel:hover .carousel-indicators {
+  display: flex; /* show only on hover */
+}
+
+.vehicle-info {
+  background: #fff;
+  padding: 12px;
+  border-radius: 10px;
+  box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
+}
+
+

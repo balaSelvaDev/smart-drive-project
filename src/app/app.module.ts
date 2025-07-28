@@ -12,6 +12,8 @@ import { OnlineModuleModule } from './pages/online-module/online-module.module';
 import { OnlineLoginModule } from './pages/online-login/online-login.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './core/interceptors/auth-interceptor';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { DatePipe } from '@angular/common';
 
 // import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
 @NgModule({
@@ -24,6 +26,7 @@ import { AuthInterceptor } from './core/interceptors/auth-interceptor';
     AdminModuleModule,
     OnlineLoginModule,
     OnlineModuleModule,
+    NgbModule,
     // NgxMatTimepickerModule
     
   ],
@@ -33,7 +36,8 @@ import { AuthInterceptor } from './core/interceptors/auth-interceptor';
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true
-    }
+    },
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })

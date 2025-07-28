@@ -1,4 +1,6 @@
-import { Component, NgZone } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { Component, inject, NgZone, TemplateRef } from '@angular/core';
+import { NgbCalendar, NgbDate, NgbDateParserFormatter, NgbDateStruct, NgbModal, NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-anonymous-main-page',
@@ -30,7 +32,10 @@ export class AnonymousMainPageComponent {
   currentLocationName: string = '';
   private geocoder: any;
 
-  constructor(private ngZone: NgZone) { }
+  constructor(private ngZone: NgZone, private modalService: NgbModal, private datePipe: DatePipe) {
+    this.setDefaultRange(); // sets fromDate, toDate, fromTime, toTime
+    this.updateSelectedRange(); // <-- ensure UI has value on page load
+  }
 
   ngOnInit(): void {
     const now = new Date();
@@ -191,6 +196,156 @@ export class AnonymousMainPageComponent {
         }));
       }
     );
+  }
+
+  fromDate: NgbDateStruct | null = null;
+  toDate: NgbDateStruct | null = null;
+  hoveredDate: NgbDateStruct | null = null;
+
+  fromTime: NgbTimeStruct = { hour: 9, minute: 0, second: 0 };
+  toTime: NgbTimeStruct = { hour: 17, minute: 0, second: 0 };
+
+  today = new Date();
+  selectedRange: string = '';
+  validationError: string = '';
+
+  selectedFromFormattedRange: string = '';
+  selectedToFormattedRange: string = '';
+
+  openPicker(content: TemplateRef<any>) {
+    this.modalService.open(content, { size: 'lg', centered: true });
+  }
+
+  onDateSelection(date: NgbDateStruct) {
+    if (!this.fromDate && !this.toDate) {
+      this.fromDate = date;
+    } else if (this.fromDate && !this.toDate && this.after(date, this.fromDate)) {
+      this.toDate = date;
+    } else {
+      this.toDate = null;
+      this.fromDate = date;
+    }
+  }
+
+  isFrom(date: NgbDateStruct) {
+    return this.fromDate && this.equals(date, this.fromDate);
+  }
+
+  isTo(date: NgbDateStruct) {
+    return this.toDate && this.equals(date, this.toDate);
+  }
+
+  isInside(date: NgbDateStruct) {
+    return this.toDate && this.fromDate && this.after(date, this.fromDate) && this.before(date, this.toDate);
+  }
+
+  isRange(date: NgbDateStruct) {
+    return this.isFrom(date) || this.isTo(date) || this.isInside(date);
+  }
+
+  equals(one: NgbDateStruct, two: NgbDateStruct) {
+    return one.year === two.year && one.month === two.month && one.day === two.day;
+  }
+
+  before(one: NgbDateStruct, two: NgbDateStruct) {
+    if (one.year === two.year) {
+      if (one.month === two.month) {
+        return one.day < two.day;
+      }
+      return one.month < two.month;
+    }
+    return one.year < two.year;
+  }
+
+  after(one: NgbDateStruct, two: NgbDateStruct) {
+    if (one.year === two.year) {
+      if (one.month === two.month) {
+        return one.day > two.day;
+      }
+      return one.month > two.month;
+    }
+    return one.year > two.year;
+  }
+
+  isDisabled = (date: NgbDateStruct) => {
+    // Optional: disable past dates
+    const today = new Date();
+    const check = new Date(date.year, date.month - 1, date.day);
+    return check < new Date(today.getFullYear(), today.getMonth(), today.getDate());
+  };
+
+  applySelection(modal: any) {
+    this.validationError = '';
+    if (this.fromDate && this.toDate) {
+      const fromDateTime = new Date(
+        this.fromDate.year, this.fromDate.month - 1, this.fromDate.day,
+        this.fromTime.hour, this.fromTime.minute
+      );
+      const toDateTime = new Date(
+        this.toDate.year, this.toDate.month - 1, this.toDate.day,
+        this.toTime.hour, this.toTime.minute
+      );
+
+      if (toDateTime < fromDateTime) {
+        this.validationError = 'End date & time cannot be earlier than start date & time.';
+        return;
+      }
+
+      this.updateSelectedRange();
+      modal.close();
+    }
+  }
+
+  updateSelectedRange() {
+    if (this.fromDate && this.toDate) {
+      const fromDateTime = new Date(
+        this.fromDate.year, this.fromDate.month - 1, this.fromDate.day,
+        this.fromTime.hour, this.fromTime.minute
+      );
+      const toDateTime = new Date(
+        this.toDate.year, this.toDate.month - 1, this.toDate.day,
+        this.toTime.hour, this.toTime.minute
+      );
+
+      const fromFormatted = this.datePipe.transform(fromDateTime, 'dd/MM/yyyy hh:mm a', 'IST');
+      const toFormatted = this.datePipe.transform(toDateTime, 'dd/MM/yyyy hh:mm a', 'IST');
+
+      this.selectedRange = `[ ${fromFormatted} ] → [ ${toFormatted} ]`;
+      this.selectedFromFormattedRange = fromFormatted || '';
+      this.selectedToFormattedRange = toFormatted || '';
+    }
+  }
+
+  isInvalid(date: NgbDateStruct): boolean {
+    if (this.fromDate && this.toDate) {
+      // highlight everything if invalid
+      const fromDateTime = new Date(
+        this.fromDate.year, this.fromDate.month - 1, this.fromDate.day,
+        this.fromTime.hour, this.fromTime.minute
+      );
+      const toDateTime = new Date(
+        this.toDate.year, this.toDate.month - 1, this.toDate.day,
+        this.toTime.hour, this.toTime.minute
+      );
+      return toDateTime < fromDateTime;
+    }
+    return false;
+  }
+  setDefaultRange() {
+    const now = new Date();
+
+    // fromDate = today
+    this.fromDate = { year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate() };
+    this.fromTime = { hour: now.getHours(), minute: now.getMinutes(), second: 0 };
+
+    // toDate = tomorrow
+    const tomorrow = new Date(now);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    this.toDate = { year: tomorrow.getFullYear(), month: tomorrow.getMonth() + 1, day: tomorrow.getDate() };
+    this.toTime = { hour: now.getHours(), minute: now.getMinutes(), second: 0 };
+
+    // ✅ update UI text right away
+    // this.updateSelectedRange();
   }
 
 }
