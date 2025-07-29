@@ -1,6 +1,8 @@
 import { DatePipe } from '@angular/common';
 import { Component, inject, NgZone, TemplateRef } from '@angular/core';
 import { NgbCalendar, NgbDate, NgbDateParserFormatter, NgbDateStruct, NgbModal, NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
+import { DatePickerMethodService } from '../../../../shared/resuable service/date-picker-method.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-anonymous-main-page',
@@ -32,7 +34,11 @@ export class AnonymousMainPageComponent {
   currentLocationName: string = '';
   private geocoder: any;
 
-  constructor(private ngZone: NgZone, private modalService: NgbModal, private datePipe: DatePipe) {
+  constructor(
+    private ngZone: NgZone, private modalService: NgbModal,
+    private datePipe: DatePipe, private datePickerMethod: DatePickerMethodService,
+    private route: ActivatedRoute
+  ) {
     this.setDefaultRange(); // sets fromDate, toDate, fromTime, toTime
     this.updateSelectedRange(); // <-- ensure UI has value on page load
   }
@@ -46,7 +52,16 @@ export class AnonymousMainPageComponent {
     this.endDate = this.toDateTimeLocalString(tomorrow);
 
     // this.calculateDistances();
+    this.route.queryParams.subscribe(params => {
+      const token = params['token'];
+      if (token) {
+        localStorage.setItem('jwt', token);
+        // Optionally remove token from URL
+        window.history.replaceState({}, '', '/home');
+      }
+    });
   }
+
 
   ngAfterViewInit(): void {
     const input = document.getElementById('locationInput') as HTMLInputElement;

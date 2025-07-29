@@ -1,15 +1,38 @@
 <mat-toolbar>
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-        <mat-icon>menu</mat-icon>
-    </button>
-    <span>SmartDrive</span>
-    <span class="example-spacer"></span>
-    <!-- <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-        <mat-icon>favorite</mat-icon>
-    </button>
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-        <mat-icon>share</mat-icon>
-    </button> -->
-    <button mat-button color="primary" (click)="openDialog()">Registration</button>
+    <div style="display: flex;justify-content: space-between;align-items: center;align-content: center;width: 100%; ">
+        <div style="display: flex;align-items: center;align-content: center;">
+            <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+                <mat-icon>menu</mat-icon>
+            </button>
+            <span>SmartDrive</span>
+        </div>
+        <div *ngIf="true">
+            <!-- Custom Date Range Box -->
+            <div class="date-range-box" *ngIf="true">
+                <div style="display: flex; align-items: center;">
+                    <mat-icon class="location-icon">place</mat-icon>
+                    <div class="location-text">
+                        <input type="text"
+                            style="font-size: 14px;width: 300px;border: none;outline: none;border-bottom: 1px solid black;"
+                            placeholder="From Location" value="2WHC+VR Sengadu, Tamil Nadu, India" />
+                    </div>
+                </div>
+                <div class="date-display">
+                    <div class="date-item">
+                        <span class="date">{{ fromDateDisplay }}</span>
+                        <span class="time">{{ fromTimeDisplay }}</span>
+                    </div>
+                    <div class="date-item">
+                        <span class="date">{{ toDateDisplay }}</span>
+                        <span class="time">{{ toTimeDisplay }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <button mat-button color="primary" (click)="openDialog()">Registration</button>
+        </div>
+    </div>
 </mat-toolbar>
+
 <router-outlet></router-outlet>

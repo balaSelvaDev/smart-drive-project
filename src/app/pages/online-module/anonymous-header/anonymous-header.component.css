@@ -6,6 +6,69 @@ mat-toolbar {
   position: sticky;
   top: 0;
   z-index: 1000;
-  background: white; /* or your preferred color */
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  background: white;
+  /* or your preferred color */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/*  */
+.date-range-box {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 8px 12px;
+  background: white;
+  cursor: pointer;
+  min-width: 500px;
+  justify-content: space-between;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.location-icon {
+  color: #444;
+  margin-right: 8px;
+}
+
+.location-text {
+  /* flex: 1;
+  font-size: 14px;
+  color: #333;
+  margin-right: 15px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; */
+}
+
+.date-display {
+  display: flex;
+  gap: 16px;
+}
+
+.date-item {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.date-item .date {
+  font-family: "IBM Plex Sans";
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 20px;
+  letter-spacing: 0px;
+  color: #1C1C1C;
+  text-align: center;
+}
+
+.date-item .time {
+  font-family: "IBM Plex Sans";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0px;
+  color: #1C1C1C;
+  color: #6D6D6D;
+  text-align: left;
 }

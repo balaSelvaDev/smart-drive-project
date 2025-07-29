@@ -3,6 +3,7 @@ import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/fo
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { RegistrationService } from '../../../../core/services/online-module/Registration/registration.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-customer-login-popup',
@@ -31,7 +32,8 @@ export class CustomerLoginPopupComponent {
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<CustomerLoginPopupComponent>,
     private router: Router,
-    private registrationService: RegistrationService
+    private registrationService: RegistrationService,
+    private httpClient: HttpClient
   ) { }
 
   ngOnInit(): void {
@@ -266,4 +268,21 @@ export class CustomerLoginPopupComponent {
       this.loginForm.markAllAsTouched();
     }
   }
+
+  // Function to handle Google login
+  loginWithGoogle(): void {
+    // window.location.href = 'http://localhost:8080/oauth2/authorization/google';
+    window.location.href = 'http://localhost:9095/oauth2/authorization/google';
+    // this.http.post(`${this.loginApi}`, loginData);
+    // this.httpClient.get('http://localhost:9095/oauth2/authorization/google').subscribe({
+    //   next: (res) => {
+    //     console.log('Login successful', res);
+    //     alert('Login successful! Welcome back.');
+    //   },
+    //   error: (err) => {
+    //     console.error('Failed to log in', err);
+    //   },
+    // });
+  }
+
 }

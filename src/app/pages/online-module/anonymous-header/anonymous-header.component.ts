@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { CustomerLoginPopupComponent } from '../anonymous/customer-login-popup/customer-login-popup.component';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-anonymous-header',
@@ -10,7 +11,15 @@ import { CustomerLoginPopupComponent } from '../anonymous/customer-login-popup/c
 })
 export class AnonymousHeaderComponent {
 
-  constructor(private router: Router, private dialog: MatDialog) { }
+
+  fromDateDisplay: string = '';
+  toDateDisplay: string = '';
+  fromTimeDisplay: string = '';
+  toTimeDisplay: string = '';
+
+  constructor(private router: Router, private dialog: MatDialog, private datePipe: DatePipe) {
+    this.setDefaultValues();
+  }
 
   openDialog() {
     const myObject = {
@@ -27,5 +36,19 @@ export class AnonymousHeaderComponent {
       disableClose: true // ✅ This prevents closing on outside click or ESC
     });
   }
+
+  setDefaultValues() {
+    const now = new Date();
+    const tomorrow = new Date();
+    tomorrow.setDate(now.getDate() + 1);
+
+    this.fromDateDisplay = this.datePipe.transform(now, 'dd MMM')!;
+    this.fromTimeDisplay = this.datePipe.transform(now, 'h:mm a')!;
+
+    this.toDateDisplay = this.datePipe.transform(tomorrow, 'dd MMM')!;
+    this.toTimeDisplay = this.datePipe.transform(now, 'h:mm a')!;
+  }
+
+
 
 }
