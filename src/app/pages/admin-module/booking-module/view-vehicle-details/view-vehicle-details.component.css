@@ -1,0 +1,38 @@
+.section-title {
+    font-size: 1.15rem;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #2c3e50;
+    border-left: 4px solid #0d6efd;
+    padding-left: 6px;
+}
+
+.list-group-item {
+    border: none;
+    padding: 6px 0;
+}
+
+.carousel-inner img {
+    height: 250px;
+    object-fit: cover;
+}
+
+.modal-body {
+    max-height: 75vh;
+    overflow-y: auto;
+}
+
+mat-card {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.carousel-inner img {
+    height: 250px;
+    object-fit: cover;
+}
+
+.text-center {
+    text-align: center;
+    color: #666;
+}

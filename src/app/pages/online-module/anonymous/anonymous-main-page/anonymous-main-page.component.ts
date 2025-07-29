@@ -312,7 +312,9 @@ export class AnonymousMainPageComponent {
   }
 
   updateSelectedRange() {
+    console.log("updateSelectedRange method..");
     if (this.fromDate && this.toDate) {
+      console.log("updateSelectedRange method 1 ..");
       const fromDateTime = new Date(
         this.fromDate.year, this.fromDate.month - 1, this.fromDate.day,
         this.fromTime.hour, this.fromTime.minute

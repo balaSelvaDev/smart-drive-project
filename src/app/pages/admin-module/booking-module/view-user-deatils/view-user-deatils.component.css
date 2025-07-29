@@ -1,0 +1,48 @@
+.user-details-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  padding: 20px;
+}
+
+.profile-card {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.profile-pic {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%; /* makes it a circle */
+  object-fit: cover;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.kyc-card {
+  padding: 16px;
+}
+
+.kyc-card a {
+  display: inline-block;
+  margin-top: 8px;
+  color: #1976d2;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.kyc-card a:hover {
+  text-decoration: underline;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}

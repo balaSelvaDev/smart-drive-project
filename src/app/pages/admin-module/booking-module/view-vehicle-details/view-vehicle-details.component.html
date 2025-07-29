@@ -1,0 +1,122 @@
+<div class="modal-header">
+    <h4 class="modal-title m-0">{{ vehicle.vehicleName }}</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="close()"></button>
+</div>
+
+<div class="modal-body">
+    <!-- Vehicle Images Carousel -->
+    <div *ngIf="vehicle.vehicleImagesList && vehicle.vehicleImagesList.length > 0; else noImages">
+        <mat-card class="mb-3">
+            <div id="vehicleImagesCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div *ngFor="let img of vehicle.vehicleImagesList; let i = index" class="carousel-item"
+                        [class.active]="i === 0">
+                        <img [src]="img.imageUrl" class="d-block w-100 rounded shadow" alt="Vehicle image" style="height: 400px;">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#vehicleImagesCarousel"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#vehicleImagesCarousel"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </button>
+            </div>
+        </mat-card>
+    </div>
+
+    <!-- Fallback message -->
+    <ng-template #noImages>
+        <mat-card class="text-center p-4">
+            <mat-icon style="font-size: 48px; color: gray;">image_not_supported</mat-icon>
+            <span>No vehicle images available</span>
+        </mat-card>
+    </ng-template>
+
+
+    <!-- Basic Info -->
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <h5 class="section-title">Basic Information</h5>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><strong>Brand:</strong>
+                    {{vehicle.vehicleModelResponseDTO.brandOnlyDTO.brandName}}</li>
+                <li class="list-group-item"><strong>Model:</strong> {{vehicle.vehicleModelResponseDTO.modelName}}</li>
+                <li class="list-group-item"><strong>Registration:</strong> {{vehicle.registrationNo}}</li>
+                <li class="list-group-item"><strong>Year:</strong> {{vehicle.yearOfManufacture}}</li>
+                <li class="list-group-item"><strong>Color:</strong> {{vehicle.color}}</li>
+                <li class="list-group-item"><strong>Status:</strong> {{vehicle.vehicleStatus}}</li>
+                <li class="list-group-item"><strong>Available:</strong> {{vehicle.available ? 'Yes' : 'No'}}</li>
+            </ul>
+        </div>
+
+        <div class="col-md-6">
+            <h5 class="section-title">Specifications</h5>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><strong>Fuel Type:</strong> {{vehicle.fuelType}}</li>
+                <li class="list-group-item"><strong>Seating:</strong> {{vehicle.seatingCapacity}}</li>
+                <li class="list-group-item"><strong>Mileage:</strong> {{vehicle.mileagePerLitre}} km/l</li>
+                <li class="list-group-item"><strong>Fuel Capacity:</strong> {{vehicle.fuelCapacity}} L</li>
+                <li class="list-group-item"><strong>Engine CC:</strong> {{vehicle.engineCc}}</li>
+                <li class="list-group-item"><strong>Torque:</strong> {{vehicle.torque}}</li>
+                <li class="list-group-item"><strong>Horsepower:</strong> {{vehicle.horsepower}} HP</li>
+            </ul>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Insurance & Safety -->
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <h5 class="section-title">Insurance & Safety</h5>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><strong>Insured:</strong> {{vehicle.insured ? 'Yes' : 'No'}}</li>
+                <li class="list-group-item"><strong>Expiry:</strong> {{vehicle.insuranceExpiryDate | date:'mediumDate'}}
+                </li>
+                <li class="list-group-item"><strong>Last Update:</strong> {{vehicle.lastUpdatedInsuranceDate |
+                    date:'mediumDate'}}</li>
+                <li class="list-group-item"><strong>Airbags:</strong> {{vehicle.hasAirbags ? 'Yes' : 'No'}}</li>
+                <li class="list-group-item"><strong>ABS:</strong> {{vehicle.hasAbs ? 'Yes' : 'No'}}</li>
+            </ul>
+        </div>
+
+        <div class="col-md-6">
+            <h5 class="section-title">Features</h5>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><strong>GPS:</strong> {{vehicle.hasGps ? 'Yes' : 'No'}}</li>
+                <li class="list-group-item"><strong>Music System:</strong> {{vehicle.hasMusicSystem ? 'Yes' : 'No'}}
+                </li>
+                <li class="list-group-item"><strong>Reverse Camera:</strong> {{vehicle.hasReverseCamera ? 'Yes' : 'No'}}
+                </li>
+                <li class="list-group-item"><strong>Sunroof:</strong> {{vehicle.hasSunroof ? 'Yes' : 'No'}}</li>
+            </ul>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Client Location -->
+    <div>
+        <h5 class="section-title">Client Location</h5>
+        <p><strong>{{vehicle.clientLocation.displayName}}</strong></p>
+        <p>{{vehicle.clientLocation.address}}, {{vehicle.clientLocation.pincode}}</p>
+        <a [href]="vehicle.clientLocation.googleMapUrl" target="_blank" class="btn btn-outline-primary btn-sm">
+            View on Google Maps
+        </a>
+    </div>
+
+    <hr>
+
+    <!-- Pricing Info -->
+    <div class="row mt-3">
+        <div class="col-md-4"><strong>Price Per Km:</strong> ₹{{vehicle.pricePerKm}}</div>
+        <div class="col-md-4"><strong>Convenience Fee:</strong> ₹{{vehicle.convenienceFee}}</div>
+        <div class="col-md-4"><strong>Refundable Amount:</strong> ₹{{vehicle.refundableAmt}}</div>
+    </div>
+</div>
+
+<!-- <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="close()">Close</button>
+</div> -->

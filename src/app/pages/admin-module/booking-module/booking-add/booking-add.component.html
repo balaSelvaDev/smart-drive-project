@@ -1,12 +1,12 @@
 <form [formGroup]="bookingForm" (ngSubmit)="onSubmit()">
 
-    <div style="width: 100%;display: flex; flex-direction: column;">
-        <div style="width: 100%;display: flex; flex-direction: row;">
+    <div style="width: 100%;display: flex; flex-direction: column;align-items: center;align-content: center;">
+        <div style="width: 100%;display: flex;align-items: center;align-content: center;">
             <div class="container">
                 <div class="inputField">
                     <input id="userName" type="text" formControlName="userId" class="input-level-1"
                         [formControl]="userNameSearchControl" [matAutocomplete]="userNameAuto" autocomplete="off"
-                        placeholder=" " />
+                        placeholder=" " #userInput (input)="onInputChangeUser(userInput.value)" />
                     <label for="userName">User name:</label>
                     <mat-autocomplete #userNameAuto="matAutocomplete">
                         <mat-option *ngFor="let item of userNameFilteredOptions" (click)="setUserIdInForm(item)">
@@ -15,13 +15,17 @@
                     </mat-autocomplete>
                 </div>
             </div>
+            <button mat-icon-button class="example-icon ms-2" aria-label="Example icon-button with menu icon"
+                *ngIf="isUserDetailsVisible" (click)="openUserDialog()">
+                <mat-icon>remove_red_eye</mat-icon>
+            </button>
 
 
             <div class="container">
                 <div class="inputField">
                     <input id="vehicleName" type="text" formControlName="vehicleId" class="input-level-1"
                         [formControl]="vehicleNameSearchControl" [matAutocomplete]="vehicleNameAuto" autocomplete="off"
-                        placeholder=" " />
+                        placeholder=" " #vehicleInput (input)="onInputChangeVehicle(vehicleInput.value)" />
                     <label for="vehicleName">Vehicle Name:</label>
                     <mat-autocomplete #vehicleNameAuto="matAutocomplete">
                         <mat-option *ngFor="let item of vehicleNameFilteredOptions" (click)="setVehicleIdInForm(item)">
@@ -30,6 +34,10 @@
                     </mat-autocomplete>
                 </div>
             </div>
+            <button mat-icon-button class="example-icon ms-2" aria-label="Example icon-button with menu icon"
+                *ngIf="isVehicleDetailsVisible" (click)="openVehicleDialog()">
+                <mat-icon>remove_red_eye</mat-icon>
+            </button>
 
             <div class="container">
                 <div class="inputField">
@@ -50,17 +58,26 @@
         <div style="width: 100%;display: flex; flex-direction: row;">
             <div class="container">
                 <div class="inputField">
-                    <input id="startDate" type="date" formControlName="startDate" class="input-level-1"
-                        autocomplete="off" placeholder=" " />
-                    <label for="startDate">Start Date:</label>
+                    <!-- <input id="startDate" type="date" formControlName="startDate" class="input-level-1"
+                        autocomplete="off" placeholder=" " /> -->
+                    <input type="text" id="startDate" name="startDate" placeholder="Enter a location"
+                        class="location-input input-level-1" (click)="openPicker(pickerModal)"
+                        formControlName="startDate" readonly>
+                    <!-- value="{{this.selectedFromFormattedRange}}" -->
+                    <!-- <label for="startDate">Start Date:</label> -->
+
                 </div>
             </div>
 
             <div class="container">
                 <div class="inputField">
-                    <input id="endDate" type="date" formControlName="endDate" class="input-level-1" autocomplete="off"
-                        placeholder=" " />
-                    <label for="endDate">End Date:</label>
+                    <!-- <input id="endDate" type="date" formControlName="endDate" class="input-level-1" autocomplete="off"
+                        placeholder=" " /> -->
+                    <input type="text" id="endDate" name="endDate" placeholder="Enter a location"
+                        class="location-input  input-level-1" (click)="openPicker(pickerModal)"
+                        formControlName="endDate" readonly>
+                    <!-- value="{{this.selectedToFormattedRange}}" -->
+                    <!-- <label for="endDate">End Date:</label> -->
                 </div>
             </div>
 
@@ -71,20 +88,15 @@
                     <label for="drivingLicenseNumber">Driving License Number:</label>
                 </div>
             </div>
+        </div>
 
-        </div>
-        <div>
-            <!-- <div>
-                <input type="checkbox" id="isClientLocationRequired" name="isClientLocationRequired"
-                    formControlName="isClientLocationRequired" />
-                <label for="isClientLocationRequired">Is Client Location Required?</label>
-            </div> -->
-            <section class="example-section">
-                <mat-checkbox class="example-margin" formControlName="isClientLocationRequired"
-                    [(ngModel)]="isClientLocationRequired">Is Client Location Required?</mat-checkbox>
-            </section>
-        </div>
-        <div style="width: 100%;display: flex; flex-direction: row;">
+        <div style="width: 100%;display: flex;align-items: center;align-content: center;">
+            <div class="">
+                <section class="example-section">
+                    <mat-checkbox class="example-margin" formControlName="isClientLocationRequired"
+                        (click)="isClientLocation()">Is Client Location?</mat-checkbox>
+                </section>
+            </div>
             <div class="container" *ngIf="isClientLocationRequired">
                 <div class="inputField">
                     <select id="clientLocationId" formControlName="clientLocationId" class="input-level-1"
@@ -107,10 +119,13 @@
                 <div class="inputField">
                     <input id="end" type="text" (blur)="blurMethod()" formControlName="dropLocation"
                         class="input-level-1" autocomplete="off" placeholder=" " />
-                    <label for="dropLocation">Drop Location:</label>
+                    <label for="pickupLocation">Drop Location:</label>
                 </div>
             </div>
-            <button (click)="resetMap()"><mat-icon> place</mat-icon></button>
+            <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon"
+                (click)="resetMap()">
+                <mat-icon> add_location</mat-icon>
+            </button>
 
             <div class="container">
                 <div class="inputField">
@@ -129,3 +144,54 @@
     <button type="submit" [disabled]="bookingForm.invalid">Add Booking</button>
 </form>
 <!-- <div id="map" style="height: 500px; width: 100%; margin-top: 10px;"></div> -->
+
+<div style="width: 100%; height: 500px;">
+    <ng-template #pickerModal let-modal>
+        <div class="modal-header bg-primary text-white">
+            <h5 class="modal-title">Select Trip Date & Time</h5>
+            <button type="button" class="btn-close btn-close-white" (click)="modal.dismiss()"></button>
+        </div>
+
+        <div class="modal-body">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <!-- Two months side by side -->
+                <ngb-datepicker #dp [displayMonths]="2" [dayTemplate]="t" outsideDays="hidden"
+                    (dateSelect)="onDateSelection($event)"
+                    [startDate]="fromDate || {year: today.getFullYear(), month: today.getMonth()+1}"
+                    [markDisabled]="isDisabled">
+                </ngb-datepicker>
+            </div>
+
+            <ng-template #t let-date let-focused="focused">
+                <span class="custom-day" [class.focused]="focused" [class.range]="isRange(date)"
+                    [class.filled]="isInside(date)" [class.start]="isFrom(date)" [class.end]="isTo(date)"
+                    [class.invalid]="isInvalid(date)">
+                    {{ date.day }}
+                </span>
+            </ng-template>
+
+            <!-- Time Pickers -->
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <label class="fw-bold">From Time</label>
+                    <ngb-timepicker [(ngModel)]="fromTime" [meridian]="true"></ngb-timepicker>
+                </div>
+                <div class="col-md-6">
+                    <label class="fw-bold">To Time</label>
+                    <ngb-timepicker [(ngModel)]="toTime" [meridian]="true"></ngb-timepicker>
+                </div>
+            </div>
+
+            <!-- Validation error -->
+            <div *ngIf="validationError" class="alert alert-danger mt-3">
+                {{ validationError }}
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button class="btn btn-outline-secondary" (click)="modal.dismiss()">Cancel</button>
+            <button class="btn btn-success" [disabled]="validationError !== ''"
+                (click)="applySelection(modal)">Apply</button>
+        </div>
+    </ng-template>
+</div>

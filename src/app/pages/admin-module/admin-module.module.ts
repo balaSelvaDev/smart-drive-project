@@ -29,6 +29,9 @@ import { VehicleDeleteComponent } from './vehicle/vehicle-delete/vehicle-delete.
 import { OnlyNumbersDirective } from '../../shared/directives/only-numbers.directive';
 import { GoogleMapComponent } from './testing-module/google-map/google-map.component';
 import { GoogleMap2Component } from './testing-module/google-map2/google-map2.component';
+import { ViewVehicleDetailsComponent } from './booking-module/view-vehicle-details/view-vehicle-details.component';
+import { ViewUserDeatilsComponent } from './booking-module/view-user-deatils/view-user-deatils.component';
+import { NgbDatepickerModule, NgbTimepickerModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -58,7 +61,9 @@ import { GoogleMap2Component } from './testing-module/google-map2/google-map2.co
     VehicleDeleteComponent,
     OnlyNumbersDirective,
     GoogleMapComponent,
-    GoogleMap2Component
+    GoogleMap2Component,
+    ViewVehicleDetailsComponent,
+    ViewUserDeatilsComponent
   ],
   imports: [
     CommonModule,
@@ -67,7 +72,9 @@ import { GoogleMap2Component } from './testing-module/google-map2/google-map2.co
     HttpClientModule,
     MaterialModule,
     MatPaginatorModule,
-    FormsModule
+    FormsModule,
+    NgbDatepickerModule,
+    NgbTimepickerModule
   ]
 })
 export class AdminModuleModule { }

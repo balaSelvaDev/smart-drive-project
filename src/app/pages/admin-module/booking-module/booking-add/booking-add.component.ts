@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, TemplateRef, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../../../core/services/admin-service/user-module/user.service';
 import { Router } from '@angular/router';
@@ -7,6 +7,11 @@ import { BookingService } from '../../../../core/services/admin-service/booking-
 import { catchError, debounceTime, distinctUntilChanged, of, startWith, switchMap } from 'rxjs';
 import { BookingAddRequestDTO } from '../../../../core/models/classes/booking-module/booking-add-request-dto';
 import { VehicleService } from '../../../../core/services/admin-service/vehicle-module/vehicle.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ViewVehicleDetailsComponent } from '../view-vehicle-details/view-vehicle-details.component';
+import { NgbDateStruct, NgbModal, NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
+import { DatePipe } from '@angular/common';
+import { ViewUserDeatilsComponent } from '../view-user-deatils/view-user-deatils.component';
 
 @Component({
   selector: 'app-booking-add',
@@ -41,6 +46,8 @@ export class BookingAddComponent {
   endLocation: google.maps.LatLng | null = null;
 
   @ViewChild('myInput') myInputRef!: ElementRef<HTMLInputElement>;
+  isVehicleDetailsVisible: boolean = false;
+  isUserDetailsVisible: boolean = false;
 
   ngAfterViewInit() {
     this.initMap();
@@ -48,7 +55,11 @@ export class BookingAddComponent {
     this.initMapClick();
   }
 
-  constructor(private vehicleService: VehicleService, private bookingService: BookingService, private router: Router, private http: HttpClient
+  constructor(
+    private vehicleService: VehicleService, private bookingService: BookingService,
+    private router: Router, private http: HttpClient,
+    private dialog: MatDialog, private datePipe: DatePipe,
+    private modalService: NgbModal, private userService: UserService
   ) {
 
   }
@@ -124,6 +135,8 @@ export class BookingAddComponent {
         console.error('Failed to get client location', err);
       },
     });
+    this.setDefaultRange(); // sets fromDate, toDate, fromTime, toTime
+    this.updateSelectedRange(); // <-- ensure UI has value on page load
   }
 
   setUserIdInForm(item: any) {
@@ -133,6 +146,7 @@ export class BookingAddComponent {
     this.userNameFilteredOptions = []; // Clear the options after selection
     console.log('Selected user:', item.userName);
     this.bookingForm.controls['drivingLicenseNumber'].setValue(item.drivingLicense);
+    this.isUserDetailsVisible = true;
   }
 
   setVehicleIdInForm(item: any) {
@@ -145,6 +159,23 @@ export class BookingAddComponent {
     console.log('Selected vehicle:', item.vehicleName);
     this.bookingForm.controls['brandName'].setValue(item.brandName);
     this.bookingForm.controls['vehicleModelName'].setValue(item.vehicleModelName);
+    this.isVehicleDetailsVisible = true;
+  }
+
+  onInputChangeVehicle(value: string) {
+    console.log('Current Input Value:', value);
+    if (value === "") {
+      console.log("empty");
+      this.isVehicleDetailsVisible = false;
+    }
+  }
+
+  onInputChangeUser(value: string) {
+    console.log('Current Input Value:', value);
+    if (value === "") {
+      console.log("empty");
+      this.isUserDetailsVisible = false;
+    }
   }
 
 
@@ -346,6 +377,218 @@ export class BookingAddComponent {
     this.bookingForm.controls['pickupLocation'].setValue(selectedLocation.locationName);
     this.myInputRef.nativeElement.click();
     this.myInputRef.nativeElement.focus();
+  }
+
+  isClientLocation() {
+    this.isClientLocationRequired = !this.isClientLocationRequired;
+    if (this.isClientLocationRequired) {
+      if (this.clientLocation.length > 0) {
+        this.bookingForm.controls['pickupLocation'].setValue(this.clientLocation[0].locationName);
+      }
+    } else {
+      this.bookingForm.controls['pickupLocation'].setValue("");
+    }
+
+  }
+
+  openVehicleDialog() {
+    const vehicleId = this.bookingForm.get('vehicleId')?.value;
+    console.log('Vehicle ID for dialog:', vehicleId);
+    this.vehicleService.getIndividualVehicleDetails(vehicleId).subscribe({
+      next: (res) => {
+        console.log('Client location data:', res);
+        this.dialog.open(ViewVehicleDetailsComponent, {
+          width: '1200px',
+          height: '560px',
+          data: res, // pass response directly
+          panelClass: 'custom-dialog-container'
+          // ,disableClose: true
+        });
+      },
+      error: (err) => {
+        console.error('Failed to get client location', err);
+      },
+    });
+  }
+
+  openUserDialog() {
+    const vehicleId = this.bookingForm.get('userId')?.value;
+    console.log('Vehicle ID for dialog:', vehicleId);
+    this.userService.getUsersById(vehicleId).subscribe({
+      next: (res) => {
+        console.log('Client location data:', res);
+        this.dialog.open(ViewUserDeatilsComponent, {
+          width: '1200px',
+          height: '560px',
+          data: res, // pass response directly
+          panelClass: 'custom-dialog-container'
+          // ,disableClose: true
+        });
+      },
+      error: (err) => {
+        console.error('Failed to get client location', err);
+      },
+    });
+  }
+
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  // datepicker function code
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  fromDate: NgbDateStruct | null = null;
+  toDate: NgbDateStruct | null = null;
+  hoveredDate: NgbDateStruct | null = null;
+
+  fromTime: NgbTimeStruct = { hour: 9, minute: 0, second: 0 };
+  toTime: NgbTimeStruct = { hour: 17, minute: 0, second: 0 };
+
+  today = new Date();
+  selectedRange: string = '';
+  validationError: string = '';
+
+  selectedFromFormattedRange: string = '';
+  selectedToFormattedRange: string = '';
+
+  openPicker(content: TemplateRef<any>) {
+    this.modalService.open(content, { size: 'lg', centered: true });
+  }
+
+  onDateSelection(date: NgbDateStruct) {
+    if (!this.fromDate && !this.toDate) {
+      this.fromDate = date;
+    } else if (this.fromDate && !this.toDate && this.after(date, this.fromDate)) {
+      this.toDate = date;
+    } else {
+      this.toDate = null;
+      this.fromDate = date;
+    }
+  }
+
+  isFrom(date: NgbDateStruct) {
+    return this.fromDate && this.equals(date, this.fromDate);
+  }
+
+  isTo(date: NgbDateStruct) {
+    return this.toDate && this.equals(date, this.toDate);
+  }
+
+  isInside(date: NgbDateStruct) {
+    return this.toDate && this.fromDate && this.after(date, this.fromDate) && this.before(date, this.toDate);
+  }
+
+  isRange(date: NgbDateStruct) {
+    return this.isFrom(date) || this.isTo(date) || this.isInside(date);
+  }
+
+  equals(one: NgbDateStruct, two: NgbDateStruct) {
+    return one.year === two.year && one.month === two.month && one.day === two.day;
+  }
+
+  before(one: NgbDateStruct, two: NgbDateStruct) {
+    if (one.year === two.year) {
+      if (one.month === two.month) {
+        return one.day < two.day;
+      }
+      return one.month < two.month;
+    }
+    return one.year < two.year;
+  }
+
+  after(one: NgbDateStruct, two: NgbDateStruct) {
+    if (one.year === two.year) {
+      if (one.month === two.month) {
+        return one.day > two.day;
+      }
+      return one.month > two.month;
+    }
+    return one.year > two.year;
+  }
+
+  isDisabled = (date: NgbDateStruct) => {
+    // Optional: disable past dates
+    const today = new Date();
+    const check = new Date(date.year, date.month - 1, date.day);
+    return check < new Date(today.getFullYear(), today.getMonth(), today.getDate());
+  };
+
+  applySelection(modal: any) {
+    this.validationError = '';
+    if (this.fromDate && this.toDate) {
+      const fromDateTime = new Date(
+        this.fromDate.year, this.fromDate.month - 1, this.fromDate.day,
+        this.fromTime.hour, this.fromTime.minute
+      );
+      const toDateTime = new Date(
+        this.toDate.year, this.toDate.month - 1, this.toDate.day,
+        this.toTime.hour, this.toTime.minute
+      );
+
+      if (toDateTime < fromDateTime) {
+        this.validationError = 'End date & time cannot be earlier than start date & time.';
+        return;
+      }
+
+      this.updateSelectedRange();
+      modal.close();
+    }
+  }
+
+  updateSelectedRange() {
+    console.log("updateSelectedRange method..");
+    if (this.fromDate && this.toDate) {
+      console.log("updateSelectedRange method 1 ..");
+      const fromDateTime = new Date(
+        this.fromDate.year, this.fromDate.month - 1, this.fromDate.day,
+        this.fromTime.hour, this.fromTime.minute
+      );
+      const toDateTime = new Date(
+        this.toDate.year, this.toDate.month - 1, this.toDate.day,
+        this.toTime.hour, this.toTime.minute
+      );
+
+      const fromFormatted = this.datePipe.transform(fromDateTime, 'dd/MM/yyyy hh:mm a', 'IST');
+      const toFormatted = this.datePipe.transform(toDateTime, 'dd/MM/yyyy hh:mm a', 'IST');
+
+      this.selectedRange = `[ ${fromFormatted} ] → [ ${toFormatted} ]`;
+      this.selectedFromFormattedRange = fromFormatted || '';
+      this.selectedToFormattedRange = toFormatted || '';
+      this.bookingForm.controls['startDate'].setValue(this.selectedFromFormattedRange);
+      this.bookingForm.controls['endDate'].setValue(this.selectedToFormattedRange);
+
+    }
+  }
+
+  isInvalid(date: NgbDateStruct): boolean {
+    if (this.fromDate && this.toDate) {
+      // highlight everything if invalid
+      const fromDateTime = new Date(
+        this.fromDate.year, this.fromDate.month - 1, this.fromDate.day,
+        this.fromTime.hour, this.fromTime.minute
+      );
+      const toDateTime = new Date(
+        this.toDate.year, this.toDate.month - 1, this.toDate.day,
+        this.toTime.hour, this.toTime.minute
+      );
+      return toDateTime < fromDateTime;
+    }
+    return false;
+  }
+  setDefaultRange() {
+    const now = new Date();
+
+    // fromDate = today
+    this.fromDate = { year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate() };
+    this.fromTime = { hour: now.getHours(), minute: now.getMinutes(), second: 0 };
+
+    // toDate = tomorrow
+    const tomorrow = new Date(now);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    this.toDate = { year: tomorrow.getFullYear(), month: tomorrow.getMonth() + 1, day: tomorrow.getDate() };
+    this.toTime = { hour: now.getHours(), minute: now.getMinutes(), second: 0 };
+
+    // ✅ update UI text right away
+    // this.updateSelectedRange();
   }
 
 }

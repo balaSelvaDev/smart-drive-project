@@ -1,0 +1,67 @@
+<div class="user-details-container">
+
+    <!-- Profile Section -->
+    <mat-card class="profile-card">
+        <div class="profile-header">
+            <img *ngIf="user.userKycImageResponseDTO?.PROFILE?.length"
+                [src]="user.userKycImageResponseDTO.PROFILE[0].imageUrl" class="profile-pic" alt="Profile Image">
+            <div>
+                <h2>{{ user.userDetailsResponseDTO.fullName }}</h2>
+                <p><mat-icon>email</mat-icon> {{ user.userDetailsResponseDTO.email }}</p>
+                <p><mat-icon>phone</mat-icon> {{ user.userDetailsResponseDTO.phoneNumber }}</p>
+            </div>
+        </div>
+    </mat-card>
+
+    <!-- Driving License Section -->
+    <mat-card class="kyc-card">
+        <h3>Driving License</h3>
+        <p><strong>License No:</strong> {{ user.userKycDetailsResponseDTO.drivingLicenseNumber }}</p>
+        <a *ngIf="user.userKycImageResponseDTO?.DRIVING_LICENSE?.length"
+            [href]="user.userKycImageResponseDTO.DRIVING_LICENSE[0].imageUrl" target="_blank">
+            View Driving License
+        </a>
+    </mat-card>
+
+    <!-- ID Proof Section -->
+    <mat-card class="kyc-card">
+        <h3>ID Proof</h3>
+        <p><strong>Type:</strong> {{ user.userKycDetailsResponseDTO.idProofType }}</p>
+        <p><strong>Number:</strong> {{ user.userKycDetailsResponseDTO.idProofNumber }}</p>
+
+        <!-- Aadhaar -->
+        <div *ngIf="user.userKycImageResponseDTO?.AADHAAR?.length">
+            <a [href]="user.userKycImageResponseDTO.AADHAAR[0].imageUrl" target="_blank">
+                View Aadhaar Card
+            </a>
+        </div>
+
+        <!-- PAN -->
+        <div *ngIf="user.userKycImageResponseDTO?.PAN_CARD?.length">
+            <a [href]="user.userKycImageResponseDTO.PAN_CARD[0].imageUrl" target="_blank">
+                View PAN Card
+            </a>
+        </div>
+
+        <!-- Passport -->
+        <div *ngIf="user.userKycImageResponseDTO?.PASSPORT?.length">
+            <a [href]="user.userKycImageResponseDTO.PASSPORT[0].imageUrl" target="_blank">
+                View Passport
+            </a>
+        </div>
+    </mat-card>
+
+    <!-- Address Section -->
+    <mat-card class="kyc-card">
+        <h3>Address</h3>
+        <p>{{ user.userKycDetailsResponseDTO.addressLine1 }}, {{ user.userKycDetailsResponseDTO.addressLine2 }}</p>
+        <p>{{ user.userKycDetailsResponseDTO.taluk }}, {{ user.userKycDetailsResponseDTO.district }}</p>
+        <p>{{ user.userKycDetailsResponseDTO.state }}, {{ user.userKycDetailsResponseDTO.country }} - {{
+            user.userKycDetailsResponseDTO.pincode }}</p>
+    </mat-card>
+
+</div>
+
+<div class="actions">
+    <button mat-raised-button color="primary" (click)="close()">Close</button>
+</div>
