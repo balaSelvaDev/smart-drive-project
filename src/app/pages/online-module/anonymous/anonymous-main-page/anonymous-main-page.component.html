@@ -1,36 +1,46 @@
-<div style="width: 100%;height: 420px;background-color: grey;display: flex;">
+<div style="width: 100%;height: 460px;background-color: grey;display: flex;">
     <div
         style="display: flex; justify-content: center; align-items: center;height: 100%;flex-direction: column;width: 100%;border: white 1px solid;">
-        <div>
-            <h1 style="color: white;">Welcome to the Anonymous Main Page <span style="color: green">Madurai</span></h1>
-        </div>
-        <div style="width: 400px; margin-top: 20px;">
-            <input type="text" id="locationInput" placeholder="Enter a location" class="location-input"
-                style="width: 100%; padding: 10px; box-sizing: border-box; border-radius: 4px; border: 1px solid #ccc;">
-        </div>
-        <div style="display: flex; margin-top: 20px;width: 400px;">
+        <form [formGroup]="locationAndDate">
             <div>
-                <label for="startDate">Start Date:</label>
-                <!-- <input type="datetime-local" id="startDate" name="startDate" [value]="startDate" /> -->
-                <input type="text" id="startDate" name="startDate" placeholder="Enter a location" class="location-input"
-                    (click)="openPicker(pickerModal)" value="{{this.selectedFromFormattedRange}}"
-                    style="width: 100%; padding: 10px; box-sizing: border-box; border-radius: 4px; border: 1px solid #ccc;"
-                    [disabled]="validationError !== ''" readonly>
+                <h1 style="color: white;">Welcome to the Anonymous Main Page <span style="color: green">Madurai</span>
+                </h1>
+            </div>
+            <div style="width: 400px; margin-top: 20px;">
+                <label for="pickup">Pickup location:</label>
+                <input type="text" id="pickup" placeholder="Enter a location" class="location-input" formControlName="pickupLocation"
+                    style="width: 100%; padding: 10px; box-sizing: border-box; border-radius: 4px; border: 1px solid #ccc;">
+            </div>
+            <div style="width: 400px; margin-top: 20px;">
+                <label for="drop">Drop location:</label>
+                <input type="text" id="drop" placeholder="Enter a location" class="location-input" formControlName="dropLocation"
+                    style="width: 100%; padding: 10px; box-sizing: border-box; border-radius: 4px; border: 1px solid #ccc;">
+            </div>
+            <div style="display: flex; margin-top: 20px;width: 400px;">
+                <div>
+                    <label for="startDate">Start Date:</label>
+                    <!-- <input type="datetime-local" id="startDate" name="startDate" [value]="startDate" /> -->
+                    <input type="text" id="startDate" name="startDate" placeholder="Enter a location"
+                        class="location-input" (click)="openPicker(pickerModal)" formControlName="pickupDateTime"
+                        value="{{this.selectedFromFormattedRange}}"
+                        style="width: 100%; padding: 10px; box-sizing: border-box; border-radius: 4px; border: 1px solid #ccc;"
+                         readonly>
+                </div>
+                <div>
+                    <label for="endDate">End Date:</label>
+                    <!-- <input type="datetime-local" id="endDate" name="endDate" [value]="endDate" /> -->
+                    <input type="text" id="endDate" name="endDate" placeholder="Enter a location" class="location-input"
+                        (click)="openPicker(pickerModal)" value="{{this.selectedToFormattedRange}}" formControlName="dropDateTime" 
+                        style="width: 100%; padding: 10px; box-sizing: border-box; border-radius: 4px; border: 1px solid #ccc;"
+                         readonly>
+                </div>
             </div>
             <div>
-                <label for="endDate">End Date:</label>
-                <!-- <input type="datetime-local" id="endDate" name="endDate" [value]="endDate" /> -->
-                <input type="text" id="endDate" name="endDate" placeholder="Enter a location" class="location-input"
-                    (click)="openPicker(pickerModal)" value="{{this.selectedToFormattedRange}}"
-                    style="width: 100%; padding: 10px; box-sizing: border-box; border-radius: 4px; border: 1px solid #ccc;"
-                    [disabled]="validationError !== ''" readonly>
+                <button class="btn btn-primary mt-3" style="width: 400px;" (click)="goToSearchResults()">
+                    Submit
+                </button>
             </div>
-        </div>
-        <div>
-            <button class="btn btn-primary mt-3" style="width: 400px;">
-                Submit
-            </button>
-        </div>
+        </form>
     </div>
 
 </div>

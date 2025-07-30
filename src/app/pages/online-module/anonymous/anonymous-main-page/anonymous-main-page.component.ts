@@ -2,7 +2,9 @@ import { DatePipe } from '@angular/common';
 import { Component, inject, NgZone, TemplateRef } from '@angular/core';
 import { NgbCalendar, NgbDate, NgbDateParserFormatter, NgbDateStruct, NgbModal, NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 import { DatePickerMethodService } from '../../../../shared/resuable service/date-picker-method.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MainPageToSearchResultService } from '../../../../shared/component/main-page-to-search-result.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-anonymous-main-page',
@@ -10,6 +12,9 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './anonymous-main-page.component.css'
 })
 export class AnonymousMainPageComponent {
+
+  locationAndDate!: FormGroup;
+
   startDate: string = '';
   endDate: string = '';
   autocomplete: google.maps.places.Autocomplete;
@@ -36,14 +41,20 @@ export class AnonymousMainPageComponent {
 
   constructor(
     private ngZone: NgZone, private modalService: NgbModal,
-    private datePipe: DatePipe, private datePickerMethod: DatePickerMethodService,
-    private route: ActivatedRoute
+    private datePipe: DatePipe, private datePickerMethod: DatePickerMethodService, private router: Router,
+    private route: ActivatedRoute, private mainPageToSearchResult: MainPageToSearchResultService
   ) {
-    this.setDefaultRange(); // sets fromDate, toDate, fromTime, toTime
-    this.updateSelectedRange(); // <-- ensure UI has value on page load
+
   }
 
   ngOnInit(): void {
+    this.locationAndDate = new FormGroup({
+      pickupLocation: new FormControl('', [Validators.required]),
+      dropLocation: new FormControl('', [Validators.required]),
+      pickupDateTime: new FormControl('', [Validators.required]),
+      dropDateTime: new FormControl('', [Validators.required])
+    });
+
     const now = new Date();
     const tomorrow = new Date(now);
     tomorrow.setDate(now.getDate() + 1);
@@ -60,6 +71,8 @@ export class AnonymousMainPageComponent {
         window.history.replaceState({}, '', '/home');
       }
     });
+    this.setDefaultRange(); // sets fromDate, toDate, fromTime, toTime
+    this.updateSelectedRange(); // <-- ensure UI has value on page load
   }
 
 
@@ -330,6 +343,8 @@ export class AnonymousMainPageComponent {
       this.selectedRange = `[ ${fromFormatted} ] → [ ${toFormatted} ]`;
       this.selectedFromFormattedRange = fromFormatted || '';
       this.selectedToFormattedRange = toFormatted || '';
+      this.locationAndDate.controls['pickupDateTime'].setValue(this.selectedFromFormattedRange);
+      this.locationAndDate.controls['dropDateTime'].setValue(this.selectedToFormattedRange);
     }
   }
 
@@ -363,6 +378,16 @@ export class AnonymousMainPageComponent {
 
     // ✅ update UI text right away
     // this.updateSelectedRange();
+  }
+  myData = {
+    id: 42,
+    name: 'Persistent Object',
+    description: 'This data will survive page refresh.'
+  };
+
+  goToSearchResults() {
+    this.mainPageToSearchResult.setData(this.locationAndDate.value);
+    this.router.navigate(['/customer/search-result']);
   }
 
 }

@@ -1,21 +1,12 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { VehicleService } from '../../../../core/services/admin-service/vehicle-module/vehicle.service';
+import { DatePipe } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
+import { MainPageToSearchResultService } from '../../../../shared/component/main-page-to-search-result.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 declare var bootstrap: any;
-
-interface Vehicle {
-  name: string;
-  year: number;
-  type: string;
-  fuel: string;
-  seats: number;
-  pricePerHour: number;
-  distance: string;
-  rating: number;
-  reviews: number;
-  images: string[];
-}
 
 @Component({
   selector: 'app-search-result-page',
@@ -25,163 +16,35 @@ interface Vehicle {
 export class SearchResultPageComponent {
 
   hoveredIndex: number | null = null;
+  locationAndDate!: FormGroup;
 
-  vehicles: Vehicle[] = [
-    {
-      name: 'KIA Carens',
-      year: 2024,
-      type: 'Manual',
-      fuel: 'Petrol',
-      seats: 6,
-      pricePerHour: 163,
-      distance: '0.0 km away',
-      rating: 5.00,
-      reviews: 2,
-      images: [
-        'https://images.unsplash.com/photo-1575936123452-b67c3203c357?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D',
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfCBQAq4fDkjizcfZGBW_6ir3gL4Kd8b_3fA&s',
-        'https://cdn.prod.website-files.com/62d84e447b4f9e7263d31e94/6399a4d27711a5ad2c9bf5cd_ben-sweet-2LowviVHZ-E-unsplash-1.jpeg'
-      ]
-    },
-    {
-      name: 'Renault Kwid',
-      year: 2018,
-      type: 'Manual',
-      fuel: 'Petrol',
-      seats: 5,
-      pricePerHour: 50,
-      distance: '21.1 km away',
-      rating: 5.00,
-      reviews: 3,
-      images: [
-        'https://images.unsplash.com/photo-1575936123452-b67c3203c357?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D',
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfCBQAq4fDkjizcfZGBW_6ir3gL4Kd8b_3fA&s',
-        'https://cdn.prod.website-files.com/62d84e447b4f9e7263d31e94/6399a4d27711a5ad2c9bf5cd_ben-sweet-2LowviVHZ-E-unsplash-1.jpeg'
-      ]
-    },
-    {
-      name: 'Renault Kwid',
-      year: 2018,
-      type: 'Manual',
-      fuel: 'Petrol',
-      seats: 5,
-      pricePerHour: 50,
-      distance: '21.1 km away',
-      rating: 5.00,
-      reviews: 3,
-      images: [
-        'https://images.unsplash.com/photo-1575936123452-b67c3203c357?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D',
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfCBQAq4fDkjizcfZGBW_6ir3gL4Kd8b_3fA&s',
-        'https://cdn.prod.website-files.com/62d84e447b4f9e7263d31e94/6399a4d27711a5ad2c9bf5cd_ben-sweet-2LowviVHZ-E-unsplash-1.jpeg'
-      ]
-    },
-    {
-      name: 'KIA Carens',
-      year: 2024,
-      type: 'Manual',
-      fuel: 'Petrol',
-      seats: 6,
-      pricePerHour: 163,
-      distance: '0.0 km away',
-      rating: 5.00,
-      reviews: 2,
-      images: [
-        'https://images.unsplash.com/photo-1575936123452-b67c3203c357?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D',
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfCBQAq4fDkjizcfZGBW_6ir3gL4Kd8b_3fA&s',
-        'https://cdn.prod.website-files.com/62d84e447b4f9e7263d31e94/6399a4d27711a5ad2c9bf5cd_ben-sweet-2LowviVHZ-E-unsplash-1.jpeg'
-      ]
-    },
-    {
-      name: 'Renault Kwid',
-      year: 2018,
-      type: 'Manual',
-      fuel: 'Petrol',
-      seats: 5,
-      pricePerHour: 50,
-      distance: '21.1 km away',
-      rating: 5.00,
-      reviews: 3,
-      images: [
-        'https://images.unsplash.com/photo-1575936123452-b67c3203c357?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D',
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfCBQAq4fDkjizcfZGBW_6ir3gL4Kd8b_3fA&s',
-        'https://cdn.prod.website-files.com/62d84e447b4f9e7263d31e94/6399a4d27711a5ad2c9bf5cd_ben-sweet-2LowviVHZ-E-unsplash-1.jpeg'
-      ]
-    },
-    {
-      name: 'Renault Kwid',
-      year: 2018,
-      type: 'Manual',
-      fuel: 'Petrol',
-      seats: 5,
-      pricePerHour: 50,
-      distance: '21.1 km away',
-      rating: 5.00,
-      reviews: 3,
-      images: [
-        'https://images.unsplash.com/photo-1575936123452-b67c3203c357?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D',
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfCBQAq4fDkjizcfZGBW_6ir3gL4Kd8b_3fA&s',
-        'https://cdn.prod.website-files.com/62d84e447b4f9e7263d31e94/6399a4d27711a5ad2c9bf5cd_ben-sweet-2LowviVHZ-E-unsplash-1.jpeg'
-      ]
-    },
-    {
-      name: 'KIA Carens',
-      year: 2024,
-      type: 'Manual',
-      fuel: 'Petrol',
-      seats: 6,
-      pricePerHour: 163,
-      distance: '0.0 km away',
-      rating: 5.00,
-      reviews: 2,
-      images: [
-        'https://images.unsplash.com/photo-1575936123452-b67c3203c357?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D',
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfCBQAq4fDkjizcfZGBW_6ir3gL4Kd8b_3fA&s',
-        'https://cdn.prod.website-files.com/62d84e447b4f9e7263d31e94/6399a4d27711a5ad2c9bf5cd_ben-sweet-2LowviVHZ-E-unsplash-1.jpeg'
-      ]
-    },
-    {
-      name: 'Renault Kwid',
-      year: 2018,
-      type: 'Manual',
-      fuel: 'Petrol',
-      seats: 5,
-      pricePerHour: 50,
-      distance: '21.1 km away',
-      rating: 5.00,
-      reviews: 3,
-      images: [
-        'https://images.unsplash.com/photo-1575936123452-b67c3203c357?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D',
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfCBQAq4fDkjizcfZGBW_6ir3gL4Kd8b_3fA&s',
-        'https://cdn.prod.website-files.com/62d84e447b4f9e7263d31e94/6399a4d27711a5ad2c9bf5cd_ben-sweet-2LowviVHZ-E-unsplash-1.jpeg'
-      ]
-    },
-    {
-      name: 'Renault Kwid',
-      year: 2018,
-      type: 'Manual',
-      fuel: 'Petrol',
-      seats: 5,
-      pricePerHour: 50,
-      distance: '21.1 km away',
-      rating: 5.00,
-      reviews: 3,
-      images: [
-        'https://images.unsplash.com/photo-1575936123452-b67c3203c357?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D',
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfCBQAq4fDkjizcfZGBW_6ir3gL4Kd8b_3fA&s',
-        'https://cdn.prod.website-files.com/62d84e447b4f9e7263d31e94/6399a4d27711a5ad2c9bf5cd_ben-sweet-2LowviVHZ-E-unsplash-1.jpeg'
-      ]
-    }
-  ];
+  fromDateDisplay: string = '';
+  toDateDisplay: string = '';
+  fromTimeDisplay: string = '';
+  toTimeDisplay: string = '';
 
   vehicleResult: any[] = [];
   totalItems = 0;
   pageSize = 12;
   currentPage = 0;
 
-  constructor(private vehicleService: VehicleService, private router: Router) { }
+  constructor(private vehicleService: VehicleService, private router: Router,
+    private dialog: MatDialog, private datePipe: DatePipe, private mainPageToSearchResult: MainPageToSearchResultService
+  ) { }
 
   ngOnInit(): void {
+    let ab = this.mainPageToSearchResult.getData();
+    this.locationAndDate = new FormGroup({
+      pickupLocation: new FormControl(ab.pickupLocation, [Validators.required]),
+      dropLocation: new FormControl(ab.dropLocation, [Validators.required]),
+      pickupDateTime: new FormControl(ab.pickupDateTime, [Validators.required]),
+      dropDateTime: new FormControl(ab.dropDateTime, [Validators.required])
+    });
     this.fetchVehicles(this.currentPage, this.pageSize);
+    this.setDefaultValues();
+
+
+    console.log(this.mainPageToSearchResult.getData())
   }
 
   ngAfterViewInit(): void {
@@ -196,16 +59,44 @@ export class SearchResultPageComponent {
     });
   }
 
+  abc = "10/07/2025 10:05 AM";
+  xyz = "10/07/2025 10:30 AM";
+
   fetchVehicles(page: number, size: number): void {
-    this.vehicleService.getVehicles(page, size).subscribe(response => {
+    let userPickupDatetime: any = this.datePipe.transform(this.parseCustomDate(this.abc), 'yyyy-MM-dd\'T\'HH:mm:ss');
+    let userDropDatetime: any = this.datePipe.transform(this.parseCustomDate(this.xyz), 'yyyy-MM-dd\'T\'HH:mm:ss');
+    let isVisibleOnline: Boolean = true;
+    let vehicleStatus: String = 'Active';
+    this.vehicleService.getIndividualVehicleDetailsForSearchResult(page, size, userPickupDatetime, userDropDatetime, isVisibleOnline, vehicleStatus).subscribe(response => {
       console.log(response);
       this.vehicleResult = response.content;
       this.totalItems = response.totalItems;
       this.currentPage = response.currentPage;
       console.log('Fetched vehicles:', this.vehicleResult);
-      
     });
-    
+  }
+
+  setDefaultValues() {
+    const now = new Date();
+    const tomorrow = new Date();
+    tomorrow.setDate(now.getDate() + 1);
+
+    this.fromDateDisplay = this.datePipe.transform(this.parseCustomDate(this.abc), 'dd MMM')!;
+    this.fromTimeDisplay = this.datePipe.transform(this.parseCustomDate(this.abc), 'h:mm a')!;
+
+    this.toDateDisplay = this.datePipe.transform(this.parseCustomDate(this.xyz), 'dd MMM')!;
+    this.toTimeDisplay = this.datePipe.transform(this.parseCustomDate(this.xyz), 'h:mm a')!;
+  }
+
+  parseCustomDate(dateStr: string) {
+    const [datePart, timePart, meridian] = dateStr.split(/[\s]+/); // split into ["30/07/2025", "07:14", "PM"]
+    const [day, month, year] = datePart.split("/").map(Number);
+    let [hours, minutes] = timePart.split(":").map(Number);
+
+    if (meridian === "PM" && hours !== 12) hours += 12;
+    if (meridian === "AM" && hours === 12) hours = 0;
+
+    return new Date(year, month - 1, day, hours, minutes);
   }
 
 }

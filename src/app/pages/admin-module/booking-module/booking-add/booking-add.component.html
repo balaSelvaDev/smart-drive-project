@@ -1,4 +1,4 @@
-<form [formGroup]="bookingForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="bookingForm">
 
     <div style="width: 100%;display: flex; flex-direction: column;align-items: center;align-content: center;">
         <div style="width: 100%;display: flex;align-items: center;align-content: center;">
@@ -88,6 +88,18 @@
                     <label for="drivingLicenseNumber">Driving License Number:</label>
                 </div>
             </div>
+            <div class="container">
+                <div class="inputField">
+                    <select formControlName="paymentMode" class="input-level-1">
+                        <option value="UPI">UPI</option>
+                        <option value="CASH">CASH</option>
+                        <option value="NET_BANKING">NET_BAsNKING</option>
+                        <option value="CARD">CARD</option>
+                        <option value="WALLET">WALLET</option>
+                    </select>
+                    <label for="paymentMode">Payment Mode:</label>
+                </div>
+            </div>
         </div>
 
         <div style="width: 100%;display: flex;align-items: center;align-content: center;">
@@ -117,7 +129,7 @@
             </div>
             <div class="container">
                 <div class="inputField">
-                    <input id="end" type="text" (blur)="blurMethod()" formControlName="dropLocation"
+                    <input id="end" type="text" formControlName="dropLocation"
                         class="input-level-1" autocomplete="off" placeholder=" " />
                     <label for="pickupLocation">Drop Location:</label>
                 </div>
@@ -126,24 +138,67 @@
                 (click)="resetMap()">
                 <mat-icon> add_location</mat-icon>
             </button>
-
             <div class="container">
                 <div class="inputField">
-                    <select formControlName="paymentMode" class="input-level-1">
-                        <option value="UPI">UPI</option>
-                        <option value="CASH">CASH</option>
-                        <option value="NET_BANKING">NET_BAsNKING</option>
-                        <option value="CARD">CARD</option>
-                        <option value="WALLET">WALLET</option>
+                    <select formControlName="tripType" class="input-level-1">
+                        <option value="ONE_WAY_TRIP">One-way trip</option>
+                        <option value="ROUND_TRIP">Round trip</option>
                     </select>
-                    <label for="paymentMode">Payment Mode:</label>
+                    <label for="paymentMode">Trip type:</label>
+                </div>
+            </div>
+        </div>
+        <div style="width: 100%;display: flex;align-items: center;align-content: center;">
+            <div class="container">
+                <div class="inputField">
+                    <div class="inputField">
+                        <input id="distanceInKm" type="text" required formControlName="distanceInKm"
+                            class="input-level-1" autocomplete="off" placeholder=" " />
+                        <label for="distanceInKm">Distance in km:</label>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="inputField">
+                    <div class="inputField">
+                        <input id="tripAmt" type="text" required formControlName="tripAmt"
+                            class="input-level-1" autocomplete="off" placeholder=" " />
+                        <label for="tripAmt">Trip amt:</label>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="inputField">
+                    <div class="inputField">
+                        <input id="convenienceFee" type="text" required formControlName="convenienceFee"
+                            class="input-level-1" autocomplete="off" placeholder=" " />
+                        <label for="convenienceFee">Convenience fee:</label>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="inputField">
+                    <div class="inputField">
+                        <input id="refundableAmount" type="text" required formControlName="refundableAmount"
+                            class="input-level-1" autocomplete="off" placeholder=" " />
+                        <label for="refundableAmount">Refundable amt</label>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="inputField">
+                    <div class="inputField">
+                        <input id="totalAmt" type="text" required formControlName="totalAmt"
+                            class="input-level-1" autocomplete="off" placeholder=" " />
+                        <label for="totalAmt">Total amt:</label>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <button type="submit" [disabled]="bookingForm.invalid">Add Booking</button>
+    <button type="submit" [disabled]="bookingForm.invalid" (click)="onSubmit()">Add Booking</button>
 </form>
-<!-- <div id="map" style="height: 500px; width: 100%; margin-top: 10px;"></div> -->
+<div id="map" style="height: 500px; width: 100%; margin-top: 10px;"></div>
 
 <div style="width: 100%; height: 500px;">
     <ng-template #pickerModal let-modal>

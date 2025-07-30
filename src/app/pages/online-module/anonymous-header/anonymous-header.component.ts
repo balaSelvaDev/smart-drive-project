@@ -18,6 +18,10 @@ export class AnonymousHeaderComponent {
   toTimeDisplay: string = '';
 
   constructor(private router: Router, private dialog: MatDialog, private datePipe: DatePipe) {
+
+  }
+
+  ngOnInit(): void {
     this.setDefaultValues();
   }
 

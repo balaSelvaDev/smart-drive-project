@@ -29,6 +29,7 @@ export class BookingAddComponent {
   vehicleNameFilteredOptions: any[] = [];
 
   vehicleNameObj: any[] = [];
+  vehicleDetailsObj: any = {};
 
   clientLocation: any[] = [];
   isClientLocationRequired = false;
@@ -75,6 +76,15 @@ export class BookingAddComponent {
       pickupLocation: new FormControl(''),
       dropLocation: new FormControl(''),
       paymentMode: new FormControl('UPI', [Validators.required]),
+
+      tripType: new FormControl("ONE_WAY_TRIP"),
+
+      distanceInKm: new FormControl(''),
+      tripAmt: new FormControl(''),
+      convenienceFee: new FormControl(''),
+      refundableAmount: new FormControl(''),
+      totalAmt: new FormControl(''),
+
       brandName: new FormControl(''),
       vehicleModelName: new FormControl(''),
 
@@ -160,6 +170,7 @@ export class BookingAddComponent {
     this.bookingForm.controls['brandName'].setValue(item.brandName);
     this.bookingForm.controls['vehicleModelName'].setValue(item.vehicleModelName);
     this.isVehicleDetailsVisible = true;
+    this.getVehicleDetailsById(item.vehicleId);
   }
 
   onInputChangeVehicle(value: string) {
@@ -305,10 +316,11 @@ export class BookingAddComponent {
           const distance = leg.distance?.text ?? 'N/A';
           const duration = leg.duration?.text ?? 'N/A';
 
-          alert(`Distance: ${distance}, Duration: ${duration}`);
+          // alert(`Distance: ${distance}, Duration: ${duration}`);
           const parsed = parseFloat(distance.replace(/[^0-9.]/g, ''));
           this.distanceValue = isNaN(parsed) ? 0 : parsed;
           console.log('Distance in km:', this.distanceValue);
+          this.blurMethod();
         } else {
           alert('Directions request failed: ' + status);
         }
@@ -318,21 +330,10 @@ export class BookingAddComponent {
 
   blurMethod() {
     // let abc = this.bookingForm.get('vehicleNameSearchControl')?.value;
-    const vehicleId = this.bookingForm.get('vehicleId')?.value;
-    console.log('Vehicle ID:', vehicleId);
-    let abc = this.vehicleNameObj.filter(item => item.vehicleId === vehicleId);
-    if (abc.length > 0) {
-      const vehicle = abc[0];
-      let convenienceFee = vehicle.convenienceFee;
-      let pricePerKm = vehicle.pricePerKm;
-      let refundableAmt = vehicle.refundableAmt;
-      console.log('Convenience Fee:', convenienceFee);
-      console.log('Price Per Km:', pricePerKm);
-      console.log('Refundable Amount:', refundableAmt);
-      let totalAmount = (this.distanceValue * pricePerKm) + convenienceFee + refundableAmt;
-      console.log('Total Amount:', totalAmount);
-    } else {
-
+    const origin = this.bookingForm.get('pickupLocation')?.value;
+    const destination = this.bookingForm.get('dropLocation')?.value;
+    if (origin && destination) {
+      this.getDistance(origin, destination);
     }
   }
 
@@ -391,24 +392,30 @@ export class BookingAddComponent {
 
   }
 
-  openVehicleDialog() {
-    const vehicleId = this.bookingForm.get('vehicleId')?.value;
+  getVehicleDetailsById(vehicleId: number) {
+    // const vehicleId = this.bookingForm.get('vehicleId')?.value;
     console.log('Vehicle ID for dialog:', vehicleId);
     this.vehicleService.getIndividualVehicleDetails(vehicleId).subscribe({
       next: (res) => {
         console.log('Client location data:', res);
-        this.dialog.open(ViewVehicleDetailsComponent, {
-          width: '1200px',
-          height: '560px',
-          data: res, // pass response directly
-          panelClass: 'custom-dialog-container'
-          // ,disableClose: true
-        });
+        this.vehicleDetailsObj = res;
       },
       error: (err) => {
         console.error('Failed to get client location', err);
       },
     });
+  }
+
+  openVehicleDialog() {
+    if (this.vehicleDetailsObj) {
+      this.dialog.open(ViewVehicleDetailsComponent, {
+        width: '1200px',
+        height: '560px',
+        data: this.vehicleDetailsObj, // pass response directly
+        panelClass: 'custom-dialog-container'
+        // ,disableClose: true
+      });
+    }
   }
 
   openUserDialog() {
@@ -589,6 +596,95 @@ export class BookingAddComponent {
 
     // ✅ update UI text right away
     // this.updateSelectedRange();
+  }
+
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  distanceInKm: number = 0;
+  fuelEstimate: number = 0;
+
+  distance: string = '';
+  duration: string = '';
+
+  tripAmt: number = 0;
+  convenienceFee: number = 0;
+  refundableAmount: number = 0;
+  totalAmt: number = 0;
+
+  distanceLoaded: boolean = false;
+
+  getDistance(origin1: string, destination1: string): void {
+    const origin = origin1;
+    const destination = destination1;
+
+    const service = new google.maps.DistanceMatrixService();
+
+    service.getDistanceMatrix(
+      {
+        origins: [origin],
+        destinations: [destination],
+        travelMode: google.maps.TravelMode.DRIVING,
+        unitSystem: google.maps.UnitSystem.METRIC,
+      },
+      (response, status) => {
+        if (
+          status === 'OK' &&
+          response &&
+          response.rows?.[0]?.elements?.[0]
+        ) {
+          const element = response.rows[0].elements[0];
+          this.distance = element.distance?.text || 'N/A';
+          this.duration = element.duration?.text || 'N/A';
+
+          // Extract numeric distance from "2.3 km"
+          const km = parseFloat(element.distance?.text.replace(' km', '') || '0');
+          this.distanceInKm = km;
+
+
+          if (this.vehicleDetailsObj) {
+            console.log("entering...")
+
+
+            // Assume mileage 15 km/l, fuel ₹105 per litre
+            // this.fuelEstimate = Math.round((km / this.vehicleDetailsObj.mileagePerLitre) * 105);
+            // console.log('Distance:', this.distance, 'Duration:', this.duration, 'mileage per litre: ', this.vehicleDetailsObj.mileagePerLitre, 'Fuel Estimate:', this.fuelEstimate);
+
+            //
+            console.log('Calculating trip amount, convenience fee, and refundable amount');
+            console.log('Price per km:', this.vehicleDetailsObj.pricePerKm, 'Distance in km:', this.distanceValue);
+            this.tripAmt = this.vehicleDetailsObj.pricePerKm * this.distanceValue;
+            this.convenienceFee = this.vehicleDetailsObj.convenienceFee;
+            this.refundableAmount = this.vehicleDetailsObj.refundableAmt;
+            console.log('Trip Amount:', this.tripAmt, 'Convenience Fee:', this.convenienceFee, 'Refundable Amount:', this.refundableAmount);
+            this.totalAmt = this.tripAmt + this.convenienceFee + this.refundableAmount;
+            // ✅ Set loaded flag after fetching distance
+            this.distanceLoaded = true;
+            this.clearFinalAmtFields();
+            this.bookingForm.controls['distanceInKm'].setValue(this.distanceValue + " Km");
+            this.bookingForm.controls['tripAmt'].setValue(this.tripAmt);
+            this.bookingForm.controls['convenienceFee'].setValue(this.convenienceFee);
+            this.bookingForm.controls['refundableAmount'].setValue(this.refundableAmount);
+            this.bookingForm.controls['totalAmt'].setValue(this.totalAmt);
+          }
+        } else {
+          this.distance = 'Error fetching distance';
+          this.duration = 'N/A';
+        }
+
+        // ✅ Set loaded flag after completion
+        this.distanceLoaded = true;
+      }
+    );
+  }
+
+  clearFinalAmtFields() {
+    this.bookingForm.controls['distanceInKm'].setValue("");
+    this.bookingForm.controls['tripAmt'].setValue("");
+    this.bookingForm.controls['convenienceFee'].setValue("");
+    this.bookingForm.controls['refundableAmount'].setValue("");
+    this.bookingForm.controls['totalAmt'].setValue("");
   }
 
 }
