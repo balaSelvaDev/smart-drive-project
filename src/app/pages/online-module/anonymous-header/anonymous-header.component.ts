@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { CustomerLoginPopupComponent } from '../anonymous/customer-login-popup/customer-login-popup.component';
 import { DatePipe } from '@angular/common';
+import { AuthServiceService } from '../../../shared/service/auth-service.service';
 
 @Component({
   selector: 'app-anonymous-header',
@@ -11,18 +12,30 @@ import { DatePipe } from '@angular/common';
 })
 export class AnonymousHeaderComponent {
 
+  user: any = null;
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/login']);
+  }
 
   fromDateDisplay: string = '';
   toDateDisplay: string = '';
   fromTimeDisplay: string = '';
   toTimeDisplay: string = '';
 
-  constructor(private router: Router, private dialog: MatDialog, private datePipe: DatePipe) {
+  constructor(
+    private router: Router, private dialog: MatDialog, private datePipe: DatePipe,
+    public authService: AuthServiceService
+  ) {
 
   }
 
   ngOnInit(): void {
     this.setDefaultValues();
+    this.authService.user$.subscribe(u => {
+      this.user = u;
+      console.log(this.user)
+    });
   }
 
   openDialog() {
@@ -39,6 +52,8 @@ export class AnonymousHeaderComponent {
       panelClass: 'custom-dialog-container',
       disableClose: true // ✅ This prevents closing on outside click or ESC
     });
+    // subscribe to user updates
+
   }
 
   setDefaultValues() {

@@ -24,6 +24,7 @@ export class BookingAddRequestDTO {
     totalAmount: number;
     discountAmount: number;
     finalAmount: number;
+    bookingType: string;
 
     cancellationReason: string;
     cancelledBy: CancelledBy;

@@ -15,6 +15,8 @@ export class RegistrationService {
 
   constructor(private http: HttpClient) { }
 
+  private customerJwtToken = "customer-token";
+
   registration(userData: any): Observable<any> {
     return this.http.post(`${this.registrationApi}`, userData);
   }
@@ -32,7 +34,19 @@ export class RegistrationService {
   }
 
   login(loginData: any): Observable<any> {
-    return this.http.post(`${this.loginApi}`, loginData);
+    return this.http.post(`${this.loginApi}`, loginData, {
+      observe: 'response',
+      responseType: 'json'
+    });
+  }
+
+  setTokenCookie(token: string) {
+    document.cookie = `${this.customerJwtToken}=${token}; path=/; max-age=86400; SameSite=Strict`;
+  }
+
+  getTokenFromCookie(): string | null {
+    const match = document.cookie.match(new RegExp('(^| )customer-token=([^;]+)'));
+    return match ? match[2] : null;
   }
 
 }

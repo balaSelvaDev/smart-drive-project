@@ -28,7 +28,7 @@ export class BrandAddComponent {
       this.brandService.addBrands(payload).subscribe({
         next: (res) => {
           console.log('Brand added successfully', res);
-          this.router.navigate(['/get-brand']); // Navigate to the brand list page
+          this.router.navigate(['/admin/get-brand']); // Navigate to the brand list page
         },
         error: (err) => {
           console.error('Failed to add brand', err);

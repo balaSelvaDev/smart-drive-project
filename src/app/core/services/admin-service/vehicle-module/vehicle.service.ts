@@ -13,6 +13,7 @@ export class VehicleService {
   private getClientLocationApi = 'http://localhost:9090/api/client-location';
   private getIndividualVehicleDetailsApi = 'http://localhost:9090/api/vehicle';
   private getIndividualVehicleDetailsForSearchResultApi = 'http://localhost:9090/api/vehicle/customer';
+  private getVehicleAvailabilityByVehicleIdAndDateTimeApi = 'http://localhost:9090/api/vehicle/vehicle-availability';
 
   constructor(private http: HttpClient) { }
 
@@ -45,6 +46,10 @@ export class VehicleService {
 
   getIndividualVehicleDetailsForSearchResult(page: number, size: number, userPickupDatetime: String, userDropDatetime: String, isVisibleOnline: Boolean, vehicleStatus: String): Observable<any> {
     return this.http.get(`${this.getIndividualVehicleDetailsForSearchResultApi}?page=${page}&size=${size}&userPickupDatetime=${userPickupDatetime}&userDropDatetime=${userDropDatetime}&isVisibleOnline=${isVisibleOnline}&vehicleStatus=${vehicleStatus}`);
+  }
+
+  getIndividualVehicleDetailsForSearchResultForAdmin(userPickupDatetime: String, userDropDatetime: String, vehicleId: Number): Observable<any> {
+    return this.http.get(`${this.getVehicleAvailabilityByVehicleIdAndDateTimeApi}/${vehicleId}?userPickupDatetime=${userPickupDatetime}&userDropDatetime=${userDropDatetime}`);
   }
 
 }

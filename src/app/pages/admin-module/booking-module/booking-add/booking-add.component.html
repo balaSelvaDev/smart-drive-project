@@ -74,7 +74,7 @@
                     <!-- <input id="endDate" type="date" formControlName="endDate" class="input-level-1" autocomplete="off"
                         placeholder=" " /> -->
                     <input type="text" id="endDate" name="endDate" placeholder="Enter a location"
-                        class="location-input  input-level-1" (click)="openPicker(pickerModal)"
+                        class="location-input  input-level-1" (click)="openPicker(pickerModal)" (blur)="checkBookingAvaiabilityById(vehicleInput.value, pickerModal)"
                         formControlName="endDate" readonly>
                     <!-- value="{{this.selectedToFormattedRange}}" -->
                     <!-- <label for="endDate">End Date:</label> -->
@@ -123,14 +123,14 @@
             <div class="container">
                 <div class="inputField">
                     <input id="start" #myInput type="text" formControlName="pickupLocation" class="input-level-1"
-                        autocomplete="off" placeholder=" " />
+                        autocomplete="off" placeholder=" " (input)="clearAmtFields()" />
                     <label for="pickupLocation">Pickup Location:</label>
                 </div>
             </div>
             <div class="container">
                 <div class="inputField">
                     <input id="end" type="text" formControlName="dropLocation"
-                        class="input-level-1" autocomplete="off" placeholder=" " />
+                        class="input-level-1" autocomplete="off" placeholder=" " (input)="clearAmtFields()" />
                     <label for="pickupLocation">Drop Location:</label>
                 </div>
             </div>
@@ -140,8 +140,8 @@
             </button>
             <div class="container">
                 <div class="inputField">
-                    <select formControlName="tripType" class="input-level-1">
-                        <option value="ONE_WAY_TRIP">One-way trip</option>
+                    <select formControlName="bookingType" class="input-level-1">
+                        <option value="ONE_WAY">One-way trip</option>
                         <option value="ROUND_TRIP">Round trip</option>
                     </select>
                     <label for="paymentMode">Trip type:</label>
@@ -152,9 +152,9 @@
             <div class="container">
                 <div class="inputField">
                     <div class="inputField">
-                        <input id="distanceInKm" type="text" required formControlName="distanceInKm"
+                        <input id="distanceKm" type="text" required formControlName="distanceKm"
                             class="input-level-1" autocomplete="off" placeholder=" " />
-                        <label for="distanceInKm">Distance in km:</label>
+                        <label for="distanceKm">Distance in km:</label>
                     </div>
                 </div>
             </div>
@@ -170,27 +170,27 @@
             <div class="container">
                 <div class="inputField">
                     <div class="inputField">
-                        <input id="convenienceFee" type="text" required formControlName="convenienceFee"
+                        <input id="convenienceAmt" type="text" required formControlName="convenienceAmt"
                             class="input-level-1" autocomplete="off" placeholder=" " />
-                        <label for="convenienceFee">Convenience fee:</label>
+                        <label for="convenienceAmt">Convenience fee:</label>
                     </div>
                 </div>
             </div>
             <div class="container">
                 <div class="inputField">
                     <div class="inputField">
-                        <input id="refundableAmount" type="text" required formControlName="refundableAmount"
+                        <input id="refundableAmt" type="text" required formControlName="refundableAmt"
                             class="input-level-1" autocomplete="off" placeholder=" " />
-                        <label for="refundableAmount">Refundable amt</label>
+                        <label for="refundableAmt">Refundable amt</label>
                     </div>
                 </div>
             </div>
             <div class="container">
                 <div class="inputField">
                     <div class="inputField">
-                        <input id="totalAmt" type="text" required formControlName="totalAmt"
+                        <input id="totalAmount" type="text" required formControlName="totalAmount"
                             class="input-level-1" autocomplete="off" placeholder=" " />
-                        <label for="totalAmt">Total amt:</label>
+                        <label for="totalAmount">Total amt:</label>
                     </div>
                 </div>
             </div>

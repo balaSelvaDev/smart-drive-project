@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { RegistrationService } from '../../../../core/services/online-module/Registration/registration.service';
 import { HttpClient } from '@angular/common/http';
+import { AuthServiceService } from '../../../../shared/service/auth-service.service';
 
 @Component({
   selector: 'app-customer-login-popup',
@@ -33,7 +34,7 @@ export class CustomerLoginPopupComponent {
     public dialogRef: MatDialogRef<CustomerLoginPopupComponent>,
     private router: Router,
     private registrationService: RegistrationService,
-    private httpClient: HttpClient
+    private httpClient: HttpClient, private authService: AuthServiceService
   ) { }
 
   ngOnInit(): void {
@@ -252,13 +253,15 @@ export class CustomerLoginPopupComponent {
 
   onSubmitLogin(): void {
     if (this.loginForm.valid) {
-      console.log("Login submitted:", this.loginForm.value);
-      // Call backend API here
       const payload = this.loginForm.value;
       this.registrationService.login(payload).subscribe({
-        next: (res) => {
-          console.log('Login successful', res);
-          alert('Login successful! Welcome back.');
+        next: (response) => {
+          const authHeader = response.headers.get('Authorization');
+          if (authHeader) {
+            const token = authHeader.replace('Bearer ', '');
+            this.authService.setUser(token); // 🔑 save token in cookies + decode
+            console.log('JWT saved in cookies and user restored');
+          }
         },
         error: (err) => {
           console.error('Failed to log in', err);

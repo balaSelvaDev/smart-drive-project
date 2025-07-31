@@ -23,6 +23,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
+import { MatMenuModule } from '@angular/material/menu';
 
 
 
@@ -60,7 +61,8 @@ import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
     MatToolbarModule, MatButtonModule, MatIconModule,
     MatIconModule,
     MatCheckboxModule,
-    NgbDatepickerModule
+    NgbDatepickerModule,
+    MatMenuModule, MatToolbarModule, MatButtonModule, MatIconModule
 
     
   ]

@@ -1,16 +1,42 @@
 <mat-toolbar>
-    <div style="display: flex;justify-content: space-between;align-items: center;align-content: center;width: 100%; ">
-        <div style="display: flex;align-items: center;align-content: center;">
-            <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+    <div style="display: flex; justify-content: space-between; width: 100%;">
+        <div style="display: flex; align-items: center;">
+            <button mat-icon-button aria-label="Menu">
                 <mat-icon>menu</mat-icon>
             </button>
             <span>SmartDrive</span>
         </div>
-        
-        <div>
-            <button mat-button color="primary" (click)="openDialog()">Registration</button>
+
+        <div *ngIf="user; else guestLinks">
+            <button mat-button [matMenuTriggerFor]="userMenu">
+                <mat-icon>account_circle</mat-icon>
+                {{ user.sub }}
+            </button>
+
+            <mat-menu #userMenu="matMenu">
+                <button mat-menu-item routerLink="/profile">
+                    
+                    <mat-icon>person</mat-icon>
+                    Profile
+                </button>
+
+                <button *ngIf="user.role?.name === 'ROLE_ADMIN'" mat-menu-item routerLink="/admin">
+                    <mat-icon>admin_panel_settings</mat-icon>
+                    Admin Panel
+                </button>
+
+                <button mat-menu-item (click)="logout()">
+                    <mat-icon>logout</mat-icon>
+                    Logout
+                </button>
+            </mat-menu>
         </div>
+
+        <ng-template #guestLinks>
+            <button mat-button color="primary" (click)="openDialog()">
+                Registration
+            </button>
+        </ng-template>
     </div>
 </mat-toolbar>
-
 <router-outlet></router-outlet>

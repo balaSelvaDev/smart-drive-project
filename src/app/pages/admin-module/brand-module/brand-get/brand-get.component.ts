@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { BrandService } from '../../../../core/services/admin-service/brand-master/brand.service';
 import { Router } from '@angular/router';
+import { WebSocketService } from '../../../../shared/service/web-socket-service.service';
 
 @Component({
   selector: 'app-brand-get',
@@ -10,6 +11,8 @@ import { Router } from '@angular/router';
 })
 export class BrandGetComponent {
 
+  notifications: any[] = [];
+
   brands: any[] = [];
   totalItems = 0;
   pageSize = 5;
@@ -17,10 +20,15 @@ export class BrandGetComponent {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private brandService: BrandService, private router: Router) { }
+  constructor(private brandService: BrandService, private router: Router, 
+    // private wsService: WebSocketService
+  ) { }
 
   ngOnInit(): void {
     this.fetchBrands(this.currentPage, this.pageSize);
+    // this.wsService.getOrderNotifications().subscribe(data => {
+    //   this.notifications.unshift(data);
+    // });
   }
 
   fetchBrands(page: number, size: number): void {

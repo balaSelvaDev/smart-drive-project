@@ -77,13 +77,12 @@ export class BookingAddComponent {
       dropLocation: new FormControl(''),
       paymentMode: new FormControl('UPI', [Validators.required]),
 
-      tripType: new FormControl("ONE_WAY_TRIP"),
+      bookingType: new FormControl("ONE_WAY"),
 
-      distanceInKm: new FormControl(''),
+      distanceKm: new FormControl(''),
       tripAmt: new FormControl(''),
-      convenienceFee: new FormControl(''),
-      refundableAmount: new FormControl(''),
-      totalAmt: new FormControl(''),
+      convenienceAmt: new FormControl(''),
+      refundableAmt: new FormControl(''),
 
       brandName: new FormControl(''),
       vehicleModelName: new FormControl(''),
@@ -93,7 +92,6 @@ export class BookingAddComponent {
       totalAmount: new FormControl(''),
       discountAmount: new FormControl(''),
 
-      finalAmount: new FormControl(''),
       clientLocationId: new FormControl(null, Validators.required),
       isClientLocationRequired: new FormControl(false),
     });
@@ -197,19 +195,19 @@ export class BookingAddComponent {
       console.log('Form submitted with payload:', payload);
       const bookingAddRequest: BookingAddRequestDTO = {
         ...payload,
-        startDate: new Date(payload.startDate).toISOString(),
-        endDate: new Date(payload.endDate).toISOString()
+        startDate: this.convertToLocalDateTimeFormat(payload.startDate),
+        endDate: this.convertToLocalDateTimeFormat(payload.endDate),
       };
       console.log('Booking Add Request DTO:', bookingAddRequest);
-      // this.bookingService.addBooking(payload).subscribe({
-      //   next: (res) => {
-      //     console.log('Booking added successfully', res);
-      //     this.router.navigate(['/get-booking']); // Navigate to the booking list page
-      //   },
-      //   error: (err) => {
-      //     console.error('Failed to add brand', err);
-      //   },
-      // });
+      this.bookingService.addBooking(bookingAddRequest).subscribe({
+        next: (res) => {
+          console.log('Booking added successfully', res);
+          this.router.navigate(['/get-booking']); // Navigate to the booking list page
+        },
+        error: (err) => {
+          console.error('Failed to add brand', err);
+        },
+      });
     } else {
       this.bookingForm.markAllAsTouched(); // Highlight all errors
     }
@@ -234,13 +232,25 @@ export class BookingAddComponent {
     startAutocomplete.addListener('place_changed', () => {
       const place = startAutocomplete.getPlace();
       if (!place.geometry || !place.geometry.location) return;
+
       this.setStartLocation(place.geometry.location);
+
+      // Push formatted address to form
+      if (place.formatted_address) {
+        this.bookingForm.controls['pickupLocation'].setValue(place.formatted_address);
+      }
     });
 
     endAutocomplete.addListener('place_changed', () => {
       const place = endAutocomplete.getPlace();
       if (!place.geometry || !place.geometry.location) return;
+
       this.setEndLocation(place.geometry.location);
+
+      // Push formatted address to form
+      if (place.formatted_address) {
+        this.bookingForm.controls['dropLocation'].setValue(place.formatted_address);
+      }
     });
   }
 
@@ -261,8 +271,17 @@ export class BookingAddComponent {
     this.geocoder.geocode({ location: latLng }, (results, status) => {
       if (status === 'OK' && results && results.length > 0) {
         const address = results[0].formatted_address;
+
+        // Update the visible input field
         const input = document.getElementById(type) as HTMLInputElement;
         input.value = address;
+
+        // Update the reactive form
+        if (type === 'start') {
+          this.bookingForm.controls['pickupLocation'].setValue(address);
+        } else {
+          this.bookingForm.controls['dropLocation'].setValue(address);
+        }
       }
     });
   }
@@ -358,6 +377,7 @@ export class BookingAddComponent {
     // Clear stored locations
     this.startLocation = null;
     this.endLocation = null;
+    this.clearFinalAmtFields();
   }
 
   onClientLocationChange(event: Event) {
@@ -602,16 +622,16 @@ export class BookingAddComponent {
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  distanceInKm: number = 0;
+  distanceKm: number = 0;
   fuelEstimate: number = 0;
 
   distance: string = '';
   duration: string = '';
 
   tripAmt: number = 0;
-  convenienceFee: number = 0;
-  refundableAmount: number = 0;
-  totalAmt: number = 0;
+  convenienceAmt: number = 0;
+  refundableAmt: number = 0;
+  totalAmount: number = 0;
 
   distanceLoaded: boolean = false;
 
@@ -640,11 +660,11 @@ export class BookingAddComponent {
 
           // Extract numeric distance from "2.3 km"
           const km = parseFloat(element.distance?.text.replace(' km', '') || '0');
-          this.distanceInKm = km;
+          this.distanceKm = km;
 
 
           if (this.vehicleDetailsObj) {
-            console.log("entering...")
+            console.log("entering...", this.vehicleDetailsObj)
 
 
             // Assume mileage 15 km/l, fuel ₹105 per litre
@@ -655,18 +675,18 @@ export class BookingAddComponent {
             console.log('Calculating trip amount, convenience fee, and refundable amount');
             console.log('Price per km:', this.vehicleDetailsObj.pricePerKm, 'Distance in km:', this.distanceValue);
             this.tripAmt = this.vehicleDetailsObj.pricePerKm * this.distanceValue;
-            this.convenienceFee = this.vehicleDetailsObj.convenienceFee;
-            this.refundableAmount = this.vehicleDetailsObj.refundableAmt;
-            console.log('Trip Amount:', this.tripAmt, 'Convenience Fee:', this.convenienceFee, 'Refundable Amount:', this.refundableAmount);
-            this.totalAmt = this.tripAmt + this.convenienceFee + this.refundableAmount;
+            this.convenienceAmt = this.vehicleDetailsObj.convenienceFee;
+            this.refundableAmt = this.vehicleDetailsObj.refundableAmt;
+            console.log('Trip Amount:', this.tripAmt, 'Convenience Fee:', this.convenienceAmt, 'Refundable Amount:', this.refundableAmt);
+            this.totalAmount = this.tripAmt + this.convenienceAmt + this.refundableAmt;
             // ✅ Set loaded flag after fetching distance
             this.distanceLoaded = true;
             this.clearFinalAmtFields();
-            this.bookingForm.controls['distanceInKm'].setValue(this.distanceValue + " Km");
+            this.bookingForm.controls['distanceKm'].setValue(this.distanceValue + " Km");
             this.bookingForm.controls['tripAmt'].setValue(this.tripAmt);
-            this.bookingForm.controls['convenienceFee'].setValue(this.convenienceFee);
-            this.bookingForm.controls['refundableAmount'].setValue(this.refundableAmount);
-            this.bookingForm.controls['totalAmt'].setValue(this.totalAmt);
+            this.bookingForm.controls['convenienceAmt'].setValue(this.convenienceAmt);
+            this.bookingForm.controls['refundableAmt'].setValue(this.refundableAmt);
+            this.bookingForm.controls['totalAmount'].setValue(this.totalAmount);
           }
         } else {
           this.distance = 'Error fetching distance';
@@ -680,11 +700,65 @@ export class BookingAddComponent {
   }
 
   clearFinalAmtFields() {
-    this.bookingForm.controls['distanceInKm'].setValue("");
+    this.bookingForm.controls['distanceKm'].setValue("");
     this.bookingForm.controls['tripAmt'].setValue("");
-    this.bookingForm.controls['convenienceFee'].setValue("");
-    this.bookingForm.controls['refundableAmount'].setValue("");
-    this.bookingForm.controls['totalAmt'].setValue("");
+    this.bookingForm.controls['convenienceAmt'].setValue("");
+    this.bookingForm.controls['refundableAmt'].setValue("");
+    this.bookingForm.controls['totalAmount'].setValue("");
+  }
+
+  checkBookingAvaiabilityById(vehicleId: string, content: TemplateRef<any>) {
+    let vehicleId1 = this.bookingForm.controls['vehicleId'].value;
+    let startDate = this.bookingForm.controls['startDate'].value;
+    let endDate = this.bookingForm.controls['endDate'].value;
+    startDate = "2025-07-31T10:00:00";
+    endDate = "2025-07-01T10:00:00";
+    console.log(vehicleId1);
+    if (vehicleId1) {
+      this.vehicleService.getIndividualVehicleDetailsForSearchResultForAdmin(startDate, endDate, Number(vehicleId1)).subscribe({
+        next: (res) => {
+          console.log('Client location data:', res);
+          if (res.availabilityStatus === "BOOKED") {
+            this.modalService.open(content, { size: 'lg', centered: true });
+          }
+        },
+        error: (err) => {
+          console.error('Failed to get client location', err);
+        },
+      });
+    }
+  }
+
+  clearAmtFields() {
+    let pickupLocation = this.bookingForm.controls['pickupLocation'].value;
+    let dropLocation = this.bookingForm.controls['dropLocation'].value;
+    if (pickupLocation === "" || dropLocation === "") {
+      this.clearFinalAmtFields();
+    }
+  }
+
+  // date format ( 31/07/2025 05:57 PM to "2025-07-31T17:57:00" )
+  convertToLocalDateTimeFormat(dateStr: string): string {
+    // Example input: "31/07/2025 05:57 PM"
+    const [datePart, timePart, meridian] = dateStr.split(/[\s:]+/);
+    const [day, month, year] = datePart.split('/').map(Number);
+    let hour = parseInt(timePart, 10);
+    const minute = parseInt(dateStr.split(':')[1], 10);
+
+    // Convert hour based on AM/PM
+    if (meridian === 'PM' && hour !== 12) {
+      hour += 12;
+    } else if (meridian === 'AM' && hour === 12) {
+      hour = 0;
+    }
+
+    // Create LocalDateTime-like ISO string
+    const isoString = `${year}-${this.pad(month)}-${this.pad(day)}T${this.pad(hour)}:${this.pad(minute)}:00`;
+    return isoString;
+  }
+
+  pad(n: number): string {
+    return n < 10 ? '0' + n : '' + n;
   }
 
 }

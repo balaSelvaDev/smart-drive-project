@@ -111,6 +111,7 @@ export class UserAddComponent {
         },
       });
     } else {
+      console.log("error, please check required fields...")
       this.userForm.markAllAsTouched(); // Highlight all errors
     }
   }

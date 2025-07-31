@@ -1,3 +1,4 @@
+(window as any).global = window;
 /// <reference types="@angular/localize" />
 
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';

@@ -13,12 +13,15 @@ export class BrandService {
 
   constructor(private http: HttpClient, private loginService: LoginService) { }
 
+  // getBrands(page: number, size: number): Observable<any> {
+  //   return this.http.get(`${this.getBrandsApi}?page=${page}&size=${size}`, {
+  //     headers: new HttpHeaders({
+  //       'Authorization': `Bearer ${this.loginService.getTokenFromCookie()}`
+  //     })
+  //   });
+  // }
   getBrands(page: number, size: number): Observable<any> {
-    return this.http.get(`${this.getBrandsApi}?page=${page}&size=${size}`, {
-      headers: new HttpHeaders({
-        'Authorization': `Bearer ${this.loginService.getTokenFromCookie()}`
-      })
-    });
+    return this.http.get(`${this.getBrandsApi}?page=${page}&size=${size}`);
   }
 
   addBrands(brandData: any): Observable<any> {
