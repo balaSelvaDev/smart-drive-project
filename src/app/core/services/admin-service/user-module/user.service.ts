@@ -11,6 +11,7 @@ export class UserService {
   private addUsersApi = 'http://localhost:9090/api/users/user-admin';
   private pincode = 'https://pinlookup.in/api/pincode';
   private getUsersByApi = "http://localhost:9090/api/users/individual";
+  private getUsersForCustomerApi = 'http://localhost:9090/api/users/customer';
 
   constructor(private http: HttpClient) { }
 
@@ -28,6 +29,10 @@ export class UserService {
 
   getUsersById(userId: number): Observable<any> {
     return this.http.get(`${this.getUsersByApi}?userId=${userId}`);
+  }
+
+  getUsersForCustomer(userId: number): Observable<any> {
+    return this.http.get(`${this.getUsersForCustomerApi}/${userId}`);
   }
 
 }

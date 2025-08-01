@@ -18,28 +18,38 @@ import { VehicleEditComponent } from './vehicle/vehicle-edit/vehicle-edit.compon
 import { VehicleDeleteComponent } from './vehicle/vehicle-delete/vehicle-delete.component';
 import { GoogleMapComponent } from './testing-module/google-map/google-map.component';
 import { GoogleMap2Component } from './testing-module/google-map2/google-map2.component';
+import { BrandEditComponent } from './brand-module/brand-edit/brand-edit.component';
+import { BrandDeleteComponent } from './brand-module/brand-delete/brand-delete.component';
+import { VehicleModelEditComponent } from './vehicle-module/vehicle-model-edit/vehicle-model-edit.component';
 
 const routes: Routes = [
   {
     path: 'admin',
     component: AdminLayoutComponent,
     children: [
+      // brand routing
       { path: 'get-brand', component: BrandGetComponent },
       { path: 'add-brand', component: BrandAddComponent },
+      { path: 'edit-brand/:brandId', component: BrandEditComponent },
 
+      // vehicle model routing
       { path: 'get-vehicle-model', component: VehicleModelGetAllComponent },
       { path: 'add-vehicle-model', component: VehicleModelAddComponent },
+      { path: 'edit-vehicle-model/:vehicleModelId', component: VehicleModelEditComponent },
 
+      // user routing
       { path: 'get-user', component: UserGetComponent },
       { path: 'add-user', component: UserAddComponent },
       { path: 'edit-user/:id', component: UserEditComponent },
       { path: 'delete-user/:id', component: UserDeleteComponent },
 
+      // vehicle routing
       { path: 'get-vehicle', component: VehicleGetComponent },
       { path: 'add-vehicle', component: VehicleAddComponent },
       { path: 'edit-vehicle/:id', component: VehicleEditComponent },
       { path: 'delete-vehicle/:id', component: VehicleDeleteComponent },
 
+      // booking routing
       { path: 'get-booking', component: BookingGetComponent },
       { path: 'add-booking', component: BookingAddComponent },
 

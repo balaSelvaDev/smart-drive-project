@@ -1,5 +1,65 @@
-/* level-1 styles(means don't concentration on design, focus on only functionality */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Functional styling */
 .input-level-1 {
-  padding: 8px ;
-  margin: 6px ;
+  padding: 8px !important;
+  margin: 6px !important;
+}
+
+.container {
+  width: 100%;
+  margin: 4px 6px;
+}
+
+.inputField {
+  position: relative;
+}
+
+/* Input styles */
+.inputField input,
+.inputField select {
+  width: 100%;
+  height: 2.8rem;
+  border-radius: 4px;
+  font-size: 16px;
+  padding: 0 1rem;
+  background: transparent;
+  outline: none;
+  border: 1px solid black;
+
+  /* Important: Add placeholder */
+  placeholder-shown: true;
+}
+
+/* Label styles */
+.inputField label {
+  position: absolute;
+  top: 45%;
+  left: 15px;
+  transform: translateY(-45%);
+  color: #000000;
+  font-size: 0.9rem;
+  pointer-events: none;
+  transition: 0.1s ease-in-out;
+}
+
+/* Focus or value (non-placeholder-shown) moves label up */
+.inputField input:focus + label,
+.inputField input:not(:placeholder-shown) + label,
+.inputField select:focus + label,
+.inputField select:not(:placeholder-shown) + label {
+  top: 0;
+  font-size: 0.8rem;
+  padding: 0 10px;
+  background: #fffcfc;
+  color: yellowgreen;
+}
+
+/* Focus border */
+.inputField > input:focus {
+  border: 2px solid yellowgreen;
 }

@@ -1,6 +1,7 @@
 .brand-container {
   padding: 24px;
-  background-color: #f9fafb; /* subtle light gray */
+  background-color: #f9fafb;
+  /* subtle light gray */
   border-radius: 8px;
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
 }
@@ -15,7 +16,8 @@
 }
 
 .brand-table th {
-  background-color: #374151; /* slate-800 */
+  background-color: #374151;
+  /* slate-800 */
   color: #ffffff;
   padding: 12px;
   font-size: 14px;
@@ -39,18 +41,56 @@
 }
 
 ::ng-deep .mat-select-panel {
-  background-color: #ffffff !important;  /* White background */
-  color: #1f2937 !important;             /* Dark readable text */
+  background-color: #ffffff !important;
+  /* White background */
+  color: #1f2937 !important;
+  /* Dark readable text */
   font-weight: 500;
 }
 
 ::ng-deep .mat-option {
-  color: #1f2937 !important;             /* Dark text */
+  color: #1f2937 !important;
+  /* Dark text */
   font-size: 14px;
 }
 
 ::ng-deep .mat-option:hover,
 ::ng-deep .mat-option.mat-selected {
-  background-color: #e0f2fe !important;  /* Light blue highlight */
+  background-color: #e0f2fe !important;
+  /* Light blue highlight */
   color: #000000 !important;
+}
+
+/* reduce icon space */
+.compact-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.compact-table th,
+.compact-table td {
+  padding: 6px 12px;
+  /* reduce cell padding */
+  font-size: 14px;
+}
+
+.compact-table tr {
+  height: 40px;
+  /* reduce row height */
+}
+
+.action-buttons {
+  display: flex;
+  gap: 4px;
+  /* small spacing between edit & delete */
+}
+
+.action-buttons button {
+  padding: 2px;
+  /* smaller clickable area */
+}
+
+mat-icon {
+  font-size: 18px;
+  /* make icons a bit smaller */
 }

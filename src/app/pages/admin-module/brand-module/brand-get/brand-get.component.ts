@@ -20,7 +20,7 @@ export class BrandGetComponent {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private brandService: BrandService, private router: Router, 
+  constructor(private brandService: BrandService, private router: Router,
     // private wsService: WebSocketService
   ) { }
 
@@ -48,6 +48,17 @@ export class BrandGetComponent {
 
   navigateToAddBrand() {
     this.router.navigate(['/admin/add-brand']); // absolute navigation
+  }
+
+  editBrand(brandId: number) {
+    this.router.navigate(['/admin/edit-brand', brandId]); // pass ID in URL
+  }
+
+  deleteBrand(brandId: number) {
+    if (confirm('Are you sure you want to delete this brand?')) {
+      console.log('Deleting brand with ID:', brandId);
+      // TODO: call delete API
+    }
   }
 
 }

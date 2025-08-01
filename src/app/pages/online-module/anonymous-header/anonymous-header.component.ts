@@ -68,6 +68,8 @@ export class AnonymousHeaderComponent {
     this.toTimeDisplay = this.datePipe.transform(now, 'h:mm a')!;
   }
 
-
+  openProfile() {
+    this.router.navigate(['/customer/profile/basic-info']);
+  }
 
 }

@@ -1,1 +1,25 @@
-<p>brand-edit works!</p>
+<form [formGroup]="brandForm" (ngSubmit)="onSubmit()">
+    <div style="width: 100%; display: flex; flex-direction: row;">
+        <div class="container">
+            <div class="inputField">
+                <input id="brandName" type="text" formControlName="brandName" autocomplete="off" placeholder=" " />
+                <label for="brandName">Brand Name:</label>
+                <div *ngIf="brandForm.get('brandName')?.invalid && brandForm.get('brandName')?.touched">
+                    Brand name is required
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-top: 10px;">
+        <span>Status: </span>
+        <mat-checkbox [checked]="statusControl.value === 1" (change)="setStatus(1)">
+            Active
+        </mat-checkbox>
+        <mat-checkbox [checked]="statusControl.value === 2" (change)="setStatus(2)">
+            Inactive
+        </mat-checkbox>
+    </div>
+
+    <button type="submit" [disabled]="brandForm.invalid">Add Brand</button>
+</form>

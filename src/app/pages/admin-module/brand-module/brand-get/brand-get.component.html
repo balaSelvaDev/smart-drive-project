@@ -6,6 +6,7 @@
         <th>#</th>
         <th>Brand Name</th>
         <th>Status</th>
+        <th>Actions</th> <!-- New Column -->
       </tr>
     </thead>
     <tbody>
@@ -13,7 +14,28 @@
         <!-- <td>{{ (currentPage * pageSize) + i + 1 }}</td> -->
         <td>{{ brand.brandId }}</td>
         <td>{{ brand.brandName }}</td>
-        <td>{{ brand.isActive ? 'Active' : 'Inactive' }}</td>
+        <!-- <td>{{ brand.isActive ? 'Active' : 'Inactive' }}</td> -->
+        <td *ngIf="brand.isActive==1">
+          <div><span style="padding: 2px 16px;
+    border-radius: 4px;
+    color: white;
+    background: green;">Active</span></div>
+        </td>
+        <td *ngIf="brand.isActive==2">
+          <div><span style="padding: 2px 16px;
+    border-radius: 4px;
+    color: white;
+    background: grey">InActive</span></div>
+        </td>
+
+        <td class="action-buttons">
+          <button mat-icon-button color="primary" (click)="editBrand(brand.brandId)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="deleteBrand(brand.brandId)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
       </tr>
     </tbody>
   </table>
@@ -22,6 +44,7 @@
     (page)="onPageChange($event)">
   </mat-paginator>
 </div>
+
 <div *ngFor="let notification of notifications">
   {{ notification.message }} - Order ID: {{ notification.orderId }}
 </div>
