@@ -11,6 +11,7 @@ export class BrandService {
   private getBrandsApi = 'http://localhost:9090/api/brands';
   private addBrandsApi = 'http://localhost:9090/api/brands';
   private updateBrandsApi = 'http://localhost:9090/api/brands';
+  private deleteBrandsApi = 'http://localhost:9090/api/brands';
 
   constructor(private http: HttpClient, private loginService: LoginService) { }
 
@@ -35,6 +36,10 @@ export class BrandService {
 
   getBrandsById(brandId: number): Observable<any> {
     return this.http.get(`${this.getBrandsApi}/${brandId}`);
+  }
+
+  deleteBrand(brandId: number): Observable<any> {
+    return this.http.delete(`${this.deleteBrandsApi}/${brandId}`);
   }
 }
 

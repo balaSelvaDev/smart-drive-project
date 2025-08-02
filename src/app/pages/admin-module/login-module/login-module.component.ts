@@ -19,6 +19,7 @@ export class LoginModuleComponent {
     this.loginForm = this.fb.group({
       emailId: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
+      authProvider: ["ROLE_ADMIN"]
     });
   }
 

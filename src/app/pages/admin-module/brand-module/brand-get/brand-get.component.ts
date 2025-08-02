@@ -58,7 +58,18 @@ export class BrandGetComponent {
     if (confirm('Are you sure you want to delete this brand?')) {
       console.log('Deleting brand with ID:', brandId);
       // TODO: call delete API
+      this.brandService.deleteBrand(brandId).subscribe(response => {
+        console.log(response);
+        this.reloadCurrentComponent();
+      });
     }
   }
+  reloadCurrentComponent() {
+    const currentUrl = this.router.url;
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate([currentUrl]);
+    });
+  }
+
 
 }

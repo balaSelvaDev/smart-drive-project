@@ -6,7 +6,7 @@
       <div class="image">
         <img [src]="profileImage || 'assets/default_profile_img.png'" alt="Avatar" />
         <label for="file-path">
-          <span class="material-symbols-rounded">photo_camera</span>
+          <span class="material-symbols-rounded"><mat-icon>photo_camera</mat-icon></span>
         </label>
         <input type="file" accept="image/jpeg, image/png, image/jpg" id="file-path" class="user-file"
           (change)="onProfileImageChange($event)">

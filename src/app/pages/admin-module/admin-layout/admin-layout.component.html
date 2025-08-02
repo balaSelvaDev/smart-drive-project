@@ -1,16 +1,45 @@
-<!-- <mat-toolbar style="background-color: #5698b3;">
-  <button mat-icon-button (click)="drawer.toggle()">
-    <mat-icon>menu</mat-icon>
-  </button>
-  <span>Admin Dashboard</span>
-</mat-toolbar> -->
-
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #drawer mode="side" opened style="background-color: grey;">
+  <mat-sidenav #drawer mode="side" opened style="background-color: grey; color: white;">
+    <!-- Profile Section -->
+    <div style="display: flex; align-items: center; justify-content: space-between; 
+                padding: 12px 16px; background-color: #4d4d4d; border-bottom: 1px solid #666;">
+
+      <!-- Left Side -->
+      <div style="display: flex; align-items: center;">
+        <img src="https://wallpapers.com/images/hd/cool-profile-picture-ld8f4n1qemczkrig.jpg" alt="Profile Picture"
+          style="width: 45px; height: 45px; border-radius: 50%; object-fit: cover; margin-right: 10px;">
+        <div style="line-height: 1.2;">
+          <h4 style="margin: 0; font-size: 15px;">{{ user?.sub || 'Guest' }}</h4>
+          <p style="margin: 0; font-size: 12px; color: lightgray;">{{ roleDisplay }}</p>
+        </div>
+      </div>
+
+      <!-- Right Side -->
+      <button mat-icon-button [matMenuTriggerFor]="profileMenu" style="color: white;">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+    </div>
+
+    <!-- Dropdown -->
+    <mat-menu #profileMenu="matMenu">
+      <button mat-menu-item routerLink="/admin/profile">
+        <mat-icon>account_circle</mat-icon>
+        <span>My Profile</span>
+      </button>
+      <button mat-menu-item routerLink="/admin/settings">
+        <mat-icon>settings</mat-icon>
+        <span>Settings</span>
+      </button>
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>logout</mat-icon>
+        <span>Logout</span>
+      </button>
+    </mat-menu>
+
+    <!-- Sidebar Menu -->
     <mat-nav-list>
       <a mat-list-item routerLink="/admin/dashboard">Dashboard</a>
-
-      <mat-expansion-panel style="background-color: grey;">
+      <mat-expansion-panel style="background-color: grey; color: white;">
         <mat-expansion-panel-header>
           <mat-panel-title>Master</mat-panel-title>
         </mat-expansion-panel-header>
@@ -20,12 +49,11 @@
         <a mat-list-item routerLink="/admin/get-vehicle">Vehicle</a>
         <a mat-list-item routerLink="/admin/get-booking">Booking</a>
       </mat-expansion-panel>
-
       <a mat-list-item routerLink="/admin/booking">Booking</a>
     </mat-nav-list>
   </mat-sidenav>
 
-  <mat-sidenav-content style="background-color: white;color: black">
+  <mat-sidenav-content style="background-color: white; color: black;">
     <div class="main-content">
       <router-outlet></router-outlet>
     </div>

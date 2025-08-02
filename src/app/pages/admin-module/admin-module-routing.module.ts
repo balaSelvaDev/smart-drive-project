@@ -21,6 +21,7 @@ import { GoogleMap2Component } from './testing-module/google-map2/google-map2.co
 import { BrandEditComponent } from './brand-module/brand-edit/brand-edit.component';
 import { BrandDeleteComponent } from './brand-module/brand-delete/brand-delete.component';
 import { VehicleModelEditComponent } from './vehicle-module/vehicle-model-edit/vehicle-model-edit.component';
+import { AuthGuard } from '../../core/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -28,9 +29,9 @@ const routes: Routes = [
     component: AdminLayoutComponent,
     children: [
       // brand routing
-      { path: 'get-brand', component: BrandGetComponent },
-      { path: 'add-brand', component: BrandAddComponent },
-      { path: 'edit-brand/:brandId', component: BrandEditComponent },
+      { path: 'get-brand', component: BrandGetComponent, canActivate: [AuthGuard] },
+      { path: 'add-brand', component: BrandAddComponent, canActivate: [AuthGuard] },
+      { path: 'edit-brand/:brandId', component: BrandEditComponent, canActivate: [AuthGuard] },
 
       // vehicle model routing
       { path: 'get-vehicle-model', component: VehicleModelGetAllComponent },
