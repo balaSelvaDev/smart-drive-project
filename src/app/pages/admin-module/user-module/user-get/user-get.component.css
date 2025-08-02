@@ -76,8 +76,11 @@ html {
 }
 
 td {
-    white-space: nowrap;
+    /* white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 150px;
+    max-width: 150px; */
+    white-space: nowrap;
+    overflow: visible;
+    text-overflow: unset;
 }

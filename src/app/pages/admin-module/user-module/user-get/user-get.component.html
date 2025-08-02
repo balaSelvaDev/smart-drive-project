@@ -4,6 +4,7 @@
     <thead>
       <tr>
         <th>#</th>
+        <th>role</th>
         <th>Full name</th>
         <th>Status</th>
 
@@ -31,7 +32,7 @@
         <th>occupation</th>
         <th>companyName</th>
         <th>alternatePhoneNumber</th>
-
+        <th>lastLoginTime</th>
 
       </tr>
     </thead>
@@ -39,6 +40,7 @@
       <tr *ngFor="let user of users; let i = index">
         <!-- <td>{{ (currentPage * pageSize) + i + 1 }}</td> -->
         <td>{{ user.userDetailsResponseDTO.userId }}</td>
+        <td>{{ user.role }}</td>
         <td>{{ user.userDetailsResponseDTO.fullName }}</td>
         <td>{{ user.userDetailsResponseDTO.isActive ? 'Active' : 'Inactive' }}</td>
 
@@ -66,6 +68,7 @@
         <td>{{ user.userKycDetailsResponseDTO?.occupation || 'N/A' }}</td>
         <td>{{ user.userKycDetailsResponseDTO?.companyName || 'N/A' }}</td>
         <td>{{ user.userKycDetailsResponseDTO?.alternatePhoneNumber || 'N/A' }}</td>
+        <td>{{ user.lastLoginTime }}</td>
 
       </tr>
     </tbody>
