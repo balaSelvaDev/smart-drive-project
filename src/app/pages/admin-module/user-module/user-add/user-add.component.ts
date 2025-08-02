@@ -184,6 +184,15 @@ export class UserAddComponent {
     }
   }
 
-  
+  clearLocationFields(pincode: string) {
+    if (pincode === "") {
+      this.userForm.controls["taluk"].setValue("");
+      this.userForm.controls["district"].setValue("");
+      this.userForm.controls["state"].setValue("");
+      this.userForm.controls["country"].setValue("");
+    }
+  }
+
+
 
 }

@@ -92,8 +92,8 @@
   <div style="width: 100%;display: flex; flex-direction: row;">
     <div class="container">
       <div class="inputField">
-        <input id="pincode" type="text" formControlName="pincode" class="input-level-1" autocomplete="off"
-          placeholder=" " (blur)="getPincodeDetails()" />
+        <input id="pincode" type="text" formControlName="pincode" class="input-level-1" autocomplete="off" #pincode
+          placeholder=" " (input)="clearLocationFields(pincode.value)" (blur)="getPincodeDetails()" />
         <label for="pincode">Pincode:</label>
       </div>
     </div>
