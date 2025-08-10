@@ -32,6 +32,8 @@ import { GoogleMap2Component } from './testing-module/google-map2/google-map2.co
 import { ViewVehicleDetailsComponent } from './booking-module/view-vehicle-details/view-vehicle-details.component';
 import { ViewUserDeatilsComponent } from './booking-module/view-user-deatils/view-user-deatils.component';
 import { NgbDatepickerModule, NgbTimepickerModule } from '@ng-bootstrap/ng-bootstrap';
+import { TransactionComponent } from './transaction/transaction/transaction.component';
+import { PaymentPopupComponent } from './transaction/payment-popup/payment-popup.component';
 
 
 @NgModule({
@@ -63,7 +65,9 @@ import { NgbDatepickerModule, NgbTimepickerModule } from '@ng-bootstrap/ng-boots
     GoogleMapComponent,
     GoogleMap2Component,
     ViewVehicleDetailsComponent,
-    ViewUserDeatilsComponent
+    ViewUserDeatilsComponent,
+    TransactionComponent,
+    PaymentPopupComponent
   ],
   imports: [
     CommonModule,

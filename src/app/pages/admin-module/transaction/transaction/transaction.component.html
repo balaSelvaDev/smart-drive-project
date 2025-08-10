@@ -1,0 +1,85 @@
+<div class="brand-container">
+    <table class="brand-table">
+        <thead>
+            <tr>
+                <th>userId</th>
+                <th>vehicleId</th>
+                <th>bookingReference</th>
+
+                <th>startDate</th>
+                <th>endDate</th>
+                <th>pickupLocation</th>
+                <th>dropLocation</th>
+
+                <th>paymentStatus</th>
+                <th>totalAmount</th>
+                <th>distanceKm</th>
+                <th>tripAmt</th>
+
+                <th>convenienceAmt</th>
+                <th>refundableAmt</th>
+                <th>bookingStatus</th>
+                <th>bookingType</th>
+
+                <th>action</th>
+
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let booking of bookingDetails; let i = index">
+                <!-- <td>{{ (currentPage * pageSize) + i + 1 }}</td> -->
+                <td>{{ booking.userId }}</td>
+                <td>{{ booking.vehicleId }}</td>
+                <td>{{ booking.bookingReference }}</td>
+
+
+                <td>{{ booking.startDate }}</td>
+                <td>{{ booking.endDate }}</td>
+                <td>{{ booking.pickupLocation || 'N/A' }}</td>
+                <td>{{ booking.dropLocation || 'N/A' }}</td>
+
+                <td>{{ booking.paymentStatus || 'N/A' }}</td>
+                <td>{{ booking.totalAmount || 'N/A' }}</td>
+                <td>{{ booking.distanceKm || 'N/A' }}</td>
+                <td>{{ booking.tripAmt || 'N/A' }}</td>
+
+                <td>{{ booking.convenienceAmt || 'N/A' }}</td>
+                <td>{{ booking.refundableAmt || 'N/A' }}</td>
+                <td>{{ booking.bookingStatus || 'N/A' }}</td>
+                <td>{{ booking.bookingType || 'N/A' }}</td>
+                <td >
+                    <button mat-icon-button color="primary" (click)="openPaymentPopup(booking)">
+                        <mat-icon>payment</mat-icon>
+                    </button>
+                </td>
+
+
+                <!-- <td>{{ user.userDetailsResponseDTO.isActive ? 'Active' : 'Inactive' }}</td> -->
+                <!-- <td *ngIf="booking.userDetailsResponseDTO.isActive==1">
+                    <div><span style="padding: 2px 16px;
+    border-radius: 4px;
+    color: white;
+    background: green;">Active</span></div>
+                </td>
+                <td *ngIf="booking.userDetailsResponseDTO.isActive==2">
+                    <div><span style="padding: 2px 16px;
+    border-radius: 4px;
+    color: white;
+    background: grey">InActive</span></div>
+                </td> -->
+
+            </tr>
+        </tbody>
+    </table>
+
+    <mat-paginator [length]="totalItems" [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 25, 50]"
+        (page)="onPageChange($event)">
+    </mat-paginator>
+</div>
+<!-- <div>
+  <div class="container mt-5">
+    <h2 class="text-primary">Bootstrap is Working!</h2>
+    <button class="btn btn-success">Click Me</button>
+  </div>
+</div> -->

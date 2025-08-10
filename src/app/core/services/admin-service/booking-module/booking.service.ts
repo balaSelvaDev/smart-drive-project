@@ -10,6 +10,7 @@ export class BookingService {
   private getUserDetailsApi = 'http://localhost:9090/api/booking/search/username';
   private getVehicleDetailsApi = 'http://localhost:9090/api/booking/search/vehiclename';
   private addBookingApi = 'http://localhost:9090/api/booking';
+  private getAllBookingApi = 'http://localhost:9090/api/booking';
 
   constructor(private http: HttpClient) { }
 
@@ -38,4 +39,9 @@ export class BookingService {
   addBooking(bookingData: any): Observable<any> {
     return this.http.post(`${this.addBookingApi}`, bookingData);
   }
+
+  getgetAllBookingApiUsers(page: number, size: number): Observable<any> {
+    return this.http.get(`${this.getAllBookingApi}?page=${page}&size=${size}`);
+  }
+
 }

@@ -21,7 +21,7 @@ export class BrandGetComponent {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(private brandService: BrandService, private router: Router,
-    // private wsService: WebSocketService
+    
   ) { }
 
   ngOnInit(): void {

@@ -22,6 +22,7 @@ import { BrandEditComponent } from './brand-module/brand-edit/brand-edit.compone
 import { BrandDeleteComponent } from './brand-module/brand-delete/brand-delete.component';
 import { VehicleModelEditComponent } from './vehicle-module/vehicle-model-edit/vehicle-model-edit.component';
 import { AuthGuard } from '../../core/guards/auth.guard';
+import { TransactionComponent } from './transaction/transaction/transaction.component';
 
 const routes: Routes = [
   {
@@ -53,6 +54,8 @@ const routes: Routes = [
       // booking routing
       { path: 'get-booking', component: BookingGetComponent },
       { path: 'add-booking', component: BookingAddComponent },
+
+      { path: 'transaction', component: TransactionComponent },
 
       // { path: 'customer', component: CustomerMasterComponent },
       // { path: 'booking', component: BookingComponent },

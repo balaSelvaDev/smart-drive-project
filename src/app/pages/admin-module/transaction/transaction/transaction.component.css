@@ -1,0 +1,86 @@
+/* * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+} */
+
+/* body,
+html {
+    font-family: Arial, sans-serif;
+    background-color: #070707;
+    width: 100%;
+    height: 100%;
+} */
+
+.brand-container {
+    padding: 24px;
+    background-color: #f9fafb;
+    /* subtle light gray */
+    border-radius: 8px;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
+}
+
+.brand-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 8px;
+    overflow: hidden;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #ffffff;
+}
+
+.brand-table th {
+    background-color: #374151;
+    /* slate-800 */
+    color: #ffffff;
+    padding: 12px;
+    font-size: 14px;
+    text-align: left;
+}
+
+.brand-table td {
+    padding: 12px;
+    font-size: 14px;
+    color: #374151;
+    border-top: 1px solid #e5e7eb;
+}
+
+.brand-table tr:nth-child(even) {
+    background-color: #f3f4f6;
+}
+
+.brand-table tr:hover {
+    background-color: #e0f2fe;
+    cursor: pointer;
+}
+
+::ng-deep .mat-select-panel {
+    background-color: #ffffff !important;
+    /* White background */
+    color: #1f2937 !important;
+    /* Dark readable text */
+    font-weight: 500;
+}
+
+::ng-deep .mat-option {
+    color: #1f2937 !important;
+    /* Dark text */
+    font-size: 14px;
+}
+
+::ng-deep .mat-option:hover,
+::ng-deep .mat-option.mat-selected {
+    background-color: #e0f2fe !important;
+    /* Light blue highlight */
+    color: #000000 !important;
+}
+
+td {
+    /* white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px; */
+    white-space: nowrap;
+    overflow: visible;
+    text-overflow: unset;
+}
