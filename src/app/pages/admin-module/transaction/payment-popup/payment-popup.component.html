@@ -1,19 +1,49 @@
-<h2 mat-dialog-title>Payment Transaction</h2>
-<br>
+<h2 style="margin: 0px;padding: 14px;">Payment Transaction</h2>
 <mat-dialog-content>
     <form [formGroup]="paymentForm" class="payment-form">
 
-        <mat-form-field appearance="outline" class="full-width">
+        <div style="width: 100%;display: flex; flex-direction: row;">
+            <div class="container">
+                <div class="inputField">
+                    <input id="bookingId" type="text" formControlName="bookingId" class="input-level-1"
+                        autocomplete="off" placeholder=" " readonly />
+                    <label for="bookingId">Booking id:</label>
+                </div>
+            </div>
+
+            <!-- <mat-form-field appearance="outline" class="full-width">
             <mat-label>Booking ID</mat-label>
             <input matInput formControlName="bookingId" readonly>
-        </mat-form-field>
+        </mat-form-field> -->
 
-        <mat-form-field appearance="outline" class="full-width">
+            <div class="container">
+                <div class="inputField">
+                    <input id="userId" type="text" formControlName="userId" class="input-level-1" autocomplete="off"
+                        placeholder=" " readonly />
+                    <label for="userId">User id:</label>
+                </div>
+            </div>
+
+            <!-- <mat-form-field appearance="outline" class="full-width">
             <mat-label>User ID</mat-label>
             <input matInput formControlName="userId" readonly>
-        </mat-form-field>
+        </mat-form-field> -->
 
-        <mat-form-field appearance="outline" class="full-width">
+            <div class="container">
+                <div class="inputField">
+                    <select formControlName="paymentMode" class="input-level-1">
+                        <option value="UPI">UPI</option>
+                        <option value="CASH">CASH</option>
+                        <option value="NET_BANKING">NET_BANKING</option>
+                        <option value="CARD">CARD</option>
+                        <option value="WALLET">WALLET</option>
+                    </select>
+                    <label for="paymentMode">Payment mode:</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- <mat-form-field appearance="outline" class="full-width">
             <mat-label>Payment Mode</mat-label>
             <mat-select formControlName="paymentMode">
                 <mat-option value="GPAY">GPay</mat-option>
@@ -25,14 +55,30 @@
             <mat-error *ngIf="paymentForm.get('paymentMode')?.hasError('required')">
                 Payment mode is required
             </mat-error>
-        </mat-form-field>
+        </mat-form-field> -->
+        <div style="width: 100%;display: flex; flex-direction: row;">
+            <div class="container">
+                <div class="inputField">
+                    <input id="totalAmount" type="text" formControlName="totalAmount" class="input-level-1"
+                        autocomplete="off" placeholder=" " readonly />
+                    <label for="totalAmount">Total amount:</label>
+                </div>
+            </div>
 
-        <mat-form-field appearance="outline" class="full-width">
+            <!-- <mat-form-field appearance="outline" class="full-width">
             <mat-label>Total Amount</mat-label>
             <input matInput type="number" formControlName="totalAmount" readonly>
-        </mat-form-field>
+        </mat-form-field> -->
 
-        <mat-form-field appearance="outline" class="full-width">
+            <div class="container">
+                <div class="inputField">
+                    <input id="paidAmount" type="text" formControlName="paidAmount" class="input-level-1"
+                        autocomplete="off" placeholder=" " />
+                    <label for="paidAmount">Paid amount:</label>
+                </div>
+            </div>
+
+            <!-- <mat-form-field appearance="outline" class="full-width">
             <mat-label>Paid Amount</mat-label>
             <input matInput type="number" formControlName="paidAmount">
             <mat-error *ngIf="paymentForm.get('paidAmount')?.hasError('required')">
@@ -44,12 +90,21 @@
             <mat-error *ngIf="paymentForm.get('paidAmount')?.hasError('exceedTotal')">
                 Paid amount cannot exceed remaining amount
             </mat-error>
-        </mat-form-field>
+        </mat-form-field> -->
 
-        <mat-form-field appearance="outline" class="full-width">
+            <div class="container">
+                <div class="inputField">
+                    <input id="pendingAmount" type="text" formControlName="pendingAmount" class="input-level-1"
+                        autocomplete="off" placeholder=" " readonly />
+                    <label for="pendingAmount">Pending amount:</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- <mat-form-field appearance="outline" class="full-width">
             <mat-label>Pending Amount</mat-label>
             <input matInput type="number" formControlName="pendingAmount" readonly>
-        </mat-form-field>
+        </mat-form-field> -->
 
     </form>
 </mat-dialog-content>

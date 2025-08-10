@@ -74,12 +74,13 @@ export class TransactionComponent {
       bookingId: row.bookingId,
       userId: row.userId,
       totalAmount: row.totalAmount,
+      pendingAmt: row.pendingAmt,
       alreadyPaidAmount: alreadyPaidAmount
     };
 
     const dialogRef = this.dialog.open(PaymentPopupComponent, {
       width: '900px',
-      height: '400px',
+      height: '300px',
       data: popupData  // <-- here you pass the data
     });
 

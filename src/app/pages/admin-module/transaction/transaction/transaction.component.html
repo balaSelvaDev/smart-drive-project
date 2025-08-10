@@ -21,8 +21,10 @@
                 <th>bookingStatus</th>
                 <th>bookingType</th>
 
-                <th>action</th>
+                <th>paidAmt</th>
+                <th>pendingAmt</th>
 
+                <th>action</th>
 
             </tr>
         </thead>
@@ -48,6 +50,10 @@
                 <td>{{ booking.refundableAmt || 'N/A' }}</td>
                 <td>{{ booking.bookingStatus || 'N/A' }}</td>
                 <td>{{ booking.bookingType || 'N/A' }}</td>
+
+                <td>{{ booking.paidAmt || 'N/A' }}</td>
+                <td>{{ booking.pendingAmt || 'N/A' }}</td>
+
                 <td >
                     <button mat-icon-button color="primary" (click)="openPaymentPopup(booking)">
                         <mat-icon>payment</mat-icon>

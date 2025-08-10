@@ -1,0 +1,210 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Functional styling */
+.input-level-1 {
+    padding: 8px !important;
+    margin: 6px !important;
+}
+
+.container {
+    width: 100%;
+    margin: 4px 6px;
+}
+
+.inputField {
+    position: relative;
+}
+
+/* Input styles */
+.inputField input,
+.inputField select {
+    width: 100%;
+    height: 2.8rem;
+    border-radius: 4px;
+    font-size: 16px;
+    padding: 0 1rem;
+    background: transparent;
+    outline: none;
+    border: 1px solid black;
+
+    /* Important: Add placeholder */
+    placeholder-shown: true;
+}
+
+/* Label styles */
+.inputField label {
+    position: absolute;
+    top: 45%;
+    left: 15px;
+    transform: translateY(-35%);
+    color: #000000;
+    font-size: 0.9rem;
+    pointer-events: none;
+    transition: 0.1s ease-in-out;
+}
+
+/* Focus or value (non-placeholder-shown) moves label up */
+.inputField input:focus+label,
+.inputField input:not(:placeholder-shown)+label,
+.inputField select:focus+label,
+.inputField select:not(:placeholder-shown)+label {
+    top: 0;
+    font-size: 0.8rem;
+    padding: 0 10px;
+    background: #fffcfc;
+    color: yellowgreen;
+}
+
+/* Focus border */
+.inputField>input:focus {
+    border: 2px solid yellowgreen;
+}
+
+.wrapper {
+    width: 200px;
+    height: 200px;
+    background-color: #fff;
+    border-radius: 7px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: grey 1px solid;
+    margin-left: 12px;
+}
+
+.image img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+#file-path {
+    display: none;
+}
+
+.wrapper h2 {
+    margin-bottom: 20px;
+}
+
+.image {
+    position: relative;
+}
+
+.image label {
+    position: absolute;
+    top: 10px;
+    right: 13px;
+    color: #fff;
+    background-color: #1b74e4;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.2s;
+}
+
+.image:hover label {
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* datapicker css code */
+.custom-day {
+    text-align: center;
+    padding: 0.5rem;
+    border-radius: 10%;
+    display: inline-block;
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+.custom-day.focused {
+    background-color: #e6f2ff;
+}
+
+.custom-day.range,
+.custom-day.filled {
+    background-color: #007bff;
+    color: white;
+}
+
+.custom-day.start,
+.custom-day.end {
+    background-color: #0056b3;
+    color: white;
+    font-weight: bold;
+}
+
+/* Invalid selection design */
+.custom-day.invalid {
+    background-color: #ffcccc !important;
+    color: #a10000 !important;
+    border: 1px solid #ff0000;
+}
+
+input:disabled {
+    background-color: #e0e0e0;
+    /* Light grey background */
+    color: #a0a0a0;
+    /* Grey text color */
+    /* cursor: not-allowed; Change cursor to "not allowed" symbol */
+    border: 1px solid #c0c0c0;
+    /* Lighter border */
+    cursor: pointer;
+}
+
+.ngb-tp {
+    display: flex;
+    align-items: center;
+    justify-content: center !important;
+}
+
+/* below css for i have added 0 for padding, margin so that i added */
+.modal-header {
+    padding: 1rem 1rem;
+}
+
+.modal-footer {
+    padding: .75rem;
+}
+
+.btn {
+    display: inline-block;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    background-color: transparent;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.modal-body {
+    position: relative;
+    flex: 1 1 auto;
+    padding: 1rem;
+}
+
+/*  */
