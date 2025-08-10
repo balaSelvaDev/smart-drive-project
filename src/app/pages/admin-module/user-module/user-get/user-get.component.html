@@ -6,7 +6,7 @@
         <th>#</th>
         <th>role</th>
         <th>Full name</th>
-        <th>Status</th>
+
 
         <th>email</th>
         <th>phoneNumber</th>
@@ -34,6 +34,9 @@
         <th>alternatePhoneNumber</th>
         <th>lastLoginTime</th>
 
+        <th>Status</th>
+        <th>Action</th>
+
       </tr>
     </thead>
     <tbody>
@@ -42,7 +45,7 @@
         <td>{{ user.userDetailsResponseDTO.userId }}</td>
         <td>{{ user.role }}</td>
         <td>{{ user.userDetailsResponseDTO.fullName }}</td>
-        <td>{{ user.userDetailsResponseDTO.isActive ? 'Active' : 'Inactive' }}</td>
+
 
         <td>{{ user.userDetailsResponseDTO.email }}</td>
         <td>{{ user.userDetailsResponseDTO.phoneNumber }}</td>
@@ -70,6 +73,28 @@
         <td>{{ user.userKycDetailsResponseDTO?.alternatePhoneNumber || 'N/A' }}</td>
         <td>{{ user.lastLoginTime }}</td>
 
+        <!-- <td>{{ user.userDetailsResponseDTO.isActive ? 'Active' : 'Inactive' }}</td> -->
+        <td *ngIf="user.userDetailsResponseDTO.isActive==1">
+          <div><span style="padding: 2px 16px;
+    border-radius: 4px;
+    color: white;
+    background: green;">Active</span></div>
+        </td>
+        <td *ngIf="user.userDetailsResponseDTO.isActive==2">
+          <div><span style="padding: 2px 16px;
+    border-radius: 4px;
+    color: white;
+    background: grey">InActive</span></div>
+        </td>
+
+        <td class="action-buttons">
+          <button mat-icon-button color="primary" (click)="editUser(user.userDetailsResponseDTO.userId)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="deleteUser(user.userDetailsResponseDTO.userId)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
       </tr>
     </tbody>
   </table>
@@ -78,9 +103,9 @@
     (page)="onPageChange($event)">
   </mat-paginator>
 </div>
-<div>
+<!-- <div>
   <div class="container mt-5">
     <h2 class="text-primary">Bootstrap is Working!</h2>
     <button class="btn btn-success">Click Me</button>
   </div>
-</div>
+</div> -->

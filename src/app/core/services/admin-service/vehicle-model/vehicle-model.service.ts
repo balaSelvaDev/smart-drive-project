@@ -10,6 +10,7 @@ export class VehicleModelService {
   private getBrandsNameApi = 'http://localhost:9090/api/brands/brand-name';
   private addVehicleModelApi = 'http://localhost:9090/api/vehicle-models';
   private getVehicleModelsApi = 'http://localhost:9090/api/vehicle-models';
+  private deleteVehicleModelsApi = 'http://localhost:9090/api/vehicle-models';
 
   constructor(private http: HttpClient) {}
 
@@ -30,5 +31,9 @@ export class VehicleModelService {
 
   getVehicleModels(page: number, size: number): Observable<any> {
     return this.http.get(`${this.getVehicleModelsApi}?page=${page}&size=${size}`);
+  }
+
+  deleteVehicleModels(vehicleModelId: number): Observable<any> {
+    return this.http.delete(`${this.deleteVehicleModelsApi}/${vehicleModelId}`);
   }
 }

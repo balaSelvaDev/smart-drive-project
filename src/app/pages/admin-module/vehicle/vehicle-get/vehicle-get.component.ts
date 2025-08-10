@@ -42,4 +42,25 @@ export class VehicleGetComponent {
     this.fetchVehicles(this.currentPage, this.pageSize);
   }
 
+  editVehicle(vehicleId: number) {
+    this.router.navigate(['/admin/edit-vehicle', vehicleId]); // pass ID in URL
+  }
+
+  deleteVehicle(vehicleId: number) {
+    if (confirm('Are you sure you want to delete this vehicle?')) {
+      console.log('Deleting vehicle with ID:', vehicleId);
+      // TODO: call delete API
+      // this.vehicleModelService.deleteVehicleModels(vehicleId).subscribe(response => {
+      //   console.log(response);
+      //   this.reloadCurrentComponent();
+      // });
+    }
+  }
+  reloadCurrentComponent() {
+    const currentUrl = this.router.url;
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate([currentUrl]);
+    });
+  }
+
 }

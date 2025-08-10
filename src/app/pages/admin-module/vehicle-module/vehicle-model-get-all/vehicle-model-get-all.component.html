@@ -7,6 +7,7 @@
         <th>Brand name</th>
         <th>Vehicle model</th>
         <th>Status</th>
+        <th>Actions</th> <!-- New Column -->
       </tr>
     </thead>
     <tbody>
@@ -14,15 +15,32 @@
         <td>{{ vehicleModel.modelId }}</td>
         <td>{{ vehicleModel.brandOnlyDTO.brandName }}</td>
         <td>{{ vehicleModel.modelName }}</td>
-        <td>{{ vehicleModel.isActive ? 'Active' : 'Inactive' }}</td>
+        <td *ngIf="vehicleModel.isActive==1">
+          <div><span style="padding: 2px 16px;
+    border-radius: 4px;
+    color: white;
+    background: green;">Active</span></div>
+        </td>
+        <td *ngIf="vehicleModel.isActive==2">
+          <div><span style="padding: 2px 16px;
+    border-radius: 4px;
+    color: white;
+    background: grey">InActive</span></div>
+        </td>
+
+        <td class="action-buttons">
+          <button mat-icon-button color="primary" (click)="editBrand(vehicleModel.modelId)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="deleteBrand(vehicleModel.modelId)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
       </tr>
     </tbody>
   </table>
 
-  <mat-paginator
-    [length]="totalItems"
-    [pageSize]="pageSize"
-    [pageSizeOptions]="[5, 10, 25, 50]"
+  <mat-paginator [length]="totalItems" [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 25, 50]"
     (page)="onPageChange($event)">
   </mat-paginator>
 </div>

@@ -25,11 +25,13 @@
         <th>horsepower</th>
         <th>insuranceExpiryDate</th>
         <th>lastUpdatedInsuranceDate</th>
-        <th>vehicleStatus</th>
+        
 
         <th>available</th>
         <th>insured</th>
 
+        <th>vehicleStatus</th>
+        <th>Action</th>
 
       </tr>
     </thead>
@@ -58,10 +60,37 @@
         <td>{{ vehicle.horsepower }}</td>
         <td>{{ vehicle.insuranceExpiryDate }}</td>
         <td>{{ vehicle.lastUpdatedInsuranceDate }}</td>
-        <td>{{ vehicle.vehicleStatus }}</td>
 
         <td>{{ vehicle.available ? 'Yes' : 'No' }}</td>
         <td>{{ vehicle.insured ? 'Yes' : 'No' }}</td>
+
+        <td *ngIf="vehicle.vehicleStatus==='Active'">
+          <div><span style="padding: 2px 16px;
+    border-radius: 4px;
+    color: white;
+    background: green;">Active</span></div>
+        </td>
+        <td *ngIf="vehicle.vehicleStatus==='Inactive'">
+          <div><span style="padding: 2px 16px;
+    border-radius: 4px;
+    color: white;
+    background: grey">InActive</span></div>
+        </td>
+        <td *ngIf="vehicle.vehicleStatus==='UnderMaintenance'">
+          <div><span style="padding: 2px 16px;
+    border-radius: 4px;
+    color: white;
+    background: grey">UnderMaintenance</span></div>
+        </td>
+
+        <td class="action-buttons">
+          <button mat-icon-button color="primary" (click)="editVehicle(vehicle.vehicleId)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="deleteVehicle(vehicle.vehicleId)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
 
       </tr>
     </tbody>

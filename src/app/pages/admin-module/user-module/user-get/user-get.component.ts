@@ -42,4 +42,25 @@ export class UserGetComponent {
     this.fetchUsers(this.currentPage, this.pageSize);
   }
 
+  editUser(userId: number) {
+    this.router.navigate(['/admin/edit-user', userId]); // pass ID in URL
+  }
+
+  deleteUser(userId: number) {
+    if (confirm('Are you sure you want to delete this user?')) {
+      console.log('Deleting user with ID:', userId);
+      // TODO: call delete API
+      // this.vehicleModelService.deleteVehicleModels(userId).subscribe(response => {
+      //   console.log(response);
+      //   this.reloadCurrentComponent();
+      // });
+    }
+  }
+  reloadCurrentComponent() {
+    const currentUrl = this.router.url;
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate([currentUrl]);
+    });
+  }
+
 }

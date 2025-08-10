@@ -41,13 +41,13 @@ const routes: Routes = [
       // user routing
       { path: 'get-user', component: UserGetComponent },
       { path: 'add-user', component: UserAddComponent },
-      { path: 'edit-user/:id', component: UserEditComponent },
+      { path: 'edit-user/:userId', component: UserEditComponent },
       { path: 'delete-user/:id', component: UserDeleteComponent },
 
       // vehicle routing
       { path: 'get-vehicle', component: VehicleGetComponent },
       { path: 'add-vehicle', component: VehicleAddComponent },
-      { path: 'edit-vehicle/:id', component: VehicleEditComponent },
+      { path: 'edit-vehicle/:vehicleId', component: VehicleEditComponent },
       { path: 'delete-vehicle/:id', component: VehicleDeleteComponent },
 
       // booking routing

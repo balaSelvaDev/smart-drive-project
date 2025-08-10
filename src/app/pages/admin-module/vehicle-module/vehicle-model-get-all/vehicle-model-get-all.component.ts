@@ -45,4 +45,25 @@ export class VehicleModelGetAllComponent {
     this.router.navigate(['/admin/add-vehicle-model']); // absolute navigation
   }
 
+  editBrand(vehicleModelId: number) {
+    this.router.navigate(['/admin/edit-vehicle-model', vehicleModelId]); // pass ID in URL
+  }
+
+  deleteBrand(vehicleModelId: number) {
+    if (confirm('Are you sure you want to delete this vehicle model?')) {
+      console.log('Deleting vehicle model with ID:', vehicleModelId);
+      // TODO: call delete API
+      // this.vehicleModelService.deleteVehicleModels(vehicleModelId).subscribe(response => {
+      //   console.log(response);
+      //   this.reloadCurrentComponent();
+      // });
+    }
+  }
+  reloadCurrentComponent() {
+    const currentUrl = this.router.url;
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate([currentUrl]);
+    });
+  }
+
 }
