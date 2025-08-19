@@ -26,17 +26,18 @@ export class BrandEditComponent {
     if (this.brandId !== 0) {
       // Fetch brand from backend using brandId
       console.log('Loading brand with ID:', this.brandId);
+      this.brandService.getBrandsById(this.brandId).subscribe({
+        next: (res) => {
+          console.log('Brand added successfully', res);
+          this.brandForm.controls["brandName"].setValue(res.brandName);
+          this.setStatus(res.isActive);
+        },
+        error: (err) => {
+          console.error('Failed to add brand', err);
+        },
+      });
     }
-    this.brandService.getBrandsById(this.brandId).subscribe({
-      next: (res) => {
-        console.log('Brand added successfully', res);
-        this.brandForm.controls["brandName"].setValue(res.brandName);
-        this.setStatus(res.isActive);
-      },
-      error: (err) => {
-        console.error('Failed to add brand', err);
-      },
-    });
+
   }
 
   onSubmit(): void {

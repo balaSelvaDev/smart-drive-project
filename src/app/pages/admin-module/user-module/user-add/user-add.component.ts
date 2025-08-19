@@ -3,7 +3,6 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { UserService } from '../../../../core/services/admin-service/user-module/user.service';
 import { HttpClient } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-user-add',
@@ -15,6 +14,8 @@ export class UserAddComponent {
   userForm!: FormGroup;
   profileImageFile: File | null = null;
   drivingLicenseImageFile: File | null = null;
+  drivingLicenseImageFlag: boolean = false;
+  idProofTypeFlag: boolean = false;
   idProofFiles: File[] = [];
   idProofRemoveBtn: boolean = false;
 
@@ -49,7 +50,10 @@ export class UserAddComponent {
       nomineePhone: new FormControl(''),
       occupation: new FormControl(''),
       companyName: new FormControl(''),
-      alternatePhoneNumber: new FormControl('')
+      alternatePhoneNumber: new FormControl(''),
+
+      drivingLicenseImageFileName: new FormControl(''),
+      idProofTypeImageFileName: new FormControl('')
     });
   }
 
@@ -101,10 +105,11 @@ export class UserAddComponent {
       formData.append('alternatePhoneNumber', this.userForm.get('alternatePhoneNumber')?.value);
 
       console.log('FormData:', formData);
+      this.uploadImages(formData);
       this.userService.addUserByAdmin(formData).subscribe({
         next: (res) => {
           console.log('User added successfully', res);
-          this.router.navigate(['/get-user']); // Navigate to the user list page
+          this.router.navigate(['/admin/get-user']);
         },
         error: (err) => {
           console.error('Failed to add user', err);
@@ -151,18 +156,68 @@ export class UserAddComponent {
 
   onDrivingLicenseImageChange(event: any) {
     this.drivingLicenseImageFile = event.target.files[0];
+    this.drivingLicenseImageFlag = true;
+    const input = event.target as HTMLInputElement;
+
+    if (input.files && input.files.length > 0) {
+      const fileName = input.files[0].name;
+      this.userForm.controls['drivingLicenseImageFileName'].setValue(fileName);
+      console.log('Selected file name:', fileName);
+    }
+  }
+
+  viewDrivingLicenseImage(event: any) {
+    if (this.drivingLicenseImageFlag) {
+      const file = this.drivingLicenseImageFile;
+      if (file) {
+        const url = URL.createObjectURL(file);
+        window.open(url, '_blank');
+      }
+    }
+  }
+
+  clearDrivingLicenseImage(drivingLicenseImage: HTMLInputElement) {
+    // this.images[index].file = null;
+    drivingLicenseImage.value = ''; // ✅ resets the input field
+    this.drivingLicenseImageFlag = false;
+    this.drivingLicenseImageFile = null;
+    this.userForm.controls['drivingLicenseImageFileName'].setValue("");
+  }
+
+  viewIdProofFileImage(i: number, event: any) {
+    if (this.idProofTypeFlag) {
+      const file = this.idProofFiles[i];
+      if (file) {
+        const url = URL.createObjectURL(file);
+        window.open(url, '_blank');
+      }
+    }
   }
 
   onIdProofFileChange(event: any) {
     const file = event.target.files[0];
     if (file) {
+      this.idProofFiles = [];
       this.idProofFiles.push(file);
       this.idProofRemoveBtn = true;
+      //
+      this.idProofTypeFlag = true;
+      const input = event.target as HTMLInputElement;
+
+      if (input.files && input.files.length > 0) {
+        const fileName = input.files[0].name;
+        this.userForm.controls['idProofTypeImageFileName'].setValue(fileName);
+        console.log('Selected file name:', fileName);
+      }
     }
   }
 
-  removeIdProofFile(index: number) {
+  removeIdProofFile(index: number, idProofType: HTMLInputElement) {
     this.idProofFiles.splice(index, 1);
+    idProofType.value = ''; // ✅ resets the input field
+    this.drivingLicenseImageFlag = false;
+    this.drivingLicenseImageFile = null;
+    this.userForm.controls['idProofTypeImageFileName'].setValue("");
   }
 
   getPincodeDetails() {
@@ -193,6 +248,28 @@ export class UserAddComponent {
     }
   }
 
+  uploadImages(formData: FormData) {
+    // const formData = new FormData();
 
+    // this.idProofFiles.forEach((imgObj, i) => {
+    //   if (imgObj) {
+    //     formData.append('images', imgObj);
+    //     console.log(`Image ${i + 1}:`, imgObj.name);
+    //   }
+    // });
+
+    console.log('--- FormData Contents ---');
+    if (formData && typeof (formData as any).entries === 'function') {
+      for (const pair of (formData as any).entries()) {
+        console.log(pair[0], pair[1]);
+      }
+    } else {
+      console.warn('FormData.entries() is not supported in this environment');
+    }
+  }
+
+  openFileDialog(fileInput: HTMLInputElement): void {
+    fileInput.click();
+  }
 
 }

@@ -49,14 +49,14 @@ export class VehicleModelGetAllComponent {
     this.router.navigate(['/admin/edit-vehicle-model', vehicleModelId]); // pass ID in URL
   }
 
-  deleteBrand(vehicleModelId: number) {
-    if (confirm('Are you sure you want to delete this vehicle model?')) {
-      console.log('Deleting vehicle model with ID:', vehicleModelId);
+  deleteBrand(brandId: number) {
+    if (confirm('Are you sure you want to delete this brand?')) {
+      console.log('Deleting brand with ID:', brandId);
       // TODO: call delete API
-      // this.vehicleModelService.deleteVehicleModels(vehicleModelId).subscribe(response => {
-      //   console.log(response);
-      //   this.reloadCurrentComponent();
-      // });
+      this.vehicleModelService.deleteVehicleModels(brandId).subscribe(response => {
+        console.log(response);
+        this.reloadCurrentComponent();
+      });
     }
   }
   reloadCurrentComponent() {

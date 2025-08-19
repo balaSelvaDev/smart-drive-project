@@ -1,1 +1,271 @@
-<p>user-edit works!</p>
+<form [formGroup]="userForm">
+
+  <div style="width: 100%;display: flex; flex-direction: row;">
+    <div class="wrapper">
+      <label>Profile Photo</label>
+      <div class="image">
+        <img [src]="profileImage || 'assets/default_profile_img.png'" alt="Avatar" />
+        <label for="file-path">
+          <span class="material-symbols-rounded"><mat-icon>photo_camera</mat-icon></span>
+        </label>
+        <input type="file" accept="image/jpeg, image/png, image/jpg" id="file-path" class="user-file"
+          (change)="onProfileImageChange($event)">
+      </div>
+    </div>
+
+    <div style="width: 100%;display: flex; flex-direction: column;">
+      <div style="width: 100%;display: flex; flex-direction: row;">
+        <div class="container">
+          <div class="inputField">
+            <input id="firstName" type="text" formControlName="firstName" class="input-level-1" autocomplete="off"
+              placeholder=" " />
+            <label for="firstName">First Name:</label>
+          </div>
+        </div>
+
+        <div class="container">
+          <div class="inputField">
+            <input id="lastName" type="text" required formControlName="lastName" class="input-level-1"
+              autocomplete="off" placeholder=" " />
+            <label for="lastName">Last Name:</label>
+          </div>
+        </div>
+      </div>
+      <div style="width: 100%;display: flex; flex-direction: row;">
+        <div class="container">
+          <div class="inputField">
+            <input id="email" type="email" formControlName="email" class="input-level-1" autocomplete="off"
+              placeholder=" " />
+            <label for="email">Email:</label>
+          </div>
+        </div>
+
+        <div class="container">
+          <div class="inputField">
+            <input id="phoneNumber" type="text" formControlName="phoneNumber" class="input-level-1" autocomplete="off"
+              placeholder=" " />
+            <label for="phoneNumber">Phone Number:</label>
+          </div>
+        </div>
+
+        <div class="container">
+          <div class="inputField">
+            <input id="drivingLicenseNumber" type="text" formControlName="drivingLicenseNumber" class="input-level-1"
+              autocomplete="off" placeholder=" " />
+            <label for="drivingLicenseNumber">Driving License Number:</label>
+          </div>
+        </div>
+        <div class="container">
+          <div class="inputField">
+            <input id="idProofNumber" type="text" formControlName="idProofNumber" class="input-level-1"
+              autocomplete="off" placeholder=" " />
+            <label for="idProofNumber">ID Proof Number:</label>
+          </div>
+        </div>
+      </div>
+      <div style="width: 100%;display: flex; flex-direction: row;">
+        <div class="container">
+          <div class="inputField">
+            <input id="addressLine1" type="text" formControlName="addressLine1" class="input-level-1" autocomplete="off"
+              placeholder=" " />
+            <label for="addressLine1">Address Line 1:</label>
+          </div>
+        </div>
+
+        <div class="container">
+          <div class="inputField">
+            <input id="addressLine2" type="text" formControlName="addressLine2" class="input-level-1" autocomplete="off"
+              placeholder=" " />
+            <label for="addressLine2">Address Line 2:</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+
+
+
+
+  <div style="width: 100%;display: flex; flex-direction: row;">
+    <div class="container">
+      <div class="inputField">
+        <input id="pincode" type="text" formControlName="pincode" class="input-level-1" autocomplete="off" #pincode
+          placeholder=" " (input)="clearLocationFields(pincode.value)" (blur)="getPincodeDetails()" />
+        <label for="pincode">Pincode:</label>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="inputField">
+        <input id="taluk" type="text" formControlName="taluk" class="input-level-1" autocomplete="off"
+          placeholder=" " />
+        <label for="taluk">Taluk:</label>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="inputField">
+        <input id="district" type="text" formControlName="district" class="input-level-1" autocomplete="off"
+          placeholder=" " />
+        <label for="district">District:</label>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="inputField">
+        <input id="state" type="text" formControlName="state" class="input-level-1" autocomplete="off"
+          placeholder=" " />
+        <label for="state">State:</label>
+      </div>
+    </div>
+    <div class="container">
+      <div class="inputField">
+        <input id="country" type="text" formControlName="country" class="input-level-1" autocomplete="off"
+          placeholder=" " />
+        <label for="country">Country:</label>
+      </div>
+    </div>
+  </div>
+
+
+  <div style="width: 100%;display: flex; flex-direction: row;">
+    <div class="container">
+      <div class="inputField">
+        <input id="fatherName" type="text" formControlName="fatherName" class="input-level-1" autocomplete="off"
+          placeholder=" " />
+        <label for="fatherName">Father's Name:</label>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="inputField">
+        <input id="motherName" type="text" formControlName="motherName" class="input-level-1" autocomplete="off"
+          placeholder=" " />
+        <label for="motherName">Mother's Name:</label>
+      </div>
+    </div>
+  </div>
+
+  <div style="width: 100%;display: flex; flex-direction: row;">
+    <div class="container">
+      <div class="inputField">
+        <input id="nomineeName" type="text" formControlName="nomineeName" class="input-level-1" autocomplete="off"
+          placeholder=" " />
+        <label for="nomineeName">Nominee Name:</label>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="inputField">
+        <input id="nomineeRelation" type="text" formControlName="nomineeRelation" class="input-level-1"
+          autocomplete="off" placeholder=" " />
+        <label for="nomineeRelation">Nominee Relation:</label>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="inputField">
+        <input id="nomineePhone" type="text" formControlName="nomineePhone" class="input-level-1" autocomplete="off"
+          placeholder=" " />
+        <label for="nomineePhone">Nominee Phone:</label>
+      </div>
+    </div>
+  </div>
+  <div style="width: 100%;display: flex; flex-direction: row;">
+    <div class="container">
+      <div class="inputField">
+        <input id="occupation" type="text" formControlName="occupation" class="input-level-1" autocomplete="off"
+          placeholder=" " />
+        <label for="occupation">Occupation:</label>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="inputField">
+        <input id="companyName" type="text" formControlName="companyName" class="input-level-1" autocomplete="off"
+          placeholder=" " />
+        <label for="companyName">Company Name:</label>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="inputField">
+        <input id="alternatePhoneNumber" type="text" formControlName="alternatePhoneNumber" class="input-level-1"
+          autocomplete="off" placeholder=" " />
+        <label for="alternatePhoneNumber">Alternate Phone Number:</label>
+      </div>
+    </div>
+  </div>
+
+  <div style="width: 100%;display: flex; flex-direction: row;align-items: center;">
+    <div class="container">
+      <div class="inputField">
+        <button style="padding: 12px;border: 1px solid black;width: 100%;margin: 0px 6px;"
+          (click)="openFileDialog(drivingLicenseImage)">
+          Driving license
+        </button>
+        <input type="file" #drivingLicenseImage style="display: none" (change)="onDrivingLicenseImageChange($event)"
+          multiple class="input-level-1" />
+      </div>
+    </div>
+    <div class="container">
+      <div class="inputField">
+        <input id="drivingLicenseImageFileName" formControlName="drivingLicenseImageFileName" type="text"
+          class="input-level-1" autocomplete="off" placeholder=" " readonly />
+        <label for="drivingLicenseImageFileName">Driving License(File name):</label>
+      </div>
+    </div>
+    <!-- Clear input AND reset file input value -->
+    <button  (click)="clearDrivingLicenseImage(drivingLicenseImage)" class="input-level-1">❌ Clear</button>
+    <!--   -->
+
+    <!-- View selected image -->
+    <button  *ngIf="this.drivingLicenseImageFlag" (click)="viewDrivingLicenseImage($event)"
+      class="input-level-1">🔍 View</button>
+  </div>
+
+  <!-- ID Proof -->
+  <div style="width: 100%;display: flex; flex-direction: row;align-items: center;">
+    <div class="container">
+      <div class="inputField">
+        <button style="padding: 12px;border: 1px solid black;width: 100%;margin: 0px 6px;"
+          (click)="openFileDialog(idProofType)">
+          Upload ID Proof Files
+        </button>
+        <input type="file" #idProofType style="display: none" (change)="onIdProofFileChange($event)" multiple
+          class="input-level-1" />
+      </div>
+    </div>
+    <div class="container">
+      <div class="inputField">
+        <select formControlName="idProofType" class="input-level-1">
+          <option value="AADHAAR">AADHAAR</option>
+          <option value="PAN_CARD">PAN_CARD</option>
+          <option value="PASSPORT">PASSPORT</option>
+        </select>
+        <label for="idProofType">ID Proof Type:</label>
+      </div>
+    </div>
+    <div class="container">
+      <div class="inputField">
+        <input id="idProofTypeImageFileName" formControlName="idProofTypeImageFileName" type="text"
+          class="input-level-1" autocomplete="off" placeholder=" " readonly />
+        <label for="idProofTypeImageFileName">Id proof type(File name):</label>
+      </div>
+    </div>
+    <div *ngFor="let file of idProofFiles; let i = index" style="display: flex;">
+      <button type="button" *ngIf="idProofRemoveBtn" (click)="removeIdProofFile(i, idProofType)" class="input-level-1">❌
+        Clear</button>
+      <!-- View selected image -->
+      <button type="button" *ngIf="this.idProofTypeFlag" (click)="viewIdProofFileImage(i, $event)"
+        class="input-level-1">🔍 View</button>
+    </div>
+  </div>
+
+
+
+  <button type="submit" class="input-level-1" (click)="onSubmit()">Add User</button>
+</form>

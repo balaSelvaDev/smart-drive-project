@@ -11,6 +11,8 @@ export class VehicleModelService {
   private addVehicleModelApi = 'http://localhost:9090/api/vehicle-models';
   private getVehicleModelsApi = 'http://localhost:9090/api/vehicle-models';
   private deleteVehicleModelsApi = 'http://localhost:9090/api/vehicle-models';
+  private getVehicleModelByIdApi = 'http://localhost:9090/api/vehicle-models';
+  private updateVehicleModelByIdApi = 'http://localhost:9090/api/vehicle-models';
 
   constructor(private http: HttpClient) {}
 
@@ -36,4 +38,13 @@ export class VehicleModelService {
   deleteVehicleModels(vehicleModelId: number): Observable<any> {
     return this.http.delete(`${this.deleteVehicleModelsApi}/${vehicleModelId}`);
   }
+
+  getVehicleModelById(vehicleModel: number): Observable<any> {
+    return this.http.get(`${this.getVehicleModelByIdApi}/${vehicleModel}`);
+  }
+
+  updateVehicleModel(vehicleModelId: number, data: any): Observable<any> {
+    return this.http.put(`${this.updateVehicleModelByIdApi}/${vehicleModelId}`, data);
+  }
+
 }

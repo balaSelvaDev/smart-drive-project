@@ -50,10 +50,10 @@ export class UserGetComponent {
     if (confirm('Are you sure you want to delete this user?')) {
       console.log('Deleting user with ID:', userId);
       // TODO: call delete API
-      // this.vehicleModelService.deleteVehicleModels(userId).subscribe(response => {
-      //   console.log(response);
-      //   this.reloadCurrentComponent();
-      // });
+      this.userService.deleteUser(userId).subscribe(response => {
+        console.log(response);
+        this.reloadCurrentComponent();
+      });
     }
   }
   reloadCurrentComponent() {

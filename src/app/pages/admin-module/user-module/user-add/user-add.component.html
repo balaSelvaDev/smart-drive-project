@@ -198,16 +198,47 @@
         <label for="alternatePhoneNumber">Alternate Phone Number:</label>
       </div>
     </div>
+  </div>
+
+  <div style="width: 100%;display: flex; flex-direction: row;align-items: center;">
     <div class="container">
       <div class="inputField">
-        <input type="file" (change)="onDrivingLicenseImageChange($event)" multiple class="input-level-1" />
-        <label>Driving License Image:</label>
+        <button style="padding: 12px;border: 1px solid black;width: 100%;margin: 0px 6px;"
+          (click)="openFileDialog(drivingLicenseImage)">
+          Driving license
+        </button>
+        <input type="file" #drivingLicenseImage style="display: none" (change)="onDrivingLicenseImageChange($event)"
+          multiple class="input-level-1" />
       </div>
     </div>
+    <div class="container">
+      <div class="inputField">
+        <input id="drivingLicenseImageFileName" formControlName="drivingLicenseImageFileName" type="text"
+          class="input-level-1" autocomplete="off" placeholder=" " readonly />
+        <label for="drivingLicenseImageFileName">Driving License(File name):</label>
+      </div>
+    </div>
+    <!-- Clear input AND reset file input value -->
+    <button type="button" (click)="clearDrivingLicenseImage(drivingLicenseImage)" class="input-level-1">❌ Clear</button>
+    <!--   -->
+
+    <!-- View selected image -->
+    <button type="button" *ngIf="this.drivingLicenseImageFlag" (click)="viewDrivingLicenseImage($event)"
+      class="input-level-1">🔍 View</button>
   </div>
 
   <!-- ID Proof -->
   <div style="width: 100%;display: flex; flex-direction: row;align-items: center;">
+    <div class="container">
+      <div class="inputField">
+        <button style="padding: 12px;border: 1px solid black;width: 100%;margin: 0px 6px;"
+          (click)="openFileDialog(idProofType)">
+          Upload ID Proof Files
+        </button>
+        <input type="file" #idProofType style="display: none" (change)="onIdProofFileChange($event)" multiple
+          class="input-level-1" />
+      </div>
+    </div>
     <div class="container">
       <div class="inputField">
         <select formControlName="idProofType" class="input-level-1">
@@ -220,18 +251,21 @@
     </div>
     <div class="container">
       <div class="inputField">
-        <input type="file" (change)="onIdProofFileChange($event)" multiple class="input-level-1" />
-        <label>Upload ID Proof Files (Multiple):</label>
+        <input id="idProofTypeImageFileName" formControlName="idProofTypeImageFileName" type="text"
+          class="input-level-1" autocomplete="off" placeholder=" " readonly />
+        <label for="idProofTypeImageFileName">Id proof type(File name):</label>
       </div>
     </div>
-
-    <div *ngFor="let file of idProofFiles; let i = index">
-      <button *ngIf="idProofRemoveBtn" class="input-level-1" type="button"
-        (click)="removeIdProofFile(i)">Remove</button>
+    <div *ngFor="let file of idProofFiles; let i = index" style="display: flex;">
+      <button type="button" *ngIf="idProofRemoveBtn" (click)="removeIdProofFile(i, idProofType)" class="input-level-1">❌
+        Clear</button>
+      <!-- View selected image -->
+      <button type="button" *ngIf="this.idProofTypeFlag" (click)="viewIdProofFileImage(i, $event)"
+        class="input-level-1">🔍 View</button>
     </div>
   </div>
 
-  
 
+  <!-- <button type="button" (click)="uploadImages()">Upload All</button> -->
   <button type="submit" class="input-level-1">Add User</button>
 </form>

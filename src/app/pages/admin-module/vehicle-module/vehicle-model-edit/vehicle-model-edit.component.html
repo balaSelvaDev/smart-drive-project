@@ -1,1 +1,44 @@
-<p>vehicle-model-edit works!</p>
+<form [formGroup]="vehicleModelForm" (ngSubmit)="onSubmit()">
+  <!-- <div>
+    <label for="isActive">Brand Name:</label>
+    <mat-form-field style="width: 300px;">
+      <input type="text" formControlName="brandId" matInput [formControl]="searchControl" [matAutocomplete]="auto"
+        placeholder="Search..." />
+      <mat-autocomplete #auto="matAutocomplete" style="color: black">
+        <mat-option *ngFor="let item of filteredOptions" style="color: black" (click)="setValue(item)">
+          {{ item.brandName }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </div> -->
+  <div class="container">
+    <div class="inputField">
+      <input id="brandName" type="text" formControlName="brandId" class="input-level-1" [formControl]="searchControl"
+        [matAutocomplete]="auto" autocomplete="off" placeholder=" " />
+      <label for="brandName">Brand Name:</label>
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let item of filteredOptions" (click)="setValue(item)">
+          {{ item.brandName }}
+        </mat-option>
+      </mat-autocomplete>
+    </div>
+  </div>
+  <div class="container">
+    <div class="inputField">
+      <input id="vehicleModelName" type="text" formControlName="vehicleModelName" class="input-level-1"
+        autocomplete="off" placeholder=" " />
+      <label for="vehicleModelName">Vehicle Model Name:</label>
+    </div>
+  </div>
+  <div style="margin-top: 10px;">
+    <span>Status: </span>
+    <mat-checkbox [checked]="statusControl.value === 1" (change)="setStatus(1)">
+      Active
+    </mat-checkbox>
+    <mat-checkbox [checked]="statusControl.value === 2" (change)="setStatus(2)">
+      Inactive
+    </mat-checkbox>
+  </div>
+
+  <button type="submit" class="input-level-1">Add Vehicle</button>
+</form>
