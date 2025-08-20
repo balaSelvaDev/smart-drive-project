@@ -52,9 +52,9 @@
             </div>
         </div>
     </div>
-    <div style="width: 80%;padding: 12px 24px;border: 1px solid red;margin: 8px;">
+    <div style="width: 80%;padding: 12px 24px;margin: 8px;">
         <div class="row">
-            <div class="col-md-4" style="" *ngFor="let vehicle of vehicleResult; let i = index">
+            <div class="col-md-4" style="cursor: pointer;" *ngFor="let vehicle of vehicleResult; let i = index" >
                 <div [id]="'carousel' + i" class="carousel slide vehicle-carousel" data-bs-ride="false"
                     [attr.data-bs-interval]="'false'" (mouseenter)="hoveredIndex = i"
                     (mouseleave)="hoveredIndex = null">
@@ -91,7 +91,7 @@
                 </div>
 
                 <!-- Vehicle Info -->
-                <div class="vehicle-info">
+                <div class="vehicle-info" (click)="navigateToVehicleDetails(vehicle.vehicleId)">
                     <h5>{{vehicle.vehicleName}}</h5>
                     <p>{{vehicle.vehicleType}} · {{vehicle.fuelType}} · {{vehicle.seatingCapacity}} Seats</p>
                     <div class="d-flex justify-content-between align-items-center">

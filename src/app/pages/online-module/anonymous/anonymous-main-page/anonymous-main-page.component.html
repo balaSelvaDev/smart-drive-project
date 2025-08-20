@@ -8,12 +8,14 @@
             </div>
             <div style="width: 400px; margin-top: 20px;">
                 <label for="pickup">Pickup location:</label>
-                <input type="text" id="pickup" placeholder="Enter a location" class="location-input" formControlName="pickupLocation"
+                <input type="text" id="pickup" placeholder="Enter a location" class="location-input"
+                    formControlName="pickupLocation"
                     style="width: 100%; padding: 10px; box-sizing: border-box; border-radius: 4px; border: 1px solid #ccc;">
             </div>
             <div style="width: 400px; margin-top: 20px;">
                 <label for="drop">Drop location:</label>
-                <input type="text" id="drop" placeholder="Enter a location" class="location-input" formControlName="dropLocation"
+                <input type="text" id="drop" placeholder="Enter a location" class="location-input"
+                    formControlName="dropLocation"
                     style="width: 100%; padding: 10px; box-sizing: border-box; border-radius: 4px; border: 1px solid #ccc;">
             </div>
             <div style="display: flex; margin-top: 20px;width: 400px;">
@@ -24,15 +26,16 @@
                         class="location-input" (click)="openPicker(pickerModal)" formControlName="pickupDateTime"
                         value="{{this.selectedFromFormattedRange}}"
                         style="width: 100%; padding: 10px; box-sizing: border-box; border-radius: 4px; border: 1px solid #ccc;"
-                         readonly>
+                        readonly>
                 </div>
                 <div>
                     <label for="endDate">End Date:</label>
                     <!-- <input type="datetime-local" id="endDate" name="endDate" [value]="endDate" /> -->
                     <input type="text" id="endDate" name="endDate" placeholder="Enter a location" class="location-input"
-                        (click)="openPicker(pickerModal)" value="{{this.selectedToFormattedRange}}" formControlName="dropDateTime" 
+                        (click)="openPicker(pickerModal)" value="{{this.selectedToFormattedRange}}"
+                        formControlName="dropDateTime"
                         style="width: 100%; padding: 10px; box-sizing: border-box; border-radius: 4px; border: 1px solid #ccc;"
-                         readonly>
+                        readonly>
                 </div>
             </div>
             <div>
@@ -44,69 +47,170 @@
     </div>
 
 </div>
-<button (click)="onUseCurrentLocation()">📍 Use Current Location</button>
+<br>
+<!-- <button (click)="onUseCurrentLocation()">📍 Use Current Location</button>
 <p *ngIf="currentLocationName">Your Location: <strong>{{ currentLocationName }}</strong></p>
 <ul *ngIf="distanceResults.length > 0">
     <li *ngFor="let result of distanceResults">
         {{ result.destination }} – {{ result.distance }} ({{ result.duration }})
     </li>
-</ul>
-<div style="width: 100%; height: 500px;">
-    <!-- <button class="btn btn-primary" (click)="openPicker(pickerModal)">
-        <i class="bi bi-calendar-date"></i> Select Date & Time Range
-    </button> -->
+</ul> -->
 
-    <!-- Display selected range -->
-    <!-- <div *ngIf="selectedRange" class="alert alert-info mt-3">
-        <strong>Selected:</strong> {{ selectedRange }}
-    </div> -->
+<div class="why-section">
+    <p class="sub-title">SELF-DRIVE CAR RENTALS IN CHENNAI</p>
+    <h2 class="main-title">
+        WHY MADRAS SELF-DRIVE CARS IS THE BEST CHOICE
+    </h2>
+    <p class="description">
+        Rent a self-drive car in Chennai with ease. Enjoy quick booking, transparent pricing,
+        prompt delivery to your doorstep, and a hassle-free experience every time you choose us.
+    </p>
 
-    <ng-template #pickerModal let-modal>
-        <div class="modal-header bg-primary text-white">
-            <h5 class="modal-title">Select Trip Date & Time</h5>
-            <button type="button" class="btn-close btn-close-white" (click)="modal.dismiss()"></button>
+    <div class="features">
+        <div class="feature-card">
+            <div class="icon">❤️</div>
+            <h3>EASY BOOKING PROCESS</h3>
+            <p>
+                All you need to do is Dial or Text to book a ride, we’ll deliver the Best,
+                at your door step. Rent and ride with your loved ones with pride.
+            </p>
         </div>
 
-        <div class="modal-body">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <!-- Two months side by side -->
-                <ngb-datepicker #dp [displayMonths]="2" [dayTemplate]="t" outsideDays="hidden"
-                    (dateSelect)="onDateSelection($event)"
-                    [startDate]="fromDate || {year: today.getFullYear(), month: today.getMonth()+1}"
-                    [markDisabled]="isDisabled">
-                </ngb-datepicker>
-            </div>
-
-            <ng-template #t let-date let-focused="focused">
-                <span class="custom-day" [class.focused]="focused" [class.range]="isRange(date)"
-                    [class.filled]="isInside(date)" [class.start]="isFrom(date)" [class.end]="isTo(date)"
-                    [class.invalid]="isInvalid(date)">
-                    {{ date.day }}
-                </span>
-            </ng-template>
-
-            <!-- Time Pickers -->
-            <div class="row mt-4">
-                <div class="col-md-6">
-                    <label class="fw-bold">From Time</label>
-                    <ngb-timepicker [(ngModel)]="fromTime" [meridian]="true"></ngb-timepicker>
-                </div>
-                <div class="col-md-6">
-                    <label class="fw-bold">To Time</label>
-                    <ngb-timepicker [(ngModel)]="toTime" [meridian]="true"></ngb-timepicker>
-                </div>
-            </div>
-
-            <!-- Validation error -->
-            <div *ngIf="validationError" class="alert alert-danger mt-3">
-                {{ validationError }}
-            </div>
+        <div class="feature-card">
+            <div class="icon">🏠</div>
+            <h3>DOOR STEP DELIVERY</h3>
+            <p>
+                Whether you'd like to pick up your car at one of our many pickup points around everywhere.
+                We deliver it to your preferred location on time.
+            </p>
         </div>
 
-        <div class="modal-footer">
-            <button class="btn btn-outline-secondary" (click)="modal.dismiss()">Cancel</button>
-            <button class="btn btn-success" [disabled]="validationError !== ''"
-                (click)="applySelection(modal)">Apply</button>
+        <div class="feature-card">
+            <div class="icon">💰</div>
+            <h3>NO HIDDEN CHARGES</h3>
+            <p>
+                We offer full price transparency and charge no hidden costs.
+                We operate simply by displaying the most relevant, cost-effective offers.
+            </p>
         </div>
-    </ng-template>
+
+        <div class="feature-card">
+            <div class="icon">💸</div>
+            <h3>INSTANT REFUND</h3>
+            <p>
+                Once you have enjoyed your trip, just return the car to the location of your choice
+                & we will process the refund immediately.
+            </p>
+        </div>
+    </div>
 </div>
+
+<div class="features-section">
+    <div class="feature">
+        <i class="icon">💳</i>
+        <h3>Government Approved</h3>
+        <p>Authorized Rental Service</p>
+    </div>
+
+    <div class="feature">
+        <i class="icon">⭐</i>
+        <h3>4.6/5</h3>
+        <p>Highly Rated Google reviews</p>
+    </div>
+
+    <div class="feature">
+        <i class="icon">😊</i>
+        <h3>40k+</h3>
+        <p>Happy Customers</p>
+    </div>
+
+    <div class="feature">
+        <i class="icon">🚘</i>
+        <h3>1000+ Fleet</h3>
+        <p>Multiple choice of Cars</p>
+    </div>
+</div>
+<br><br>
+<div class="container">
+    <span>FAQ</span>
+    <h1 style="font-size: 24px; font-weight: bold;">If you got questions we have answer..</h1>
+</div>
+<div class="faq-container">
+    <!-- Left Side Image -->
+    <div class="faq-left" style="display: flex;justify-content: center;align-items: center;">
+        <div class="faq-image-wrapper">
+            <img src="https://zonecar.in/public/frontend/assets/images/faq-img.png" alt="Car" />
+            <div class="faq-overlay"></div>
+        </div>
+    </div>
+
+    <!-- Right Side Accordion -->
+    <div class="faq-right">
+        <div class="accordion">
+            <div class="accordion-item" *ngFor="let item of faqList; let i = index">
+                <div class="accordion-header" (click)="toggleAccordion(i)">
+                    <span>{{ item.title }}</span>
+                    <span class="icon">
+                        <ng-container *ngIf="activeIndex === i; else plus">−</ng-container>
+                        <ng-template #plus>+</ng-template>
+                    </span>
+                </div>
+
+                <div class="accordion-body" *ngIf="activeIndex === i">
+                    <p>{{ item.content }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="width: 200px; height: 200px;"></div>
+
+<ng-template #pickerModal let-modal>
+    <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title">Select Trip Date & Time</h5>
+        <button type="button" class="btn-close btn-close-white" (click)="modal.dismiss()"></button>
+    </div>
+
+    <div class="modal-body">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <!-- Two months side by side -->
+            <ngb-datepicker #dp [displayMonths]="2" [dayTemplate]="t" outsideDays="hidden"
+                (dateSelect)="onDateSelection($event)"
+                [startDate]="fromDate || {year: today.getFullYear(), month: today.getMonth()+1}"
+                [markDisabled]="isDisabled">
+            </ngb-datepicker>
+        </div>
+
+        <ng-template #t let-date let-focused="focused">
+            <span class="custom-day" [class.focused]="focused" [class.range]="isRange(date)"
+                [class.filled]="isInside(date)" [class.start]="isFrom(date)" [class.end]="isTo(date)"
+                [class.invalid]="isInvalid(date)">
+                {{ date.day }}
+            </span>
+        </ng-template>
+
+        <!-- Time Pickers -->
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <label class="fw-bold">From Time</label>
+                <ngb-timepicker [(ngModel)]="fromTime" [meridian]="true"></ngb-timepicker>
+            </div>
+            <div class="col-md-6">
+                <label class="fw-bold">To Time</label>
+                <ngb-timepicker [(ngModel)]="toTime" [meridian]="true"></ngb-timepicker>
+            </div>
+        </div>
+
+        <!-- Validation error -->
+        <div *ngIf="validationError" class="alert alert-danger mt-3">
+            {{ validationError }}
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn btn-outline-secondary" (click)="modal.dismiss()">Cancel</button>
+        <button class="btn btn-success" [disabled]="validationError !== ''"
+            (click)="applySelection(modal)">Apply</button>
+    </div>
+</ng-template>

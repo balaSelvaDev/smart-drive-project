@@ -1,6 +1,6 @@
 import { Component, HostListener } from '@angular/core';
 import { AnonymousService } from '../../../../core/services/online-module/anonymous/anonymous.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ViewBookingPriceComponent } from '../view-booking-price/view-booking-price.component';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -26,10 +26,15 @@ export class IndividualCarComponent {
 
   distanceLoaded: boolean = false;
 
-  constructor(private anonymousService: AnonymousService, private router: Router, private dialog: MatDialog) { }
+  vehicleId!: number;
+
+  constructor(private anonymousService: AnonymousService, private route: ActivatedRoute, private router: Router, private dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.fetchVehicleById('1');
+    this.vehicleId = +this.route.snapshot.paramMap.get('id')!;
+    if(this.vehicleId !== 0) {
+      this.fetchVehicleById(this.vehicleId.toString());
+    }
   }
 
   currentIndex = 0;

@@ -99,4 +99,9 @@ export class SearchResultPageComponent {
     return new Date(year, month - 1, day, hours, minutes);
   }
 
+  navigateToVehicleDetails(vehicleId: number): void {
+    console.log('Navigating to vehicle details for ID:', vehicleId);
+    this.router.navigate(['customer/individual-car', vehicleId]);
+  }
+
 }

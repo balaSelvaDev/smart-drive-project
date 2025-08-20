@@ -17,7 +17,7 @@ const routes: Routes = [
     children: [
       { path: 'main', component: AnonymousMainPageComponent },
       { path: 'search-result', component: SearchResultPageComponent },
-      { path: 'individual-car', component: IndividualCarComponent },
+      { path: 'individual-car/:id', component: IndividualCarComponent },
 
       {
         path: 'profile',

@@ -390,4 +390,33 @@ export class AnonymousMainPageComponent {
     this.router.navigate(['/customer/search-result']);
   }
 
+  activeIndex: number | null = 0; // default open first one
+  faqList = [
+    {
+      title: 'What is smartDrive?',
+      content:
+        'Zonecar is a self-drive car leasing platform in India that connects vehicle owners ("hosts") with people looking to lease vehicles ("guests"). Zonecar facilitates the connection and charges a 30%...'
+    },
+    {
+      title: 'Booking & Reservation',
+      content: 'Details about booking and reservation process...'
+    },
+    {
+      title: 'Pricing & Payment',
+      content: 'Information about pricing, discounts, and payment methods...'
+    },
+    {
+      title: 'Eligibility & Documentation',
+      content: 'Documents and eligibility criteria required for booking...'
+    },
+    {
+      title: 'Fuel and FASTag',
+      content: 'Fuel policy and FASTag usage details...'
+    }
+  ];
+
+  toggleAccordion(index: number) {
+    this.activeIndex = this.activeIndex === index ? null : index;
+  }
+
 }

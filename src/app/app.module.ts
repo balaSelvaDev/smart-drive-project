@@ -14,6 +14,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './core/interceptors/auth-interceptor';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DatePipe } from '@angular/common';
+import { CountUpDirective } from './shared/directives/count-up.directive';
 
 // import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
 @NgModule({
@@ -27,6 +28,7 @@ import { DatePipe } from '@angular/common';
     OnlineLoginModule,
     OnlineModuleModule,
     NgbModule,
+    CountUpDirective
     // NgxMatTimepickerModule
     
   ],

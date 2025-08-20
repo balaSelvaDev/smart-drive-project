@@ -23,6 +23,7 @@ import { BrandDeleteComponent } from './brand-module/brand-delete/brand-delete.c
 import { VehicleModelEditComponent } from './vehicle-module/vehicle-model-edit/vehicle-model-edit.component';
 import { AuthGuard } from '../../core/guards/auth.guard';
 import { TransactionComponent } from './transaction/transaction/transaction.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 const routes: Routes = [
   {
@@ -30,6 +31,8 @@ const routes: Routes = [
     component: AdminLayoutComponent,
     children: [
       // brand routing
+      { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+
       { path: 'get-brand', component: BrandGetComponent, canActivate: [AuthGuard] },
       { path: 'add-brand', component: BrandAddComponent, canActivate: [AuthGuard] },
       { path: 'edit-brand/:brandId', component: BrandEditComponent, canActivate: [AuthGuard] },

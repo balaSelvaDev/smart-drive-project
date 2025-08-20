@@ -1,0 +1,48 @@
+<div class="dashboard-container">
+    <!-- Metrics Section -->
+    <div class="metrics-grid">
+        <div class="metric-card">
+            <h3>Users</h3>
+            <p [countUp]="stats.users"></p>
+        </div>
+        <div class="metric-card">
+            <h3>Pre-Bookings</h3>
+            <p [countUp]="stats.preBookings"></p>
+        </div>
+        <div class="metric-card">
+            <h3>Vehicles</h3>
+            <p [countUp]="stats.vehicles"></p>
+        </div>
+        <div class="metric-card">
+            <h3>Active Bookings</h3>
+            <p [countUp]="stats.activeBookings"></p>
+        </div>
+    </div>
+
+    <!-- Recent Bookings Table -->
+    <div class="table-container">
+        <h2>Recent Bookings</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>User Name</th>
+                    <th>Pickup Location</th>
+                    <th>Drop Location</th>
+                    <th>Kilometer</th>
+                    <th>Payment Status</th>
+                    <th>User Type</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let booking of recentBookings">
+                    <td>{{ booking.userName }}</td>
+                    <td>{{ booking.pickupLocation }}</td>
+                    <td>{{ booking.dropLocation }}</td>
+                    <td>{{ booking.kilometer }} km</td>
+                    <td>{{ booking.paymentStatus }}</td>
+                    <td>{{ booking.userType }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

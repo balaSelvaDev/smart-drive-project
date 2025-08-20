@@ -34,6 +34,8 @@ import { ViewUserDeatilsComponent } from './booking-module/view-user-deatils/vie
 import { NgbDatepickerModule, NgbTimepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { TransactionComponent } from './transaction/transaction/transaction.component';
 import { PaymentPopupComponent } from './transaction/payment-popup/payment-popup.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { CountUpDirective } from '../../shared/directives/count-up.directive';
 
 
 @NgModule({
@@ -67,7 +69,8 @@ import { PaymentPopupComponent } from './transaction/payment-popup/payment-popup
     ViewVehicleDetailsComponent,
     ViewUserDeatilsComponent,
     TransactionComponent,
-    PaymentPopupComponent
+    PaymentPopupComponent,
+    DashboardComponent
   ],
   imports: [
     CommonModule,
@@ -78,7 +81,8 @@ import { PaymentPopupComponent } from './transaction/payment-popup/payment-popup
     MatPaginatorModule,
     FormsModule,
     NgbDatepickerModule,
-    NgbTimepickerModule
-  ]
+    NgbTimepickerModule,
+    CountUpDirective
+]
 })
 export class AdminModuleModule { }
