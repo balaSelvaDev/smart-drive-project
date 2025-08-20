@@ -42,11 +42,19 @@ export class UserGetComponent {
     this.fetchUsers(this.currentPage, this.pageSize);
   }
 
-  editUser(userId: number) {
+  editUser(role: string, userId: number) {
+    if (role === "ROLE_USER") {
+      // Perform actions specific to ROLE_USER
+      alert("Please carefull to edit, becuase you are trying to edit online user");
+    }
     this.router.navigate(['/admin/edit-user', userId]); // pass ID in URL
   }
 
-  deleteUser(userId: number) {
+  deleteUser(role: string, userId: number) {
+    if (role === "ROLE_USER") {
+      // Perform actions specific to ROLE_USER
+      alert("Please carefull to edit, becuase you are trying to edit online user");
+    }
     if (confirm('Are you sure you want to delete this user?')) {
       console.log('Deleting user with ID:', userId);
       // TODO: call delete API

@@ -261,6 +261,7 @@ export class CustomerLoginPopupComponent {
             const token = authHeader.replace('Bearer ', '');
             this.authService.setUser(token); // 🔑 save token in cookies + decode
             console.log('JWT saved in cookies and user restored');
+            this.dialogRef.close();
           }
         },
         error: (err) => {

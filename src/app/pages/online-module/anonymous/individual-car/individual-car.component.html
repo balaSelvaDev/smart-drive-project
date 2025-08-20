@@ -103,7 +103,8 @@
                             <span>₹{{this.totalAmt}}</span>
                         </div>
 
-                        <button mat-flat-button color="primary" class="login-btn">LOGIN TO CONTINUE</button>
+                        <button mat-flat-button color="primary" *ngIf="!this.isBookingBtnVisible" class="login-btn" (click)="openRegisterPopup()">LOGIN TO CONTINUE</button>
+                        <button mat-flat-button color="primary" *ngIf="this.isBookingBtnVisible" class="login-btn">BOOK NOW</button>
                     </div>
                 </div>
             </div>

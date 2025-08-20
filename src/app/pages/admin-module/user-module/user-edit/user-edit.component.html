@@ -18,7 +18,7 @@
         <div class="container">
           <div class="inputField">
             <input id="firstName" type="text" formControlName="firstName" class="input-level-1" autocomplete="off"
-              placeholder=" " />
+              placeholder=" " [readonly]="true" />
             <label for="firstName">First Name:</label>
           </div>
         </div>
@@ -26,7 +26,7 @@
         <div class="container">
           <div class="inputField">
             <input id="lastName" type="text" required formControlName="lastName" class="input-level-1"
-              autocomplete="off" placeholder=" " />
+              autocomplete="off" placeholder=" " [readonly]="true" />
             <label for="lastName">Last Name:</label>
           </div>
         </div>
@@ -35,7 +35,7 @@
         <div class="container">
           <div class="inputField">
             <input id="email" type="email" formControlName="email" class="input-level-1" autocomplete="off"
-              placeholder=" " />
+              placeholder=" " [readonly]="true" />
             <label for="email">Email:</label>
           </div>
         </div>
@@ -43,7 +43,7 @@
         <div class="container">
           <div class="inputField">
             <input id="phoneNumber" type="text" formControlName="phoneNumber" class="input-level-1" autocomplete="off"
-              placeholder=" " />
+              placeholder=" " [readonly]="true" />
             <label for="phoneNumber">Phone Number:</label>
           </div>
         </div>
@@ -219,12 +219,12 @@
       </div>
     </div>
     <!-- Clear input AND reset file input value -->
-    <button  (click)="clearDrivingLicenseImage(drivingLicenseImage)" class="input-level-1">❌ Clear</button>
+    <button (click)="clearDrivingLicenseImage(drivingLicenseImage)" class="input-level-1">❌ Clear</button>
     <!--   -->
 
     <!-- View selected image -->
-    <button  *ngIf="this.drivingLicenseImageFlag" (click)="viewDrivingLicenseImage($event)"
-      class="input-level-1">🔍 View</button>
+    <button *ngIf="this.drivingLicenseImageFlag" (click)="viewDrivingLicenseImage($event)" class="input-level-1">🔍
+      View</button>
   </div>
 
   <!-- ID Proof -->
@@ -263,6 +263,15 @@
       <button type="button" *ngIf="this.idProofTypeFlag" (click)="viewIdProofFileImage(i, $event)"
         class="input-level-1">🔍 View</button>
     </div>
+  </div>
+  <div style="margin-top: 10px;">
+    <span>Status: </span>
+    <mat-checkbox [checked]="statusControl.value === 1" (change)="setStatus(1)">
+      Active
+    </mat-checkbox>
+    <mat-checkbox [checked]="statusControl.value === 2" (change)="setStatus(2)">
+      Inactive
+    </mat-checkbox>
   </div>
 
 

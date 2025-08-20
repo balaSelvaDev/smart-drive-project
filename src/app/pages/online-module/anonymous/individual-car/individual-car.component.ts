@@ -1,8 +1,11 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, ViewChild } from '@angular/core';
 import { AnonymousService } from '../../../../core/services/online-module/anonymous/anonymous.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ViewBookingPriceComponent } from '../view-booking-price/view-booking-price.component';
 import { MatDialog } from '@angular/material/dialog';
+import { AuthServiceService } from '../../../../shared/service/auth-service.service';
+import { AnonymousHeaderComponent } from '../../anonymous-header/anonymous-header.component';
+import { CustomerLoginPopupComponent } from '../customer-login-popup/customer-login-popup.component';
 
 @Component({
   selector: 'app-individual-car',
@@ -27,14 +30,26 @@ export class IndividualCarComponent {
   distanceLoaded: boolean = false;
 
   vehicleId!: number;
+  user: any = null;
+  isBookingBtnVisible: boolean = false;
 
-  constructor(private anonymousService: AnonymousService, private route: ActivatedRoute, private router: Router, private dialog: MatDialog) { }
+  constructor(
+    private anonymousService: AnonymousService, private route: ActivatedRoute,
+    private router: Router, private dialog: MatDialog, public authService: AuthServiceService
+  ) { }
 
   ngOnInit(): void {
     this.vehicleId = +this.route.snapshot.paramMap.get('id')!;
-    if(this.vehicleId !== 0) {
+    if (this.vehicleId !== 0) {
       this.fetchVehicleById(this.vehicleId.toString());
     }
+    this.authService.user$.subscribe(u => {
+      this.user = u;
+      console.log(this.user)
+      if (this.user) {
+        this.isBookingBtnVisible = true;
+      }
+    });
   }
 
   currentIndex = 0;
@@ -172,5 +187,21 @@ export class IndividualCarComponent {
         this.distanceLoaded = true;
       }
     );
+  }
+
+  openRegisterPopup() {
+    const myObject = {
+      name: 'John Doe',
+      age: 30,
+      location: 'Chennai'
+    };
+
+    this.dialog.open(CustomerLoginPopupComponent, {
+      width: '1200px',
+      height: '480px',
+      data: myObject,
+      panelClass: 'custom-dialog-container',
+      disableClose: true // ✅ This prevents closing on outside click or ESC
+    });
   }
 }

@@ -17,10 +17,15 @@ export class UserEditComponent {
   idProofFiles: File[] = [];
   idProofRemoveBtn: boolean = false;
 
+  imageKeyName: (string | null)[] = [];
+  savedIdProofFileName: string | null = null;
+
   // Extract PROFILE imageUrl safely
   profileImageUrl: string | null = null;
   drivingLicenseImageUrl: string | null = null;
-  idProofTypeImageUrl: string | null = null;
+  idProofTypeImageUrl: any | null = null;
+
+  statusControl = new FormControl(1); // default Active (1)
 
   constructor(private userService: UserService, private router: Router,
     private fb: FormBuilder, private http: HttpClient, private route: ActivatedRoute
@@ -35,6 +40,9 @@ export class UserEditComponent {
 
   ngOnInit(): void {
     this.userForm = new FormGroup({
+      userId: new FormControl('', [Validators.required]),
+      kycId: new FormControl('', [Validators.required]),
+
       firstName: new FormControl('', [Validators.required]),
       lastName: new FormControl(''),
       email: new FormControl('', [Validators.required, Validators.email]),
@@ -61,7 +69,9 @@ export class UserEditComponent {
       alternatePhoneNumber: new FormControl(''),
 
       drivingLicenseImageFileName: new FormControl(''),
-      idProofTypeImageFileName: new FormControl('')
+      idProofTypeImageFileName: new FormControl(''),
+
+      userListIsStatus: new FormControl('')
     });
     this.userId = this.route.snapshot.paramMap.get('userId')!;
     // Option 2: Subscribe to changes (useful if the route can change while the component is active)
@@ -93,8 +103,13 @@ export class UserEditComponent {
 
       // Add Aadhaar/ID proof files
       this.idProofFiles.forEach(file => {
-        formData.append('idProofFiles', file, file.name); // multiple with same name
+        if (file && file.name !== "dummy.txt") {
+          formData.append('idProofFiles', file, file.name); // multiple with same name
+        }
       });
+      formData.append('userId', this.userForm.get('userId')?.value);
+      formData.append('kycId', this.userForm.get('kycId')?.value);
+
       formData.append('firstName', this.userForm.get('firstName')?.value);
       formData.append('lastName', this.userForm.get('lastName')?.value);
       formData.append('email', this.userForm.get('email')?.value);
@@ -117,15 +132,19 @@ export class UserEditComponent {
       formData.append('occupation', this.userForm.get('occupation')?.value);
       formData.append('companyName', this.userForm.get('companyName')?.value);
       formData.append('alternatePhoneNumber', this.userForm.get('alternatePhoneNumber')?.value);
+      formData.append('userListIsStatus', String(this.statusControl.value));
+      formData.append('imageKeyName', String(this.imageKeyName));
 
       console.log('FormData:', formData);
-      this.userService.addUserByAdmin(formData).subscribe({
+      this.uploadImages(formData);
+
+      this.userService.editUserByAdmin(formData).subscribe({
         next: (res) => {
-          console.log('User added successfully', res);
-          this.router.navigate(['/get-user']); // Navigate to the user list page
+          alert('User edited successfully');
+          this.router.navigate(['admin/get-user']); // Navigate to the user list page
         },
         error: (err) => {
-          console.error('Failed to add user', err);
+          console.error('Failed to edit user', err);
         },
       });
     } else {
@@ -164,6 +183,10 @@ export class UserEditComponent {
         this.profileImage = reader.result as string;
       };
       reader.readAsDataURL(file);
+      // Remove 'PROFILE' from the array
+      this.imageKeyName = this.imageKeyName.filter(item => item !== 'PROFILE');
+      this.imageKeyName.push('PROFILE');
+      console.log("Removed PROFILE: ", this.imageKeyName);
     }
   }
 
@@ -172,12 +195,15 @@ export class UserEditComponent {
     this.drivingLicenseImageFlag = true;
     const input = event.target as HTMLInputElement;
 
+
     if (input.files && input.files.length > 0) {
       this.drivingLicenseImageUrl = null;
       const fileName = input.files[0].name;
       this.userForm.controls['drivingLicenseImageFileName'].setValue(fileName);
       console.log('Selected file name:', fileName);
     }
+
+
   }
 
   onIdProofFileChange(event: any) {
@@ -195,8 +221,17 @@ export class UserEditComponent {
         const fileName = input.files[0].name;
         this.userForm.controls['idProofTypeImageFileName'].setValue(fileName);
         console.log('Selected file name:', fileName);
+        this.setImageKeyIdProofFile();
       }
+
     }
+  }
+
+  setImageKeyIdProofFile() {
+    let abc = this.savedIdProofFileName;
+    this.imageKeyName = this.imageKeyName.filter(item => item !== abc);
+    this.imageKeyName.push(abc);
+    console.log("Removed DRIVING_LICENSE: ", this.imageKeyName);
   }
 
   removeIdProofFile(index: number, idProofType: HTMLInputElement) {
@@ -238,10 +273,15 @@ export class UserEditComponent {
   fetchUsersById(userId: String): void {
     this.userService.getUsersById(userId).subscribe(response => {
       console.log(response);
+
+      this.userForm.controls["userId"].setValue(response.userDetailsResponseDTO.userId);
+      this.userForm.controls["kycId"].setValue(response.userKycDetailsResponseDTO.kycId);
+
       this.userForm.controls["firstName"].setValue(response.userDetailsResponseDTO.firstName);
       this.userForm.controls["lastName"].setValue(response.userDetailsResponseDTO.lastName);
       this.userForm.controls["email"].setValue(response.userDetailsResponseDTO.email);
       this.userForm.controls["phoneNumber"].setValue(response.userDetailsResponseDTO.phoneNumber);
+      this.setStatus(response.userDetailsResponseDTO.isActive);
 
       this.userForm.controls["addressLine1"].setValue(response.userKycDetailsResponseDTO.addressLine1);
       this.userForm.controls["addressLine2"].setValue(response.userKycDetailsResponseDTO.addressLine2);
@@ -270,12 +310,14 @@ export class UserEditComponent {
 
       if (response.userKycImageResponseDTO?.PROFILE?.length > 0) {
         this.profileImageUrl = response.userKycImageResponseDTO.PROFILE[0].imageUrl;
+        // this.imageKeyName.push('PROFILE');
       }
 
       if (response.userKycImageResponseDTO?.DRIVING_LICENSE?.length > 0) {
         this.drivingLicenseImageUrl = response.userKycImageResponseDTO.DRIVING_LICENSE[0].imageUrl;
         this.userForm.controls['drivingLicenseImageFileName'].setValue(response.userKycImageResponseDTO.DRIVING_LICENSE[0].originalFileName);
         this.drivingLicenseImageFlag = true;
+        // this.imageKeyName.push('DRIVING_LICENSE');
       }
 
       if (response.userKycImageResponseDTO?.PAN_CARD?.length > 0 ||
@@ -286,21 +328,32 @@ export class UserEditComponent {
         if (response.userKycImageResponseDTO?.PAN_CARD) {
           this.idProofTypeImageUrl = response.userKycImageResponseDTO.PAN_CARD[0].imageUrl;
           this.userForm.controls['idProofTypeImageFileName'].setValue(response.userKycImageResponseDTO.PAN_CARD[0].originalFileName);
-          this.idProofFiles.push(response.userKycImageResponseDTO?.PASSPORT);
+          this.idProofTypeImageUrl = (response.userKycImageResponseDTO?.PASSPORT);
+          this.savedIdProofFileName = "PAN_CARD";
         }
         if (response.userKycImageResponseDTO?.AADHAAR) {
           this.idProofTypeImageUrl = response.userKycImageResponseDTO.AADHAAR[0].imageUrl;
           this.userForm.controls['idProofTypeImageFileName'].setValue(response.userKycImageResponseDTO.AADHAAR[0].originalFileName);
-          this.idProofFiles.push(response.userKycImageResponseDTO?.PASSPORT);
+          this.idProofTypeImageUrl = (response.userKycImageResponseDTO?.PASSPORT);
+          this.savedIdProofFileName = "AADHAAR";
         }
         if (response.userKycImageResponseDTO?.PASSPORT) {
           this.idProofTypeImageUrl = response.userKycImageResponseDTO.PASSPORT[0].imageUrl;
           this.userForm.controls['idProofTypeImageFileName'].setValue(response.userKycImageResponseDTO.PASSPORT[0].originalFileName);
-          this.idProofFiles.push(response.userKycImageResponseDTO?.PASSPORT);
+          this.idProofTypeImageUrl = (response.userKycImageResponseDTO?.PASSPORT);
+          this.savedIdProofFileName = "PASSPORT";
         }
+        // Create a dummy File object
+        let dummyFile = new File([new Blob(['dummy content'], { type: 'text/plain' })], 'dummy.txt');
+
+        // Add the dummy file to the array
+        this.idProofFiles.push(dummyFile);
         this.idProofTypeFlag = true;
         this.idProofRemoveBtn = true;
       }
+      // this.imageKeyName = Object.keys(response.userKycImageResponseDTO);
+      // console.log("Image Key Names:", this.imageKeyName);
+
 
       console.log("Profile Image URL:", this.profileImageUrl);
       this.profileImage = this.profileImageUrl || 'assets/default_profile_img.png';
@@ -344,7 +397,10 @@ export class UserEditComponent {
   }
 
   viewIdProofFileImage(i: number, event: any) {
-    if (this.idProofTypeFlag && this.idProofFiles[i]) {
+    console.log("Event:", this.idProofFiles);
+    console.log("Viewing ID Proof File:", this.idProofFiles[i].name);
+    if (this.idProofTypeFlag && this.idProofFiles[i].name !== "dummy.txt") {
+      console.log("Opening ID Proof File:", this.idProofFiles[i].name);
       const file = this.idProofFiles[i];
       if (file) {
         const url = URL.createObjectURL(file);
@@ -352,8 +408,33 @@ export class UserEditComponent {
       }
     }
     if (this.idProofTypeImageUrl && this.idProofTypeImageUrl && this.idProofTypeImageUrl != null) {
-      window.open(this.idProofTypeImageUrl, '_blank');
+      console.log("Opening ID Proof File:", this.idProofTypeImageUrl);
+      window.open(this.idProofTypeImageUrl[0].imageUrl, '_blank');
     }
+  }
+
+  uploadImages(formData: FormData) {
+    // const formData = new FormData();
+
+    // this.idProofFiles.forEach((imgObj, i) => {
+    //   if (imgObj) {
+    //     formData.append('images', imgObj);
+    //     console.log(`Image ${i + 1}:`, imgObj.name);
+    //   }
+    // });
+
+    console.log('--- FormData Contents ---');
+    if (formData && typeof (formData as any).entries === 'function') {
+      for (const pair of (formData as any).entries()) {
+        console.log(pair[0], pair[1]);
+      }
+    } else {
+      console.warn('FormData.entries() is not supported in this environment');
+    }
+  }
+
+  setStatus(value: number) {
+    this.statusControl.setValue(value);
   }
 
 }

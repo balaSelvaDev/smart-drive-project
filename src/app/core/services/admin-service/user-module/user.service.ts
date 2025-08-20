@@ -13,11 +13,16 @@ export class UserService {
   private getUsersByApi = "http://localhost:9090/api/users/individual";
   private getUsersForCustomerApi = 'http://localhost:9090/api/users/customer';
   private deleteUserApi = 'http://localhost:9090/api/users';
+  private editUsersApi = 'http://localhost:9090/api/users/user-admin/edit';
 
   constructor(private http: HttpClient) { }
 
   addUserByAdmin(userData: any): Observable<any> {
     return this.http.post(`${this.addUsersApi}`, userData);
+  }
+
+  editUserByAdmin(userData: any): Observable<any> {
+    return this.http.post(`${this.editUsersApi}`, userData);
   }
 
   getPincodeDetails(pincode: string): Observable<any> {
