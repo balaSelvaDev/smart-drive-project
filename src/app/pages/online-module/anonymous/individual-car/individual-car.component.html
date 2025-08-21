@@ -103,8 +103,11 @@
                             <span>₹{{this.totalAmt}}</span>
                         </div>
 
-                        <button mat-flat-button color="primary" *ngIf="!this.isBookingBtnVisible" class="login-btn" (click)="openRegisterPopup()">LOGIN TO CONTINUE</button>
-                        <button mat-flat-button color="primary" *ngIf="this.isBookingBtnVisible" class="login-btn">BOOK NOW</button>
+                        <button mat-flat-button color="primary" *ngIf="!this.isBookingBtnVisible" class="login-btn"
+                            (click)="openRegisterPopup()">LOGIN TO CONTINUE</button>
+                        <button mat-flat-button color="primary" *ngIf="this.isBookingBtnVisible" class="login-btn"
+                            (click)="bookingNow()">BOOK
+                            NOW</button>
                     </div>
                 </div>
             </div>
@@ -193,11 +196,10 @@
   </div>
 </ng-template> -->
 <ng-template #loading>
-  <div class="car-loader">
-    <div class="car-track">
-      <img class="car-img" src="https://cdn-icons-png.flaticon.com/512/743/743922.png" alt="car" />
+    <div class="car-loader">
+        <div class="car-track">
+            <img class="car-img" src="https://cdn-icons-png.flaticon.com/512/743/743922.png" alt="car" />
+        </div>
+        <p>Calculating distance...</p>
     </div>
-    <p>Calculating distance...</p>
-  </div>
 </ng-template>
-

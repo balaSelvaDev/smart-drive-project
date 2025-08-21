@@ -14,6 +14,7 @@ export class UserService {
   private getUsersForCustomerApi = 'http://localhost:9090/api/users/customer';
   private deleteUserApi = 'http://localhost:9090/api/users';
   private editUsersApi = 'http://localhost:9090/api/users/user-admin/edit';
+  private checkUserKycIsAvailableOrNotApi = 'http://localhost:9090/api/users/individual';
 
   constructor(private http: HttpClient) { }
 
@@ -43,6 +44,10 @@ export class UserService {
   
   deleteUser(userId: number): Observable<any> {
     return this.http.delete(`${this.deleteUserApi}/${userId}`);
+  }
+
+  checkUserKycIsAvailableOrNot(userId: number): Observable<any> {
+    return this.http.get(`${this.checkUserKycIsAvailableOrNotApi}?userId=${userId}`);
   }
 
 }

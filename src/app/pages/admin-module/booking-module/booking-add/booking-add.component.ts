@@ -199,15 +199,15 @@ export class BookingAddComponent {
         endDate: this.convertToLocalDateTimeFormat(payload.endDate),
       };
       console.log('Booking Add Request DTO:', bookingAddRequest);
-      this.bookingService.addBooking(bookingAddRequest).subscribe({
-        next: (res) => {
-          console.log('Booking added successfully', res);
-          this.router.navigate(['/get-booking']); // Navigate to the booking list page
-        },
-        error: (err) => {
-          console.error('Failed to add brand', err);
-        },
-      });
+      // this.bookingService.addBooking(bookingAddRequest).subscribe({
+      //   next: (res) => {
+      //     console.log('Booking added successfully', res);
+      //     this.router.navigate(['/get-booking']); // Navigate to the booking list page
+      //   },
+      //   error: (err) => {
+      //     console.error('Failed to add brand', err);
+      //   },
+      // });
     } else {
       this.bookingForm.markAllAsTouched(); // Highlight all errors
     }

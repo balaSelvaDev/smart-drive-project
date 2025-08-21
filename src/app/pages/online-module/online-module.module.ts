@@ -16,6 +16,7 @@ import { BasicInfoComponent } from './anonymous/basic-info/basic-info.component'
 import { KyDetailsComponent } from './anonymous/ky-details/ky-details.component';
 import { DashboardComponent } from './anonymous/dashboard/dashboard.component';
 import { BookingHistoryComponent } from './anonymous/booking-history/booking-history.component';
+import { ConfirmBookingPopupComponent } from './anonymous/confirm-booking-popup/confirm-booking-popup.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { BookingHistoryComponent } from './anonymous/booking-history/booking-his
     BasicInfoComponent,
     KyDetailsComponent,
     DashboardComponent,
-    BookingHistoryComponent
+    BookingHistoryComponent,
+    ConfirmBookingPopupComponent
   ],
   imports: [
     CommonModule,

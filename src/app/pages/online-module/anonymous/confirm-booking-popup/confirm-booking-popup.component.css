@@ -1,0 +1,133 @@
+.booking-card {
+    max-width: 1000px;
+    /* margin: 20px auto; */
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+    padding: 25px 35px;
+    font-family: "Segoe UI", sans-serif;
+    color: #333;
+}
+
+.booking-card h2 {
+    margin-bottom: 18px;
+    font-size: 22px;
+    font-weight: 600;
+    color: #2c3e50;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 10px;
+}
+
+.booking-grid {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.booking-grid .left,
+.booking-grid .right {
+    width: 66%;
+}
+
+.booking-grid p {
+    margin: 8px 0;
+    font-size: 15px;
+    line-height: 1.4;
+}
+
+/* Trip Locations (timeline style) */
+.trip-locations {
+    margin-top: 12px;
+    position: relative;
+    padding-left: 20px;
+}
+
+.trip-locations .location {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.trip-locations .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.trip-locations .pickup .dot {
+    background: #28a745;
+}
+
+.trip-locations .drop .dot {
+    background: #dc3545;
+}
+
+.trip-locations .line {
+    position: absolute;
+    left: 5px;
+    top: 10px;
+    width: 2px;
+    height: 35px;
+    background: #ccc;
+}
+
+/* Amount Section */
+.amount-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.amount-left p {
+    margin: 6px 0;
+    font-size: 15px;
+}
+
+.amount-total {
+    background: #f8f9fa;
+    padding: 15px 30px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.amount-total p {
+    margin: 0;
+    font-weight: bold;
+    color: #555;
+}
+
+.amount-total h3 {
+    margin: 6px 0 0;
+    font-size: 24px;
+    color: #28a745;
+}
+
+/* Status Badges */
+.badge {
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.badge.pending {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
+}
+
+.badge.paid {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.badge.failed {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}

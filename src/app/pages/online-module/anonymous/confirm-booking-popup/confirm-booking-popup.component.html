@@ -1,0 +1,52 @@
+<div class="booking-card">
+    <h2>Booking Details</h2>
+
+    <div class="booking-grid">
+        <div class="left">
+            <p><strong>User ID:</strong> {{ booking.userId }}</p>
+            <p><strong>Vehicle:</strong> {{ booking.brandName }} - {{ booking.vehicleModelName }}</p>
+            <p><strong>License:</strong> {{ booking.drivingLicenseNumber }}</p>
+            <div class="trip-locations">
+                <div class="location pickup">
+                    <span class="dot"></span>
+                    <span>{{ booking.pickupLocation }}</span>
+                </div>
+                <div class="line"></div>
+                <div class="location drop">
+                    <span class="dot"></span>
+                    <span>{{ booking.dropLocation }}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="right">
+            <p><strong>Start Date:</strong> {{ booking.startDate }}</p>
+            <p><strong>End Date:</strong> {{ booking.endDate }}</p>
+            <p><strong>Booking Type:</strong> {{ booking.bookingType }}</p>
+            <p><strong>Payment Mode:</strong> {{ booking.paymentMode }}</p>
+            <p><strong>Payment Status:</strong>
+                <span class="badge pending">{{ booking.paymentStatus }}</span>
+            </p>
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="amount-section">
+        <div class="amount-left">
+            <p><strong>Distance:</strong> {{ booking.distanceKm }}</p>
+            <p><strong>Trip Amount:</strong> ₹{{ booking.tripAmt }}</p>
+            <p><strong>Convenience Fee:</strong> ₹{{ booking.convenienceAmt }}</p>
+            <p><strong>Refundable:</strong> ₹{{ booking.refundableAmt }}</p>
+        </div>
+
+        <div class="amount-total">
+            <p>Total</p>
+            <h3>₹{{ booking.totalAmount }}</h3>
+        </div>
+    </div>
+
+    <div>
+        <button (click)="confirmBooking()">Confirm Booking</button>
+    </div>
+</div>
