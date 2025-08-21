@@ -1,88 +1,94 @@
 <div class="kyc-card" style="overflow-y: scroll;
     height: 96vh;">
-    <h2>KYC Details</h2>
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h2>KYC Details</h2>
+        <span
+            style="border: 1px solid lightcyan; background-color: #2d3748; color: white; padding: 8px 16px; border-radius: 5px;cursor: pointer;font-size: 16px;">Edit</span>
+    </div>
 
     <form (ngSubmit)="onSubmit()" #kycForm="ngForm">
-        <div class="profile-section">
+        <!-- <div class="profile-section">
             <label class="profile-label">Profile Photo</label>
             <div class="profile-upload">
                 <img *ngIf="profilePreview" [src]="profilePreview" alt="Profile Preview" class="profile-pic" />
                 <div *ngIf="!profilePreview" class="profile-placeholder">No Image</div>
-                <input type="file" accept="image/*" (change)="onProfilePicSelected($event)" />
+                <input type="file" accept="image/*" (change)="onProfilePicSelected($event)" readonly />
             </div>
-        </div>
+        </div> -->
 
         <div class="form-row">
             <div class="form-group">
                 <label>Driving License Number:</label>
-                <input type="text" [(ngModel)]="kyc.drivingLicenseNumber" name="dlNumber" />
+                <input type="text" [(ngModel)]="kyc.drivingLicenseNumber" name="dlNumber" readonly />
             </div>
 
             <div class="form-group">
                 <label>ID Proof Number:</label>
-                <input type="text" [(ngModel)]="kyc.idProofNumber" name="idProofNumber" />
+                <input type="text" [(ngModel)]="kyc.idProofNumber" name="idProofNumber" readonly />
             </div>
         </div>
 
         <div class="form-row">
             <div class="form-group">
                 <label>Address Line 1:</label>
-                <input type="text" [(ngModel)]="kyc.addressLine1" name="addressLine1" />
+                <input type="text" [(ngModel)]="kyc.addressLine1" name="addressLine1" readonly />
             </div>
             <div class="form-group">
                 <label>Address Line 2:</label>
-                <input type="text" [(ngModel)]="kyc.addressLine2" name="addressLine2" />
+                <input type="text" [(ngModel)]="kyc.addressLine2" name="addressLine2" readonly />
             </div>
         </div>
 
         <div class="form-row">
-            <div class="form-group"><label>Pincode:</label><input type="text" [(ngModel)]="kyc.pincode"
-                    name="pincode" /></div>
-            <div class="form-group"><label>Taluk:</label><input type="text" [(ngModel)]="kyc.taluk" name="taluk" />
+            <div class="form-group"><label>Pincode:</label><input type="text" [(ngModel)]="kyc.pincode" name="pincode"
+                    readonly /></div>
+            <div class="form-group"><label>Taluk:</label><input type="text" [(ngModel)]="kyc.taluk" name="taluk"
+                    readonly />
             </div>
             <div class="form-group"><label>District:</label><input type="text" [(ngModel)]="kyc.district"
-                    name="district" /></div>
+                    name="district" readonly /></div>
         </div>
 
         <div class="form-row">
-            <div class="form-group"><label>State:</label><input type="text" [(ngModel)]="kyc.state" name="state" />
+            <div class="form-group"><label>State:</label><input type="text" [(ngModel)]="kyc.state" name="state"
+                    readonly />
             </div>
-            <div class="form-group"><label>Country:</label><input type="text" [(ngModel)]="kyc.country"
-                    name="country" /></div>
+            <div class="form-group"><label>Country:</label><input type="text" [(ngModel)]="kyc.country" name="country"
+                    readonly /></div>
         </div>
 
         <div class="form-group">
             <label>Father's Name:</label>
-            <input type="text" [(ngModel)]="kyc.fatherName" name="fatherName" />
+            <input type="text" [(ngModel)]="kyc.fatherName" name="fatherName" readonly />
         </div>
 
         <div class="form-group">
             <label>Mother's Name:</label>
-            <input type="text" [(ngModel)]="kyc.motherName" name="motherName" />
+            <input type="text" [(ngModel)]="kyc.motherName" name="motherName" readonly />
         </div>
 
         <div class="form-row">
             <div class="form-group"><label>Nominee Name:</label><input type="text" [(ngModel)]="kyc.nomineeName"
-                    name="nomineeName" /></div>
+                    name="nomineeName" readonly /></div>
             <div class="form-group"><label>Nominee Relation:</label><input type="text" [(ngModel)]="kyc.nomineeRelation"
-                    name="nomineeRelation" /></div>
+                    name="nomineeRelation" readonly /></div>
             <div class="form-group"><label>Nominee Phone:</label><input type="text" [(ngModel)]="kyc.nomineePhone"
-                    name="nomineePhone" /></div>
+                    name="nomineePhone" readonly /></div>
         </div>
 
         <div class="form-row">
             <div class="form-group"><label>Occupation:</label><input type="text" [(ngModel)]="kyc.occupation"
-                    name="occupation" /></div>
+                    name="occupation" readonly /></div>
             <div class="form-group"><label>Company Name:</label><input type="text" [(ngModel)]="kyc.companyName"
-                    name="companyName" /></div>
+                    name="companyName" readonly /></div>
             <div class="form-group"><label>Alternate Phone Number:</label><input type="text"
-                    [(ngModel)]="kyc.alternatePhone" name="alternatePhone" /></div>
+                    [(ngModel)]="kyc.alternatePhone" name="alternatePhone" readonly /></div>
         </div>
 
         <div class="form-row">
             <div class="form-group">
                 <label>ID Proof Type:</label>
-                <select [(ngModel)]="kyc.idProofType" name="idProofType">
+                <select [(ngModel)]="kyc.idProofType" name="idProofType" disabled>
                     <option>AADHAAR</option>
                     <option>PAN CARD</option>
                     <option>PASSPORT</option>
@@ -90,14 +96,30 @@
                 </select>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" *ngIf="!drivingLicenseImageFlag">
                 <label>Driving License Image:</label>
-                <input type="file" />
+                <input type="file" disabled />
             </div>
 
-            <div class="form-group">
-                <label>Upload ID Proof Files (Multiple):</label>
-                <input type="file" multiple />
+            <div class="form-group" *ngIf="drivingLicenseImageFlag">
+                <label>Driving License Image:</label>
+                <span style="padding: 4px 0px;margin: 4px;">
+                    <a href="{{this.drivingLicenseImageUrl}}"
+                        target="_blank">{{(this.kyc.drivingLicenseImageFileName).split(".")[0]}}</a>
+                </span>
+            </div>
+
+            <div class="form-group" *ngIf="!idProofTypeFlag">
+                <label>Upload ID Proof File:</label>
+                <input type="file" disabled />
+            </div>
+
+            <div class="form-group" *ngIf="idProofTypeFlag">
+                <label>Upload ID Proof File:</label>
+                <span style="padding: 4px 0px;margin: 4px;">
+                    <a href="{{this.idProofTypeImageUrl}}"
+                        target="_blank">{{(this.kyc.idProofTypeImageFileName).split(".")[0]}}</a>
+                </span>
             </div>
         </div>
 
