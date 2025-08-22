@@ -72,4 +72,8 @@ export class AnonymousHeaderComponent {
     this.router.navigate(['/customer/profile/basic-info']);
   }
 
+  navigateToHome() {
+    this.router.navigate(['/customer/main']);
+  }
+
 }

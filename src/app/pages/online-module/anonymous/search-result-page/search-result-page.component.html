@@ -12,14 +12,14 @@
                 </div>
             </div>
             <div style="display: flex; align-items: center;">
-                <mat-icon class="location-icon">place</mat-icon> 
+                <mat-icon class="location-icon">place</mat-icon>
                 <div class="location-text">
                     <input type="text" formControlName="dropLocation"
                         style="cursor: pointer;font-size: 14px;width: 360px;border: none;outline: none;border-bottom: 1px solid black;"
                         placeholder="Drop location" />
                 </div>
             </div>
-            <div class="date-display" style="cursor: pointer;">
+            <div class="date-display" style="cursor: pointer;" (click)="openPicker(pickerModal)">
                 <div class="date-item">
                     <span class="date">{{ fromDateDisplay }}</span>
                     <span class="time">{{ fromTimeDisplay }}</span>
@@ -54,7 +54,7 @@
     </div> -->
     <div style="width: 80%;padding: 12px 24px;margin: 8px;">
         <div class="row">
-            <div class="col-md-4" style="cursor: pointer;" *ngFor="let vehicle of vehicleResult; let i = index" >
+            <div class="col-md-4" style="cursor: pointer;" *ngFor="let vehicle of vehicleResult; let i = index">
                 <div [id]="'carousel' + i" class="carousel slide vehicle-carousel" data-bs-ride="false"
                     [attr.data-bs-interval]="'false'" (mouseenter)="hoveredIndex = i"
                     (mouseleave)="hoveredIndex = null">
@@ -98,17 +98,70 @@
                         <!-- <span class="rating">⭐ {{vehicle.rating.toFixed(2)}} ({{vehicle.reviews}})</span>
                         <span class="distance">{{vehicle.distance}}</span> -->
                         <span>12.2</span>
-                        <span *ngIf="vehicle.availabilityStatus=='BOOKED'">BOOKED</span>
-                        <span *ngIf="vehicle.availabilityStatus=='AVAILABLE'">AVAILABLE</span>
+                        <span *ngIf="vehicle.availabilityStatus=='BOOKED'"
+                            style="border: 1px solid red;padding: 4px 6px;background-color: #ccc;border-radius: 4px;color: red;">BOOKED</span>
+                        <span *ngIf="vehicle.availabilityStatus=='AVAILABLE'"
+                            style="border: 1px solid green;padding: 4px 6px;background-color: #ccc;border-radius: 4px;color: green;">AVAILABLE</span>
                     </div>
                     <h6 class="price">₹{{vehicle.mileagePerLitre}}/hr</h6>
                 </div>
             </div>
             <div style="display: flex;justify-content: center;align-items: center;">
-                <button mat-button color="primary" (click)="this.fetchVehicles(this.resultCurrentPage, this.pageSize)">
+                <button mat-button color="primary"
+                    (click)="this.fetchVehicles(this.resultCurrentPage, this.pageSize, this.mainPageObj.pickupDateTime, this.mainPageObj.dropDateTime)">
                     More vehicles
                 </button>
             </div>
         </div>
     </div>
 </div>
+
+<!-- date picker code -->
+<ng-template #pickerModal let-modal>
+    <div class="modal-header bg-primary text-white">
+        <h2 class="modal-title m-0">Select Trip Date & Time</h2>
+        <button type="button" class="btn-close btn-close-white" (click)="modal.dismiss()"></button>
+    </div>
+
+    <div class="modal-body">
+        <div style="display: flex; justify-content: center; align-items: center;">
+            <!-- Two months side by side -->
+            <ngb-datepicker #dp [displayMonths]="2" [dayTemplate]="t" outsideDays="hidden"
+                (dateSelect)="onDateSelection($event)"
+                [startDate]="fromDate || {year: today.getFullYear(), month: today.getMonth()+1}"
+                [markDisabled]="isDisabled">
+            </ngb-datepicker>
+        </div>
+
+        <ng-template #t let-date let-focused="focused">
+            <span class="custom-day" [class.focused]="focused" [class.range]="isRange(date)"
+                [class.filled]="isInside(date)" [class.start]="isFrom(date)" [class.end]="isTo(date)"
+                [class.invalid]="isInvalid(date)">
+                {{ date.day }}
+            </span>
+        </ng-template>
+
+        <!-- Time Pickers -->
+        <div class="row mt-4">
+            <div class="col-md-6" style="display: flex;justify-content: center;">
+                <label class="fw-bold">From Time</label>
+                <ngb-timepicker [(ngModel)]="fromTime" [meridian]="true"></ngb-timepicker>
+            </div>
+            <div class="col-md-6" style="display: flex;justify-content: center;">
+                <label class="fw-bold">To Time</label>
+                <ngb-timepicker [(ngModel)]="toTime" [meridian]="true"></ngb-timepicker>
+            </div>
+        </div>
+
+        <!-- Validation error -->
+        <div *ngIf="validationError" class="alert alert-danger mt-3">
+            {{ validationError }}
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn btn-outline-secondary" (click)="modal.dismiss()">Cancel</button>
+        <button class="btn btn-success" [disabled]="validationError !== ''"
+            (click)="applySelection(modal, true)">Apply</button>
+    </div>
+</ng-template>

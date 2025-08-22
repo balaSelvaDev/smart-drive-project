@@ -36,13 +36,13 @@
             </thead>
             <tbody>
                 <tr *ngFor="let booking of recentBookings">
-                    <td style="white-space: nowrap;">{{ booking.fullName }}</td>
+                    <td>{{ booking.fullName }}</td>
                     <td>{{ booking.startDate }}</td>
                     <td>{{ booking.endDate }}</td>
-                    <td style="white-space: nowrap;">{{ booking.pickupLocation }}</td>
-                    <td style="white-space: nowrap;">{{ booking.dropLocation }}</td>
-                    <td style="white-space: nowrap;">{{ booking.paymentStatus }}</td>
-                    <td style="white-space: nowrap;">{{ booking.bookingStatus }}</td>
+                    <td>{{ booking.pickupLocation }}</td>
+                    <td>{{ booking.dropLocation }}</td>
+                    <td>{{ booking.paymentStatus }}</td>
+                    <td>{{ booking.bookingStatus }}</td>
                 </tr>
             </tbody>
         </table>

@@ -2,7 +2,7 @@
     <div class="overlay">
         <form [formGroup]="locationAndDate" class="form-box">
             <div>
-                <h1 class="title" (click)="navigateToHome()" style="cursor: pointer;">
+                <h1 class="title">
                     Welcome to the SmartDrive
                 </h1>
             </div>
@@ -162,12 +162,12 @@
 
 <ng-template #pickerModal let-modal>
     <div class="modal-header bg-primary text-white">
-        <h5 class="modal-title">Select Trip Date & Time</h5>
+        <h2 class="modal-title m-0">Select Trip Date & Time</h2>
         <button type="button" class="btn-close btn-close-white" (click)="modal.dismiss()"></button>
     </div>
 
     <div class="modal-body">
-        <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div style="display: flex; justify-content: center; align-items: center;">
             <!-- Two months side by side -->
             <ngb-datepicker #dp [displayMonths]="2" [dayTemplate]="t" outsideDays="hidden"
                 (dateSelect)="onDateSelection($event)"
@@ -186,11 +186,11 @@
 
         <!-- Time Pickers -->
         <div class="row mt-4">
-            <div class="col-md-6">
+            <div class="col-md-6" style="display: flex;justify-content: center;">
                 <label class="fw-bold">From Time</label>
                 <ngb-timepicker [(ngModel)]="fromTime" [meridian]="true"></ngb-timepicker>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6" style="display: flex;justify-content: center;">
                 <label class="fw-bold">To Time</label>
                 <ngb-timepicker [(ngModel)]="toTime" [meridian]="true"></ngb-timepicker>
             </div>

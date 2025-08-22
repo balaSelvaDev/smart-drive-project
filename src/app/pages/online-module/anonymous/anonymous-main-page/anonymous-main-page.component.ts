@@ -449,8 +449,4 @@ export class AnonymousMainPageComponent {
     this.activeIndex = this.activeIndex === index ? null : index;
   }
 
-  navigateToHome() {
-    this.router.navigate(['/customer/main']);
-  }
-
 }

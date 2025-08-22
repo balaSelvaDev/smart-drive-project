@@ -13,46 +13,26 @@ import { Router } from '@angular/router';
 })
 export class ConfirmBookingPopupComponent {
 
-  booking = {
-    "distanceKm": "88.9 km",
-    "tripAmt": 5334,
-    "convenienceAmt": 99,
-    "refundableAmt": 1000,
-    "totalAmount": 6433,
-    "userId": 118,
-    "vehicleId": 1,
-    "drivingLicenseNumber": "asdfSDF",
-    "startDate": this.convertToLocalDateTimeFormat("21/08/2025 04:57 PM"),
-    "endDate": this.convertToLocalDateTimeFormat("22/08/2025 04:57 PM"),
-    "pickupLocation": "chennai",
-    "dropLocation": "madurai",
-    "paymentMode": "UPI",
-    "bookingType": "ROUND_TRIP",
-    "paymentStatus": "PENDING",
-    "clientLocationId": 1,
-    "paymentReference": "",
-    "isClientLocationRequired": false,
-    "brandName": "Maruti Suzuki",
-    "vehicleModelName": "Swift"
-  };
+  booking: any;
 
   constructor(
-    private dialogRef: MatDialogRef<PaymentPopupComponent>,
+    private dialogRef: MatDialogRef<ConfirmBookingPopupComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any, private transactionService: TransactionService, // passed booking data from table
     private bookingService: BookingService, private router: Router, private http: HttpClient
   ) {
-    console.log('Confirm Booking Data:', data);
+    // console.log('Confirm Booking Data:', data);
   }
   ngOnInit(): void {
     // Initialize any required data or state here
-    console.log(this.data);
+    // console.log("data:: ", this.data);
+    this.booking = this.data;
   }
 
   confirmBooking(): void {
     // Call the booking confirmation API or service here
     this.bookingService.addBooking(this.booking).subscribe({
       next: (res) => {
-        console.log('Booking added successfully', res);
+        // console.log('Booking added successfully', res);
         alert("success");
         // this.router.navigate(['/get-booking']); // Navigate to the booking list page
       },

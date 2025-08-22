@@ -264,9 +264,9 @@ export class IndividualCarComponent {
   }
 
   async bookingNow() {
-    console.log('Booking now...');
+    // console.log('Booking now...');
     const abc = await this.checkUserKycIsAvailableOrNot(); // now it waits for the result
-    console.log('KYC check result:', abc);
+    // console.log('KYC check result:', abc);
 
     if (abc) {
       // Proceed with booking
@@ -282,7 +282,7 @@ export class IndividualCarComponent {
     const userId = 113;
     try {
       const response = await firstValueFrom(this.userService.checkUserKycIsAvailableOrNot(userId));
-      console.log(response);
+      // console.log(response);
       if (
         response.userKycDetailsResponseDTO === null ||
         response.userKycImageResponseDTO === null
@@ -290,17 +290,17 @@ export class IndividualCarComponent {
         this.isCheckUserKycIsAvailableOrNot = false;
         return false;
       } else {
-        console.log("abc::: ", response);
-        console.log("abc111: ", response.userKycDetailsResponseDTO.drivingLicenseNumber);
-        console.log("user:: ", this.user)
+        // console.log("abc::: ", response);
+        // console.log("abc111: ", response.userKycDetailsResponseDTO.drivingLicenseNumber);
+        // console.log("user:: ", this.user)
         this.isCheckUserKycIsAvailableOrNot = true;
         this.confirmBookingData.userId = this.user.userId;
         this.confirmBookingData.vehicleId = this.vehicleId;
         let searchData = this.mainPageToSearchResult.getData();
-        console.log("searchData:: ", searchData);
+        // console.log("searchData:: ", searchData);
         this.confirmBookingData.drivingLicenseNumber = response.userKycDetailsResponseDTO.drivingLicenseNumber;
-        this.confirmBookingData.startDate = searchData.pickupDateTime;
-        this.confirmBookingData.endDate = searchData.dropDateTime;
+        this.confirmBookingData.startDate = this.convertToLocalDateTimeFormat(searchData.pickupDateTime);
+        this.confirmBookingData.endDate = this.convertToLocalDateTimeFormat(searchData.dropDateTime);
         this.confirmBookingData.pickupLocation = searchData.pickupLocation;
         this.confirmBookingData.dropLocation = searchData.dropLocation;
         this.confirmBookingData.paymentMode = "UPI";
@@ -309,6 +309,7 @@ export class IndividualCarComponent {
         this.confirmBookingData.clientLocationId = 1;
         this.confirmBookingData.paymentReference = "";
         this.confirmBookingData.isClientLocationRequired = false;
+        this.confirmBookingData.vehicleName = this.vehicle.vehicleName;
 
         this.confirmBookingData.brandName = this.vehicle.vehicleModelResponseDTO.brandOnlyDTO.brandName;
         this.confirmBookingData.vehicleModelName = this.vehicle.vehicleModelResponseDTO.modelName;
@@ -329,11 +330,35 @@ export class IndividualCarComponent {
       this.dialog.open(ConfirmBookingPopupComponent, {
         width: '640px',
         height: '490px',
-        data: searchResult,
+        data: this.confirmBookingData,
         panelClass: 'custom-dialog-container'
         // ,disableClose: true
       });
     }
+  }
+
+  // date format ( 31/07/2025 05:57 PM to "2025-07-31T17:57:00" )
+  convertToLocalDateTimeFormat(dateStr: string): string {
+    // Example input: "31/07/2025 05:57 PM"
+    const [datePart, timePart, meridian] = dateStr.split(/[\s:]+/);
+    const [day, month, year] = datePart.split('/').map(Number);
+    let hour = parseInt(timePart, 10);
+    const minute = parseInt(dateStr.split(':')[1], 10);
+
+    // Convert hour based on AM/PM
+    if (meridian === 'PM' && hour !== 12) {
+      hour += 12;
+    } else if (meridian === 'AM' && hour === 12) {
+      hour = 0;
+    }
+
+    // Create LocalDateTime-like ISO string
+    const isoString = `${year}-${this.pad(month)}-${this.pad(day)}T${this.pad(hour)}:${this.pad(minute)}:00`;
+    return isoString;
+  }
+
+  pad(n: number): string {
+    return n < 10 ? '0' + n : '' + n;
   }
 
 }

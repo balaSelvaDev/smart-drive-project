@@ -32,20 +32,22 @@
 .vehicle-carousel .carousel-control-prev,
 .vehicle-carousel .carousel-control-next,
 .vehicle-carousel .carousel-indicators {
-  display: none; /* hidden by default */
+  display: none;
+  /* hidden by default */
 }
 
 .vehicle-carousel:hover .carousel-control-prev,
 .vehicle-carousel:hover .carousel-control-next,
 .vehicle-carousel:hover .carousel-indicators {
-  display: flex; /* show only on hover */
+  display: flex;
+  /* show only on hover */
 }
 
 .vehicle-info {
   background: #fff;
   padding: 12px;
   border-radius: 10px;
-  box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 
@@ -108,4 +110,78 @@
   color: #1C1C1C;
   color: #6D6D6D;
   text-align: left;
+}
+
+/* date picker */
+/* Override Google autocomplete dropdown */
+.pac-container {
+  z-index: 10000 !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+}
+
+.pac-item {
+  padding: 10px 14px;
+  border-bottom: 1px solid #eee;
+}
+
+.pac-item:hover {
+  background-color: #e3f2fd;
+}
+
+.pac-icon {
+  display: none !important;
+  /* Optional: hide the pin icon */
+}
+
+.custom-day {
+  text-align: center;
+  padding: 0.5rem;
+  border-radius: 10%;
+  display: inline-block;
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.custom-day.focused {
+  background-color: #e6f2ff;
+}
+
+.custom-day.range,
+.custom-day.filled {
+  background-color: #007bff;
+  color: white;
+}
+
+.custom-day.start,
+.custom-day.end {
+  background-color: #0056b3;
+  color: white;
+  font-weight: bold;
+}
+
+/* Invalid selection design */
+.custom-day.invalid {
+  background-color: #ffcccc !important;
+  color: #a10000 !important;
+  border: 1px solid #ff0000;
+}
+
+input:disabled {
+  background-color: #e0e0e0;
+  /* Light grey background */
+  color: #a0a0a0;
+  /* Grey text color */
+  /* cursor: not-allowed; Change cursor to "not allowed" symbol */
+  border: 1px solid #c0c0c0;
+  /* Lighter border */
+  cursor: pointer;
+}
+
+.ngb-tp {
+  display: flex;
+  align-items: center;
+  justify-content: center !important;
 }

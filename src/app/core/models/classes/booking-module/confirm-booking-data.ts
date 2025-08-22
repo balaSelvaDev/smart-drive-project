@@ -1,5 +1,6 @@
 
 export class ConfirmBookingData {
+    vehicleName!: string;
     userId!: number;
     vehicleId!: number;
     drivingLicenseNumber!: string;
