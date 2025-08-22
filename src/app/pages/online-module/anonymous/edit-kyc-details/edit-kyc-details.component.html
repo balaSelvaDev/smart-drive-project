@@ -1,0 +1,176 @@
+<div class="kyc-card" style="overflow-y: scroll;
+    height: 96vh;">
+    <h2>KYC Details</h2>
+
+    <form [formGroup]="userForm">
+        <div class="wrapper">
+            <label>Profile Photo</label>
+            <div class="image">
+                <img [src]="profileImage || 'assets/default_profile_img.png'" alt="Avatar" />
+                <label for="file-path">
+                    <span class="material-symbols-rounded"><mat-icon>photo_camera</mat-icon></span>
+                </label>
+                <input type="file" accept="image/jpeg, image/png, image/jpg" id="file-path" class="user-file"
+                    (change)="onProfileImageChange($event)">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label>Driving License Number:</label>
+                <input type="text" formControlName="drivingLicenseNumber" name="dlNumber" />
+            </div>
+
+            <div class="form-group">
+                <label>ID Proof Number:</label>
+                <input type="text" formControlName="idProofNumber" name="idProofNumber" />
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label>Address Line 1:</label>
+                <input type="text" formControlName="addressLine1" name="addressLine1" />
+            </div>
+            <div class="form-group">
+                <label>Address Line 2:</label>
+                <input type="text" formControlName="addressLine2" name="addressLine2" />
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label>Pincode:</label>
+                <input type="text" formControlName="pincode" name="pincode"  #pincode (input)="clearLocationFields(pincode.value)" (blur)="getPincodeDetails()" />
+            </div>
+            <div class="form-group">
+                <label>Taluk:</label>
+                <input type="text" formControlName="taluk" name="taluk" />
+            </div>
+            <div class="form-group">
+                <label>District:</label>
+                <input type="text" formControlName="district" name="district" />
+            </div>
+            <div class="form-group">
+                <label>District:</label>
+                <input type="text" formControlName="district" name="district" />
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group"><label>State:</label><input type="text" formControlName="state" name="state" />
+            </div>
+            <div class="form-group"><label>Country:</label><input type="text" formControlName="country"
+                    name="country" /></div>
+        </div>
+
+        <div class="form-group">
+            <label>Father's Name:</label>
+            <input type="text" formControlName="fatherName" name="fatherName" />
+        </div>
+
+        <div class="form-group">
+            <label>Mother's Name:</label>
+            <input type="text" formControlName="motherName" name="motherName" />
+        </div>
+
+        <div class="form-row">
+            <div class="form-group"><label>Nominee Name:</label><input type="text" formControlName="nomineeName"
+                    name="nomineeName" /></div>
+            <div class="form-group"><label>Nominee Relation:</label><input type="text" formControlName="nomineeRelation"
+                    name="nomineeRelation" /></div>
+            <div class="form-group"><label>Nominee Phone:</label><input type="text" formControlName="nomineePhone"
+                    name="nomineePhone" /></div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group"><label>Occupation:</label><input type="text" formControlName="occupation"
+                    name="occupation" /></div>
+            <div class="form-group"><label>Company Name:</label><input type="text" formControlName="companyName"
+                    name="companyName" /></div>
+            <div class="form-group"><label>Alternate Phone Number:</label><input type="text"
+                    formControlName="alternatePhoneNumber" name="alternatePhoneNumber" /></div>
+        </div>
+
+        <div style="width: 100%;display: flex; flex-direction: row;align-items: center;">
+            <div class="container">
+                <div class="inputField">
+                    <button style="padding: 12px;border: 1px solid black;width: 100%;margin: 0px 6px;"
+                        (click)="openFileDialog(drivingLicenseImage)">
+                        Driving license
+                    </button>
+                    <input type="file" #drivingLicenseImage style="display: none"
+                        (change)="onDrivingLicenseImageChange($event)" multiple class="input-level-1" />
+                </div>
+            </div>
+            <div class="container">
+                <div class="inputField">
+                    <label for="drivingLicenseImageFileName">Driving License(File name):</label>
+                    <input id="drivingLicenseImageFileName" formControlName="drivingLicenseImageFileName" type="text"
+                        class="input-level-1" autocomplete="off" placeholder=" " readonly />
+                </div>
+            </div>
+            <!-- Clear input AND reset file input value -->
+            <button (click)="clearDrivingLicenseImage(drivingLicenseImage)" class="input-level-1">❌ Clear</button>
+            <!--   -->
+
+            <!-- View selected image -->
+            <button *ngIf="this.drivingLicenseImageFlag" (click)="viewDrivingLicenseImage($event)"
+                class="input-level-1">🔍
+                View</button>
+        </div>
+
+        <!-- ID Proof -->
+        <div style="width: 100%;display: flex; flex-direction: row;align-items: center;">
+            <div class="container">
+                <div class="inputField">
+                    <button style="padding: 12px;border: 1px solid black;width: 100%;margin: 0px 6px;"
+                        (click)="openFileDialog(idProofType)">
+                        Upload ID Proof Files
+                    </button>
+                    <input type="file" #idProofType style="display: none" (change)="onIdProofFileChange($event)"
+                        multiple class="input-level-1" />
+                </div>
+            </div>
+            <div class="container">
+                <div class="inputField">
+                    <div class="form-group">
+                        <label>ID Proof Type:</label>
+                        <select formControlName="idProofType" name="idProofType">
+                            <option>AADHAAR</option>
+                            <option>PAN CARD</option>
+                            <option>PASSPORT</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="inputField">
+                    <label for="idProofTypeImageFileName">Id proof type(File name):</label>
+                    <input id="idProofTypeImageFileName" formControlName="idProofTypeImageFileName" type="text"
+                        class="input-level-1" autocomplete="off" placeholder=" " readonly />
+                </div>
+            </div>
+            <div *ngFor="let file of idProofFiles; let i = index" style="display: flex;">
+                <button type="button" *ngIf="idProofRemoveBtn" (click)="removeIdProofFile(i, idProofType)"
+                    class="input-level-1">❌
+                    Clear</button>
+                <!-- View selected image -->
+                <button type="button" *ngIf="this.idProofTypeFlag" (click)="viewIdProofFileImage(i, $event)"
+                    class="input-level-1">🔍 View</button>
+            </div>
+        </div>
+        <!-- <div style="margin-top: 10px;">
+            <span>Status: </span>
+            <mat-checkbox [checked]="statusControl.value === 1" (change)="setStatus(1)">
+                Active
+            </mat-checkbox>
+            <mat-checkbox [checked]="statusControl.value === 2" (change)="setStatus(2)">
+                Inactive
+            </mat-checkbox>
+        </div> -->
+
+
+        <button type="submit" class="btn" (click)="onSubmit()">Save KYC</button>
+    </form>
+</div>

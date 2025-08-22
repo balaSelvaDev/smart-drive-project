@@ -104,8 +104,8 @@ export class KyDetailsComponent {
     this.authService.user$.subscribe(u => {
       this.user = u;
     });
-    // this.fetchUsersById(this.user.userId);
-    this.fetchUsersById('118');
+    this.fetchUsersById(this.user.userId);
+    // this.fetchUsersById('118');
   }
 
   fetchUsersById(userId: String): void {
@@ -210,4 +210,9 @@ export class KyDetailsComponent {
     alert('KYC Details saved successfully!');
     console.log(this.kyc);
   }
+
+  editUser() {
+    this.router.navigate(['/customer/profile/edit-kyc-details']); // pass ID in URL
+  }
+
 }

@@ -9,6 +9,7 @@ import { BasicInfoComponent } from './anonymous/basic-info/basic-info.component'
 import { KyDetailsComponent } from './anonymous/ky-details/ky-details.component';
 import { DashboardComponent } from './anonymous/dashboard/dashboard.component';
 import { BookingHistoryComponent } from './anonymous/booking-history/booking-history.component';
+import { EditKycDetailsComponent } from './anonymous/edit-kyc-details/edit-kyc-details.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,7 @@ const routes: Routes = [
         children: [
           { path: 'basic-info', component: BasicInfoComponent },
           { path: 'kyc-details', component: KyDetailsComponent },
+          { path: 'edit-kyc-details', component: EditKycDetailsComponent },
           { path: 'dashboard', component: DashboardComponent },
           { path: 'booking-history', component: BookingHistoryComponent },
           { path: '', redirectTo: 'basic-info', pathMatch: 'full' },

@@ -3,7 +3,7 @@
     <div style="display: flex; justify-content: space-between; align-items: center;">
         <h2>KYC Details</h2>
         <span
-            style="border: 1px solid lightcyan; background-color: #2d3748; color: white; padding: 8px 16px; border-radius: 5px;cursor: pointer;font-size: 16px;">Edit</span>
+            style="border: 1px solid lightcyan; background-color: #2d3748; color: white; padding: 8px 16px; border-radius: 5px;cursor: pointer;font-size: 16px;" (click)="editUser()">Edit</span>
     </div>
 
     <form (ngSubmit)="onSubmit()" #kycForm="ngForm">
@@ -123,6 +123,6 @@
             </div>
         </div>
 
-        <button type="submit" class="btn">Save KYC</button>
+        <!-- <button type="submit" class="btn">Save KYC</button> -->
     </form>
 </div>

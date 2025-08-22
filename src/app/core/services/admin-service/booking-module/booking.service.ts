@@ -11,6 +11,8 @@ export class BookingService {
   private getVehicleDetailsApi = 'http://localhost:9090/api/booking/search/vehiclename';
   private addBookingApi = 'http://localhost:9090/api/booking';
   private getAllBookingApi = 'http://localhost:9090/api/booking';
+  public getDashboardCountDetails = "http://localhost:9090/api/dashboard/counts";
+  public getDashboardBookingDetails = "http://localhost:9090/api/dashboard/booking-details";
 
   constructor(private http: HttpClient) { }
 
@@ -42,6 +44,14 @@ export class BookingService {
 
   getgetAllBookingApiUsers(page: number, size: number): Observable<any> {
     return this.http.get(`${this.getAllBookingApi}?page=${page}&size=${size}`);
+  }
+
+  getCountsDetails(): Observable<any> {
+    return this.http.get(`${this.getDashboardCountDetails}`);
+  }
+
+  getBookingDetails(): Observable<any> {
+    return this.http.get(`${this.getDashboardBookingDetails}`);
   }
 
 }

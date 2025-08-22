@@ -3,19 +3,19 @@
     <div class="metrics-grid">
         <div class="metric-card">
             <h3>Users</h3>
-            <p [countUp]="stats.users"></p>
+            <p [countUp]="this.stats.users"></p>
         </div>
         <div class="metric-card">
             <h3>Pre-Bookings</h3>
-            <p [countUp]="stats.preBookings"></p>
+            <p [countUp]="this.stats.preBookings"></p>
         </div>
         <div class="metric-card">
             <h3>Vehicles</h3>
-            <p [countUp]="stats.vehicles"></p>
+            <p [countUp]="this.stats.vehicles"></p>
         </div>
         <div class="metric-card">
             <h3>Active Bookings</h3>
-            <p [countUp]="stats.activeBookings"></p>
+            <p [countUp]="this.stats.activeBookings"></p>
         </div>
     </div>
 
@@ -26,21 +26,23 @@
             <thead>
                 <tr>
                     <th>User Name</th>
+                    <th>Start date</th>
+                    <th>End date</th>
                     <th>Pickup Location</th>
                     <th>Drop Location</th>
-                    <th>Kilometer</th>
                     <th>Payment Status</th>
-                    <th>User Type</th>
+                    <th>Booking status</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let booking of recentBookings">
-                    <td>{{ booking.userName }}</td>
-                    <td>{{ booking.pickupLocation }}</td>
-                    <td>{{ booking.dropLocation }}</td>
-                    <td>{{ booking.kilometer }} km</td>
-                    <td>{{ booking.paymentStatus }}</td>
-                    <td>{{ booking.userType }}</td>
+                    <td style="white-space: nowrap;">{{ booking.fullName }}</td>
+                    <td>{{ booking.startDate }}</td>
+                    <td>{{ booking.endDate }}</td>
+                    <td style="white-space: nowrap;">{{ booking.pickupLocation }}</td>
+                    <td style="white-space: nowrap;">{{ booking.dropLocation }}</td>
+                    <td style="white-space: nowrap;">{{ booking.paymentStatus }}</td>
+                    <td style="white-space: nowrap;">{{ booking.bookingStatus }}</td>
                 </tr>
             </tbody>
         </table>
