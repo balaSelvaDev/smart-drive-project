@@ -17,7 +17,7 @@
                 style="width: 440px;height: 440px;object-fit: cover;">
         </div>
         <div style="width: 100%;height: 100%;">
-            <div class="login-popup" style="width: 100%;height: 100%;padding: 14px;">
+            <div class="login-popup" style="width: 100%;padding: 14px;">
                 <div id="registration-section" *ngIf="isRegistrationSectionVisible">
                     <form (ngSubmit)="onSubmit()" [formGroup]="registrationForm">
                         <h2>Registration</h2>
@@ -25,7 +25,7 @@
                             <div style="margin: 16px 0px;">
                                 <label for="first-name">First name</label>
                                 <input type="text" id="first-name" formControlName="firstName"
-                                    placeholder="Enter your first name" class="form-control" autocomplete="off">
+                                    placeholder="Enter your first name" class="form-control" autocomplete="off" #firstName>
                             </div>
                             <div style="margin: 16px 0px;">
                                 <label for="last-name">Last name</label>
@@ -50,6 +50,17 @@
                             <button mat-button (click)="changeToPassword()">Change to Password</button> -->
                         </div>
                     </form>
+                    <div style="display: flex; justify-content: center; align-items: center;padding: 2px 6px;">
+                        <span>Already have an account?</span>
+                        <span (click)="openLogin()"
+                            style="cursor: pointer; color: blue; padding: 0 4px;font-size: 14px;">Login</span>
+                    </div>
+                    <!-- google-login-button.component.html -->
+                    <button class="google-btn" (click)="loginWithGoogle()" style="width: 100%;">
+                        <!-- (click)="loginWithGoogle()" -->
+                        <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google logo" />
+                        <span>Sign in with Google</span>
+                    </button>
                 </div>
                 <div id="registration-verification-section" *ngIf="isRegistrationVerificationSectionVisible">
                     <form (ngSubmit)="onSubmitVerification()" [formGroup]="verificationForm">
@@ -143,14 +154,14 @@
                 </a>
             </footer> -->
                 </div>
-                <div id="registration-section" *ngIf="isLoginSectionVisible">
+                <div id="registration-section" *ngIf="isLoginSectionVisible" style="padding: 34px 14px;">
                     <form (ngSubmit)="onSubmitLogin()" [formGroup]="loginForm">
                         <h2>Login</h2>
                         <div>
                             <div style="margin: 16px 0px;">
                                 <label for="email">Email</label>
                                 <input type="text" id="email" formControlName="emailId" placeholder="Enter your email"
-                                    class="form-control" autocomplete="off">
+                                    class="form-control" autocomplete="off" #emailId>
                             </div>
                             <div style="margin: 16px 0px;">
                                 <label for="password">Password</label>
@@ -163,16 +174,12 @@
                             <button type="submit">Submit</button>
                         </div>
                     </form>
+                    <div style="display: flex; justify-content: center; align-items: center;padding: 2px 6px;">
+                        <span>Don’t have an account? </span>
+                        <span (click)="openRegistration()"
+                            style="cursor: pointer; color: blue; padding: 0 4px;font-size: 14px;">Register</span>
+                    </div>
                 </div>
             </div>
-            <div style="display: flex; justify-content: center; align-items: center;">
-                <button mat-button color="primary" (click)="openLogin()">Login</button>
-            </div>
-            <!-- google-login-button.component.html -->
-            <button class="google-btn" (click)="loginWithGoogle()">
-                <!-- (click)="loginWithGoogle()" -->
-                <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google logo" />
-                <span>Sign in with Google</span>
-            </button>
         </div>
     </div>

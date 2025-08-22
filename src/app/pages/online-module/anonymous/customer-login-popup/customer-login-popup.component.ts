@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, ElementRef, Inject, ViewChild } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -28,6 +28,9 @@ export class CustomerLoginPopupComponent {
   isPasswordSectionVisible: boolean = false;
   isLoginSectionVisible: boolean = false;
   registrationResponse: any;
+
+  @ViewChild('firstName') firstNameInput!: ElementRef;
+  @ViewChild('emailId') emailIdInput!: ElementRef;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -219,6 +222,7 @@ export class CustomerLoginPopupComponent {
         next: (res) => {
           console.log('Password set successfully', res);
           alert('Password set successfully! You can now log in.');
+          this.openLogin(); // Switch to login section after setting password
         },
         error: (err) => {
           console.error('Failed to set password', err);
@@ -249,6 +253,15 @@ export class CustomerLoginPopupComponent {
     this.isRegistrationVerificationSectionVisible = false;
     this.isPasswordSectionVisible = false;
     this.isLoginSectionVisible = true; // Show login section
+    // this.emailIdInput.nativeElement.focus();
+  }
+
+  openRegistration(): void {
+    this.isRegistrationSectionVisible = true;
+    this.isRegistrationVerificationSectionVisible = false;
+    this.isPasswordSectionVisible = false;
+    this.isLoginSectionVisible = false; // Show registration section
+    // this.firstNameInput.nativeElement.focus();
   }
 
   onSubmitLogin(): void {

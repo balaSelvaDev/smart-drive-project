@@ -47,7 +47,7 @@ export class AnonymousHeaderComponent {
 
     this.dialog.open(CustomerLoginPopupComponent, {
       width: '1200px',
-      height: '480px',
+      height: '550px',
       data: myObject,
       panelClass: 'custom-dialog-container',
       disableClose: true // ✅ This prevents closing on outside click or ESC
