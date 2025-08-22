@@ -1,52 +1,42 @@
-<div style="width: 100%;height: 460px;background-color: grey;display: flex;">
-    <div
-        style="display: flex; justify-content: center; align-items: center;height: 100%;flex-direction: column;width: 100%;border: white 1px solid;">
-        <form [formGroup]="locationAndDate">
+<div class="hero-section">
+    <div class="overlay">
+        <form [formGroup]="locationAndDate" class="form-box">
             <div>
-                <h1 style="color: white;">Welcome to the Anonymous Main Page <span style="color: green">Madurai</span>
+                <h1 class="title">
+                    Welcome to the SmartDrive
                 </h1>
             </div>
-            <div style="width: 400px; margin-top: 20px;">
+
+            <div class="input-group">
                 <label for="pickup">Pickup location:</label>
-                <input type="text" id="pickup" placeholder="Enter a location" class="location-input"
-                    formControlName="pickupLocation"
-                    style="width: 100%; padding: 10px; box-sizing: border-box; border-radius: 4px; border: 1px solid #ccc;">
+                <input type="text" id="pickup" placeholder="Enter a location" formControlName="pickupLocation">
             </div>
-            <div style="width: 400px; margin-top: 20px;">
+
+            <div class="input-group">
                 <label for="drop">Drop location:</label>
-                <input type="text" id="drop" placeholder="Enter a location" class="location-input"
-                    formControlName="dropLocation"
-                    style="width: 100%; padding: 10px; box-sizing: border-box; border-radius: 4px; border: 1px solid #ccc;">
+                <input type="text" id="drop" placeholder="Enter a location" formControlName="dropLocation">
             </div>
-            <div style="display: flex; margin-top: 20px;width: 400px;">
+
+            <div class="date-group">
                 <div>
                     <label for="startDate">Start Date:</label>
-                    <!-- <input type="datetime-local" id="startDate" name="startDate" [value]="startDate" /> -->
-                    <input type="text" id="startDate" name="startDate" placeholder="Enter a location"
-                        class="location-input" (click)="openPicker(pickerModal)" formControlName="pickupDateTime"
-                        value="{{this.selectedFromFormattedRange}}"
-                        style="width: 100%; padding: 10px; box-sizing: border-box; border-radius: 4px; border: 1px solid #ccc;"
-                        readonly>
+                    <input type="text" id="startDate" readonly formControlName="pickupDateTime"
+                        (click)="openPicker(pickerModal)" value="{{this.selectedFromFormattedRange}}">
                 </div>
                 <div>
                     <label for="endDate">End Date:</label>
-                    <!-- <input type="datetime-local" id="endDate" name="endDate" [value]="endDate" /> -->
-                    <input type="text" id="endDate" name="endDate" placeholder="Enter a location" class="location-input"
-                        (click)="openPicker(pickerModal)" value="{{this.selectedToFormattedRange}}"
-                        formControlName="dropDateTime"
-                        style="width: 100%; padding: 10px; box-sizing: border-box; border-radius: 4px; border: 1px solid #ccc;"
-                        readonly>
+                    <input type="text" id="endDate" readonly formControlName="dropDateTime"
+                        (click)="openPicker(pickerModal)" value="{{this.selectedToFormattedRange}}">
                 </div>
             </div>
-            <div>
-                <button class="btn btn-primary mt-3" style="width: 400px;" (click)="goToSearchResults()">
-                    Submit
-                </button>
-            </div>
+
+            <button type="button" (click)="goToSearchResults()" class="submit-btn">
+                Submit
+            </button>
         </form>
     </div>
-
 </div>
+
 <br>
 <!-- <button (click)="onUseCurrentLocation()">📍 Use Current Location</button>
 <p *ngIf="currentLocationName">Your Location: <strong>{{ currentLocationName }}</strong></p>
