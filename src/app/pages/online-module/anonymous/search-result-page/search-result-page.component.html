@@ -41,8 +41,8 @@
         </div>
     </form>
 </div>
-<div class="" style="width: 100%;display: flex;">
-    <div style="width: 20%;padding: 12px 24px;border: 1px solid red;margin: 8px;">
+<div class="" style="width: 100%;display: flex;justify-content: center;align-items: center;">
+    <!-- <div style="width: 20%;padding: 12px 24px;border: 1px solid red;margin: 8px;">
         <h3>Search Results</h3>
         <p *ngIf="vehicleResult.length === 0">No vehicleResult found matching your criteria.</p>
         <div *ngIf="vehicleResult.length > 0">
@@ -51,7 +51,7 @@
 
             </div>
         </div>
-    </div>
+    </div> -->
     <div style="width: 80%;padding: 12px 24px;margin: 8px;">
         <div class="row">
             <div class="col-md-4" style="cursor: pointer;" *ngFor="let vehicle of vehicleResult; let i = index" >
@@ -103,6 +103,11 @@
                     </div>
                     <h6 class="price">₹{{vehicle.mileagePerLitre}}/hr</h6>
                 </div>
+            </div>
+            <div style="display: flex;justify-content: center;align-items: center;">
+                <button mat-button color="primary" (click)="this.fetchVehicles(this.resultCurrentPage, this.pageSize)">
+                    More vehicles
+                </button>
             </div>
         </div>
     </div>

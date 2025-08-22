@@ -25,8 +25,10 @@ export class SearchResultPageComponent {
 
   vehicleResult: any[] = [];
   totalItems = 0;
-  pageSize = 12;
+  pageSize = 6;
   currentPage = 0;
+
+  resultCurrentPage = 0;
 
   constructor(private vehicleService: VehicleService, private router: Router,
     private dialog: MatDialog, private datePipe: DatePipe, private mainPageToSearchResult: MainPageToSearchResultService
@@ -63,17 +65,30 @@ export class SearchResultPageComponent {
   xyz = "10/07/2025 10:30 AM";
 
   fetchVehicles(page: number, size: number): void {
+    // if (this.resultCurrentPage !== this.currentPage) {
     let userPickupDatetime: any = this.datePipe.transform(this.parseCustomDate(this.abc), 'yyyy-MM-dd\'T\'HH:mm:ss');
     let userDropDatetime: any = this.datePipe.transform(this.parseCustomDate(this.xyz), 'yyyy-MM-dd\'T\'HH:mm:ss');
     let isVisibleOnline: Boolean = true;
     let vehicleStatus: String = 'Active';
     this.vehicleService.getIndividualVehicleDetailsForSearchResult(page, size, userPickupDatetime, userDropDatetime, isVisibleOnline, vehicleStatus).subscribe(response => {
       console.log(response);
-      this.vehicleResult = response.content;
-      this.totalItems = response.totalItems;
-      this.currentPage = response.currentPage;
-      console.log('Fetched vehicles:', this.vehicleResult);
+      if (response.content.length === 0) {
+        // No vehicles found
+        alert('No vehicles found for the selected criteria.');
+      } else {
+        this.vehicleResult.push(...response.content);
+        this.totalItems = response.totalItems;
+        this.currentPage = response.currentPage;
+        if (response.currentPage < response.totalPages) {
+          this.resultCurrentPage = response.currentPage + 1;
+        }
+        console.log('curresultCurrentPage:', this.resultCurrentPage);
+        console.log('Fetched vehicles:', this.vehicleResult);
+      }
+
     });
+    // }
+
   }
 
   setDefaultValues() {
