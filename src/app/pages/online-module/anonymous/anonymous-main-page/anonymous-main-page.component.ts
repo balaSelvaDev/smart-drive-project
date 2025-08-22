@@ -52,7 +52,7 @@ export class AnonymousMainPageComponent {
       pickupLocation: new FormControl('', [Validators.required]),
       dropLocation: new FormControl('', [Validators.required]),
       pickupDateTime: new FormControl('', [Validators.required]),
-      dropDateTime: new FormControl('', [Validators.required])
+      dropDateTime: new FormControl('', [Validators.required]),
     });
 
     const now = new Date();
@@ -77,29 +77,55 @@ export class AnonymousMainPageComponent {
 
 
   ngAfterViewInit(): void {
-    const input = document.getElementById('locationInput') as HTMLInputElement;
-
-    this.autocomplete = new google.maps.places.Autocomplete(input, {
-      types: ['geocode'], // You can use 'address', 'establishment', etc.
-      componentRestrictions: { country: 'IN' }, // Optional: restrict to India
-    });
-
-    this.autocomplete.addListener('place_changed', () => {
-      this.ngZone.run(() => {
-        const place = this.autocomplete.getPlace();
-
-        if (!place || !place.geometry || !place.geometry.location) {
-          console.warn('No geometry found for selected place');
-          return;
-        }
-
-        const address = place.formatted_address;
-        const lat = place.geometry.location.lat();
-        const lng = place.geometry.location.lng();
-
-        console.log('Selected:', address, lat, lng);
+    // ✅ Pickup input
+    const pickupInput = document.getElementById('pickup') as HTMLInputElement;
+    if (pickupInput) {
+      const pickupAutocomplete = new google.maps.places.Autocomplete(pickupInput, {
+        types: ['geocode'],
+        componentRestrictions: { country: 'IN' },
       });
-    });
+
+      pickupAutocomplete.addListener('place_changed', () => {
+        this.ngZone.run(() => {
+          const place = pickupAutocomplete.getPlace();
+          if (place.geometry && place.geometry.location) {
+            const address = place.formatted_address;
+            const lat = place.geometry.location.lat();
+            const lng = place.geometry.location.lng();
+
+            // console.log('Pickup:', address, lat, lng);
+            this.locationAndDate.get('pickupLocation')?.setValue(address);
+          } else {
+            console.warn('No geometry found for pickup');
+          }
+        });
+      });
+    }
+
+    // ✅ Drop input
+    const dropInput = document.getElementById('drop') as HTMLInputElement;
+    if (dropInput) {
+      const dropAutocomplete = new google.maps.places.Autocomplete(dropInput, {
+        types: ['geocode'],
+        componentRestrictions: { country: 'IN' },
+      });
+
+      dropAutocomplete.addListener('place_changed', () => {
+        this.ngZone.run(() => {
+          const place = dropAutocomplete.getPlace();
+          if (place.geometry && place.geometry.location) {
+            const address = place.formatted_address;
+            const lat = place.geometry.location.lat();
+            const lng = place.geometry.location.lng();
+
+            // console.log('Drop:', address, lat, lng);
+            this.locationAndDate.get('dropLocation')?.setValue(address);
+          } else {
+            console.warn('No geometry found for drop');
+          }
+        });
+      });
+    }
   }
 
   private toDateTimeLocalString(date: Date): string {
@@ -118,38 +144,38 @@ export class AnonymousMainPageComponent {
     );
   }
 
-  calculateDistances1(): void {
-    const service = new google.maps.DistanceMatrixService();
+  // calculateDistances1(): void {
+  //   const service = new google.maps.DistanceMatrixService();
 
-    service.getDistanceMatrix(
-      {
-        origins: [this.origin],
-        destinations: this.destinations,
-        travelMode: google.maps.TravelMode.DRIVING,
-        unitSystem: google.maps.UnitSystem.METRIC,
-      },
-      (response: any, status: string) => {
-        if (status !== 'OK') {
-          console.error('DistanceMatrix failed:', status);
-          return;
-        }
+  //   service.getDistanceMatrix(
+  //     {
+  //       origins: [this.origin],
+  //       destinations: this.destinations,
+  //       travelMode: google.maps.TravelMode.DRIVING,
+  //       unitSystem: google.maps.UnitSystem.METRIC,
+  //     },
+  //     (response: any, status: string) => {
+  //       if (status !== 'OK') {
+  //         console.error('DistanceMatrix failed:', status);
+  //         return;
+  //       }
 
-        const results = response.rows[0].elements;
-        console.log('Distance Matrix Response:', response);
-        console.log('response.rows[0].elements:', response.rows[0].elements);
-        console.log('Distance Matrix Results:', results);
-        this.destinations.forEach((dest, index) => {
-          const distanceText = results[index].distance?.text || 'N/A';
-          const durationText = results[index].duration?.text || 'N/A';
+  //       const results = response.rows[0].elements;
+  //       // console.log('Distance Matrix Response:', response);
+  //       // console.log('response.rows[0].elements:', response.rows[0].elements);
+  //       // console.log('Distance Matrix Results:', results);
+  //       this.destinations.forEach((dest, index) => {
+  //         const distanceText = results[index].distance?.text || 'N/A';
+  //         const durationText = results[index].duration?.text || 'N/A';
 
-          console.log(
-            `From ${this.origin} to ${dest}: ${distanceText}, ${durationText}`
-          );
-        });
-        console.log('Distance Matrix calculation completed successfully.');
-      }
-    );
-  }
+  //         // console.log(
+  //         //   `From ${this.origin} to ${dest}: ${distanceText}, ${durationText}`
+  //         // );
+  //       });
+  //       // console.log('Distance Matrix calculation completed successfully.');
+  //     }
+  //   );
+  // }
 
   // This function is triggered when the user clicks the "Use Current Location" button
 
@@ -157,7 +183,7 @@ export class AnonymousMainPageComponent {
     this.getCurrentLocation()
       .then((location) => {
         this.getAddressFromLatLng(location);     // ✅ Get human-readable address
-        this.calculateDistances(location);       // ✅ Calculate distances
+        // this.calculateDistances(location);       // ✅ Calculate distances
       })
       .catch((err) => {
         alert('Failed to get location: ' + err);
@@ -193,6 +219,7 @@ export class AnonymousMainPageComponent {
       if (status === 'OK' && results[0]) {
         this.ngZone.run(() => {
           this.currentLocationName = results[0].formatted_address;
+          this.locationAndDate.controls['pickupLocation'].setValue(this.currentLocationName);
         });
       } else {
         console.error('Geocoder failed due to:', status);
@@ -202,7 +229,6 @@ export class AnonymousMainPageComponent {
 
   calculateDistances(origin: google.maps.LatLngLiteral): void {
     const service = new google.maps.DistanceMatrixService();
-
     service.getDistanceMatrix(
       {
         origins: [origin],
@@ -325,9 +351,9 @@ export class AnonymousMainPageComponent {
   }
 
   updateSelectedRange() {
-    console.log("updateSelectedRange method..");
+    // console.log("updateSelectedRange method..");
     if (this.fromDate && this.toDate) {
-      console.log("updateSelectedRange method 1 ..");
+      // console.log("updateSelectedRange method 1 ..");
       const fromDateTime = new Date(
         this.fromDate.year, this.fromDate.month - 1, this.fromDate.day,
         this.fromTime.hour, this.fromTime.minute
@@ -386,8 +412,12 @@ export class AnonymousMainPageComponent {
   };
 
   goToSearchResults() {
-    this.mainPageToSearchResult.setData(this.locationAndDate.value);
-    this.router.navigate(['/customer/search-result']);
+    if (this.locationAndDate.valid) {
+      this.mainPageToSearchResult.setData(this.locationAndDate.value);
+      this.router.navigate(['/customer/search-result']);
+    } else {
+      this.locationAndDate.markAllAsTouched(); // Highlight all errors
+    }
   }
 
   activeIndex: number | null = 0; // default open first one
@@ -417,6 +447,10 @@ export class AnonymousMainPageComponent {
 
   toggleAccordion(index: number) {
     this.activeIndex = this.activeIndex === index ? null : index;
+  }
+
+  navigateToHome() {
+    this.router.navigate(['/customer/main']);
   }
 
 }

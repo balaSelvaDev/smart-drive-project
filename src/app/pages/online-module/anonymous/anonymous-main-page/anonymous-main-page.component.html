@@ -2,31 +2,37 @@
     <div class="overlay">
         <form [formGroup]="locationAndDate" class="form-box">
             <div>
-                <h1 class="title">
+                <h1 class="title" (click)="navigateToHome()" style="cursor: pointer;">
                     Welcome to the SmartDrive
                 </h1>
             </div>
 
+            <!-- Pickup input -->
             <div class="input-group">
                 <label for="pickup">Pickup location:</label>
-                <input type="text" id="pickup" placeholder="Enter a location" formControlName="pickupLocation">
+                <input type="text" id="pickup" placeholder="Enter a pickup location" formControlName="pickupLocation" />
+            </div>
+            <div style="display: flex; justify-content: end;">
+                <span (click)="onUseCurrentLocation()" style="font-size: 12px;padding: 2px 4px;cursor: pointer;">Current Location 📍</span>
             </div>
 
-            <div class="input-group">
+            <!-- Drop input -->
+            <div class="input-group m-0">
                 <label for="drop">Drop location:</label>
-                <input type="text" id="drop" placeholder="Enter a location" formControlName="dropLocation">
+                <input type="text" id="drop" placeholder="Enter a drop location" formControlName="dropLocation" />
             </div>
 
+            <!-- Dates -->
             <div class="date-group">
                 <div>
                     <label for="startDate">Start Date:</label>
                     <input type="text" id="startDate" readonly formControlName="pickupDateTime"
-                        (click)="openPicker(pickerModal)" value="{{this.selectedFromFormattedRange}}">
+                        (click)="openPicker(pickerModal)" [value]="this.selectedFromFormattedRange" />
                 </div>
                 <div>
                     <label for="endDate">End Date:</label>
                     <input type="text" id="endDate" readonly formControlName="dropDateTime"
-                        (click)="openPicker(pickerModal)" value="{{this.selectedToFormattedRange}}">
+                        (click)="openPicker(pickerModal)" [value]="this.selectedToFormattedRange" />
                 </div>
             </div>
 
@@ -36,8 +42,6 @@
         </form>
     </div>
 </div>
-
-<br>
 <!-- <button (click)="onUseCurrentLocation()">📍 Use Current Location</button>
 <p *ngIf="currentLocationName">Your Location: <strong>{{ currentLocationName }}</strong></p>
 <ul *ngIf="distanceResults.length > 0">
@@ -47,12 +51,12 @@
 </ul> -->
 
 <div class="why-section">
-    <p class="sub-title">SELF-DRIVE CAR RENTALS IN CHENNAI</p>
+    <p class="sub-title">SELF-DRIVE CAR RENTALS IN MADURAI</p>
     <h2 class="main-title">
-        WHY MADRAS SELF-DRIVE CARS IS THE BEST CHOICE
+        WHY MADURAI SELF-DRIVE CARS IS THE BEST CHOICE
     </h2>
     <p class="description">
-        Rent a self-drive car in Chennai with ease. Enjoy quick booking, transparent pricing,
+        Rent a self-drive car in Madurai with ease. Enjoy quick booking, transparent pricing,
         prompt delivery to your doorstep, and a hassle-free experience every time you choose us.
     </p>
 
@@ -154,7 +158,7 @@
     </div>
 </div>
 
-<div style="width: 200px; height: 200px;"></div>
+
 
 <ng-template #pickerModal let-modal>
     <div class="modal-header bg-primary text-white">
